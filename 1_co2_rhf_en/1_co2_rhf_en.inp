@@ -1,0 +1,29 @@
+! Logical variables can be .TRUE. or .FALSE. (equivalently, .T. or .F.).
+! The periods are required.
+
+! Comment fields are turned on by the exclamation mark (!)
+! Notice: All namelist groups ($..) should be indented by a single space
+! in order to be properly parsed. 
+
+! For cartesian coordinates, the distance unit is set with the keyword `UNITS`
+! in the $CONTRL group. Possible values are ANGS (the default) and BOHR (Bohr
+! atomic units).
+ $CONTRL SCFTYP=RHF MULT=1 UNITS=BOHR $END
+
+! TIMLIM ???
+! MEMORY ???
+ $SYSTEM TIMLIM=5000 MEMORY=2000000 $END
+! $BASIS GBASIS=DZV $END
+ $BASIS GBASIS=STO NGAUSS=3 $END
+
+! Convergence criteria for SCF?
+! -PK- option for the calcultion of the 2e integrals
+ $SCF DIIS=.T. $END
+
+ $DATA
+  CO2 OPTIMIZATION
+ C1
+C 6.0   0.0 0.0 0.0
+O 8.0 -1.25 0.0 0.0
+O 8.0  1.25 0.0 0.0
+ $END
