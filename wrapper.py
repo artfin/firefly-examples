@@ -27,7 +27,7 @@ class Wrapper:
             shutil.rmtree(tmp_dir)
 
     def clean_wd(self):
-        ignore = lambda f: not f.endswith(".inp")
+        ignore = lambda f: not (f.endswith(".inp") or f.endswith(".swp"))
         files = [os.path.join(self.wd, f) for f in os.listdir(self.wd) if ignore(f)]
 
         logging.info("Removing:")

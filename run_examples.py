@@ -2,7 +2,7 @@ import logging
 import time
 from wrapper import Wrapper
 
-def run_example_1():
+def run_example_01():
     wrapper = Wrapper(wd="1_co2_rhf_en")
     wrapper.clean_wd()
 
@@ -17,6 +17,15 @@ def run_example_1():
 
     logging.info("Total energy: {}".format(total_energy))
 
+def run_example_02():
+    wrapper = Wrapper(wd="2_co2_rhf_opt")
+    wrapper.clean_wd()
+
+    proc = wrapper.run()
+    while proc.poll() is None:
+        time.sleep(0.5)
+
+    wrapper.clean_up()
 
 
 if __name__ == "__main__":
@@ -28,4 +37,5 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    run_example_1()
+    run_example_01()
+    #run_example_02()

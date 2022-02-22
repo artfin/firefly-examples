@@ -1,0 +1,18 @@
+! EXAMPLE 02
+! This run uses a crieterion `OPTTOL` on the gradient 
+! which is tighter than is normally used (?)
+ 
+ $CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE MULT=1 UNITS=BOHR $END
+ $SYSTEM TIMLIM=5000 MEMORY=2000000 $END
+ $STATPT OPTTOL=1e-5 $END
+ $BASIS GBASIS=STO NGAUSS=3 $END
+
+ $SCF DIIS=.T. $END
+
+ $DATA
+  CO2 GEOMETRY OPTIMIZATION
+ C1
+C 6.0   0.0 0.0 0.0
+O 8.0 -1.25 0.0 0.0
+O 8.0  1.25 0.0 0.0
+ $END

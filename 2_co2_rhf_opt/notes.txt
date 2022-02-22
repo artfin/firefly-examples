@@ -1,0 +1,3 @@
+p.55 of FF8.2.0 full manual.pdf
+
+Optimizations in Cartesian coordinates have a reputation of converging slowly. This is in part due to the fact that translations and rotations are left in the problem. Numerical problems caused by the small eigenvalues associated with these degrees of freedom are the source of this poor convergence. The methods in Firefly project the Hessian matrix so that translations and rotations are no longer present. Neverthess, the calculations in Cartesian coordinates still converge slower than in other coordinate systems. 
