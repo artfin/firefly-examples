@@ -54,19 +54,15 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY BEGUN  0:35:52 23-FEB-2022    
+ EXECUTION OF FIREFLY BEGUN  1:12:45 23-FEB-2022    
 
             ECHO OF THE FIRST FEW INPUT CARDS -
  INPUT CARD>! EXAMPLE 02.2                                                                  
  INPUT CARD>                                                                                
  INPUT CARD> $CONTRL SCFTYP=RHF RUNTYP=HESSIAN UNITS=BOHR $END                              
- INPUT CARD>                                                                                
  INPUT CARD> $SYSTEM TIMLIM=2880 MEMORY=20000000 $END                                       
- INPUT CARD>                                                                                
  INPUT CARD> $BASIS GBASIS=STO NGAUSS=3 $END                                                
- INPUT CARD>                                                                                
  INPUT CARD> $GUESS GUESS=HUCKEL $END                                                       
- INPUT CARD>! $FORCE = PURIFY=.F. $END                                                      
  INPUT CARD>                                                                                
  INPUT CARD>  $DATA                                                                         
  INPUT CARD>   CO2 HESSIAN AT OPT                                                           
@@ -102,11 +98,11 @@
      NPFUNC=       0      DIFFS=       F
  **** ERROR, NO $DATA GROUP WAS FOUND
 
- ADDRESS 0x0919D820 HAS INITIATED PROGRAM ABORT BECAUSE OF FATAL ERROR(S)
+ ADDRESS 0xF05AD820 HAS INITIATED PROGRAM ABORT BECAUSE OF FATAL ERROR(S)
 
- CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.02 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    165.35%,  TOTAL =     248.03%
+ CPU UTILIZATION:   STEP =     83.55%,  TOTAL =     334.21%
 
            0 WORDS OF    DYNAMIC MEMORY USED
       154432 BYTES OF    HEAP MEMORY    USED,       48768 BYTES REMAIN IN USE
@@ -114,4 +110,4 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY TERMINATED ABNORMALLY AT  0:35:52 23-FEB-2022    
+ EXECUTION OF FIREFLY TERMINATED ABNORMALLY AT  1:12:45 23-FEB-2022    

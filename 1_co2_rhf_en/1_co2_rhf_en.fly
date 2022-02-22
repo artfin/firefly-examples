@@ -45,9 +45,8 @@
 !   The maximum amount of dynamic memory that can be used by each
 !   instance of Firefly.
 !   Note: word=8-byte quanity (1 double precision number) 
-
+ 
  $SYSTEM TIMLIM=2880 MEMORY=2000000 $END
-
  $BASIS GBASIS=STO NGAUSS=3 $END
 
 ! -PK- option for the calcultion of the 2e integrals
