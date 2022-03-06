@@ -54,7 +54,7 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY BEGUN 17:42:57  6-MAR-2022    
+ EXECUTION OF FIREFLY BEGUN 20:04:11  6-MAR-2022    
 
             ECHO OF THE FIRST FEW INPUT CARDS -
  INPUT CARD>! EXAMPLE 01                                                                    
@@ -225,7 +225,7 @@
      ---------------
      KDIAG =       0     MEMORY=  2000000     TIMLIM=   172800.0 SEC.
      COREFL=       F     PTIME =        F     XDR   =       F
-     BALTYP=LOOP         CBASE = F03E1000     FBASE = 00000000
+     BALTYP=LOOP         CBASE = F03D1000     FBASE = 00000000
 
           ----------------
           PROPERTIES INPUT
@@ -265,18 +265,18 @@
 
  ..... DONE SETTING UP THE RUN .....
 
- CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.03 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    140.30%,  TOTAL =     210.45%
+ CPU UTILIZATION:   STEP =     69.20%,  TOTAL =     138.39%
 
           ********************
           1 ELECTRON INTEGRALS
           ********************
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     209.21%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     137.57%
 
           -------------
           GUESS OPTIONS
@@ -296,9 +296,9 @@
     11=A       12=A       13=A       14=A       15=A   
  ...... END OF INITIAL ORBITAL SELECTION ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     206.10%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     135.50%
 
           --------------------
           2 ELECTRON INTEGRALS
@@ -309,9 +309,9 @@
  SCHWARZ INEQUALITY OVERHEAD:       120 INTEGRALS, CPU TIME=        0.00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     201.13%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     132.36%
 
           -------------------
           RHF SCF CALCULATION
@@ -344,8 +344,8 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.02 SECONDS (       0.00 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.00, LAST ITERATION=       0.00
+     TIME TO FORM FOCK OPERATORS =       0.04 SECONDS (       0.00 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.02, LAST ITERATION=       0.00
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -180.1907265381 AFTER  10 ITERATIONS
@@ -418,7 +418,7 @@
 
  CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.03 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    129.80%,  TOTAL =     164.89%
+ CPU UTILIZATION:   STEP =    129.15%,  TOTAL =     130.74%
 
 
                          ------------------------------
@@ -551,16 +551,16 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     163.81%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     129.89%
  ......END OF NBO ANALYSIS......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     161.04%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     127.68%
       396855 WORDS OF    DYNAMIC MEMORY USED
       154432 BYTES OF    HEAP MEMORY    USED,      113783 BYTES REMAIN IN USE
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY TERMINATED NORMALLY 17:42:57  6-MAR-2022    
+ EXECUTION OF FIREFLY TERMINATED NORMALLY 20:04:11  6-MAR-2022    

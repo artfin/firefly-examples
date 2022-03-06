@@ -29,9 +29,48 @@ class Wrapper:
 
         self.outfname = self.basename + '.out'
 
-        logging.info("Initializing wrapper:")
-        logging.info("  wd      = {}".format(self.wd))
-        logging.info("  inpfname = {}".format(self.inpfname))
+    def set_basis(self, gbasis, ngauss=None, external=False):
+        with open(self.inpfname) as inp:
+            lines = inp.readlines()
+
+        basis_start = None
+        for n, line in enumerate(lines):
+            if '$BASIS' in line:
+                basis_start = n
+                break
+
+        basis_end = None
+        for n in range(basis_start, len(lines)):
+            line = lines[n]
+            if '$END' in line:
+                basis_end = n
+                break
+
+        for k in range(basis_start, basis_end + 1):
+            lines.pop(k)
+
+        s = " $BASIS GBASIS={}".format(gbasis)
+        if ngauss is not None:
+            s += " NGAUSS={}".format(ngauss)
+
+        if external:
+            s += " EXTFILE=.T."
+
+        s += " $END"
+
+        lines.insert(basis_start, s)
+        self.inp_code = lines
+
+
+    def save_inpfile(self, fname):
+        path = os.path.join(self.wd, fname)
+        with open(path, mode='w') as out:
+            for line in self.inp_code:
+                out.write(line)
+
+        self.inpfname = path
+        self.basename = os.path.splitext(self.inpfname)[0]
+        self.outfname = self.basename + '.out'
 
     def clean_up(self):
         tmp_dir = self.wd + '.0'
@@ -111,7 +150,9 @@ class Wrapper:
 
 def run_example_01():
     logging.info(" --- CO2 RHF ENERGY CALCULATION USING BASIS=STO-3G --- ")
-    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en-basis=sto-3g.fly")
+    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en.fly")
+    wrapper.set_basis(gbasis='STO', ngauss=3)
+    wrapper.save_inpfile("1_co2_rhf_en-basis=sto-3g.fly")
     wrapper.clean_wd()
     wrapper.run()
     wrapper.clean_up()
@@ -121,7 +162,9 @@ def run_example_01():
     logging.info("---------------------------------------------------------\n")
 
     logging.info(" --- CO2 RHF ENERGY CALCULATION USING BASIS=CC-PVDZ --- ")
-    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en-basis=cc-pvdz.fly")
+    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en.fly")
+    wrapper.set_basis(gbasis='CC-PVDZ', external=True)
+    wrapper.save_inpfile("1_co2_rhf_en-basis=cc-pvdz.fly")
     wrapper.clean_wd()
     wrapper.run(link_basis="cc-pvdz")
     wrapper.clean_up()
@@ -131,10 +174,10 @@ def run_example_01():
     logging.info("---------------------------------------------------------\n")
 
 def run_example_02():
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt.fly")
+    logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=STO-3G --- ")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt-basis=sto-3g.fly")
     wrapper.clean_wd()
-
-    proc = wrapper.run()
+    wrapper.run()
     wrapper.load_out()
     geometries = wrapper.opt_geometries()
 
@@ -149,8 +192,9 @@ def run_example_02():
 
     wrapper.clean_up()
 
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess.fly")
-    proc = wrapper.run()
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess-basis=sto-3g.fly")
+    wrapper.clean_wd()
+    wrapper.run()
     wrapper.load_out()
     freqs = wrapper.frequencies()
 
@@ -158,11 +202,42 @@ def run_example_02():
     for f in freqs:
         logging.info("  {:.3f}".format(f))
 
-    p = all(f > 0.0 for f in freqs)
-    logging.info("Assert freqs > 0: {}".format(p))
-    assert p
+    positive = all(f > 0.0 for f in freqs)
+    logging.info("Assert freqs > 0: {}".format(positive))
+    assert positive
+    wrapper.clean_up()
+
+    logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt-basis=cc-pvdz.fly")
+    wrapper.clean_wd()
+    wrapper.run(link_basis='cc-pvdz')
+    wrapper.load_out()
+    geometries = wrapper.opt_geometries()
+
+    opt = geometries[-1]
+    logging.info("Optimized geometry (ANG):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    logging.info("Optimized geometry (BOHR):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x / BOHR_TO_ANG:.10f} {atom.y / BOHR_TO_ANG:.10f} {atom.z / BOHR_TO_ANG:.10f}")
 
     wrapper.clean_up()
+
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess-basis=cc-pvdz.fly")
+    wrapper.clean_wd()
+    wrapper.run(link_basis='cc-pvdz')
+    wrapper.load_out()
+    freqs = wrapper.frequencies()
+
+    logging.info("Frequencies at optimized geometry (cm-1):")
+    for f in freqs:
+        logging.info("  {:.3f}".format(f))
+
+    positive = all(f > 0.0 for f in freqs)
+    logging.info("Assert freqs > 0: {}".format(positive))
+    assert positive
 
 if __name__ == "__main__":
     logger = logging.getLogger()
