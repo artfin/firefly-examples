@@ -13,19 +13,21 @@ BOHR_TO_ANG = 0.529177
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
 class Wrapper:
-    EXE    = "/home/artfin/Desktop/QC-2022/firefly/firefly820"
+    EXE = "/home/artfin/Desktop/QC-2022/firefly/firefly820"
+    LIB = "/home/artfin/Desktop/QC-2022/firefly-examples/lib/"
 
     def __init__(self, wd=None, inpfname=None):
         self.wd = os.path.abspath(wd)
 
         if inpfname is None:
-            inpfnames = [os.path.join(self.wd, f) for f in os.listdir(self.wd) if f.endswith(".inp")]
-            assert len(inpfnames) == 1, "Detected more than one inputfile in the working directory"
+            inpfnames = [os.path.join(self.wd, f) for f in os.listdir(self.wd) if f.endswith(".fly")]
+            assert len(inpfnames) == 1, "Detected not one inputfile in the working directory"
             self.inpfname = os.path.abspath(inpfnames[0])
         else:
             self.inpfname = os.path.join(self.wd, inpfname)
+            self.basename = os.path.splitext(self.inpfname)[0]
 
-        self.outfname = os.path.splitext(self.inpfname)[0] + '.out'
+        self.outfname = self.basename + '.out'
 
         logging.info("Initializing wrapper:")
         logging.info("  wd      = {}".format(self.wd))
@@ -41,21 +43,31 @@ class Wrapper:
         os.remove(dat)
 
     def clean_wd(self):
-        ignore = lambda f: not (f.endswith(".inp") or f.endswith(".swp"))
+        ignore = lambda f: not (f.endswith(".fly") or f.endswith(".swp"))
         files = [os.path.join(self.wd, f) for f in os.listdir(self.wd) if ignore(f)]
 
         logging.info("Removing:")
         for f in files:
+            if not f.startswith(self.basename):
+                continue
+
             logging.info("  {}".format(f))
             os.remove(f)
 
-    def run(self):
+    def run(self, link_basis=None):
         cmd = f"{self.EXE} -r -f -p -stdext -i {self.inpfname} -o {self.outfname} -t {self.wd}"
+
+        if link_basis is not None:
+            basis_path = os.path.join(self.LIB, link_basis + '.lib')
+            assert os.path.isfile(basis_path)
+            cmd += f" -b {basis_path}"
+
         proc = subprocess.Popen(cmd, shell=True)
         while proc.poll() is None:
             time.sleep(0.5)
 
-        return proc
+        assert proc.returncode == 0, "ERROR: Firefly program exited with non-zero exit code"
+
 
     def load_out(self):
         assert os.path.isfile(self.outfname)
@@ -98,19 +110,28 @@ class Wrapper:
         return re.match(pattern, s) is not None
 
 def run_example_01():
-    wrapper = Wrapper(wd="1_co2_rhf_en")
+    logging.info(" --- CO2 RHF ENERGY CALCULATION USING BASIS=STO-3G --- ")
+    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en-basis=sto-3g.fly")
     wrapper.clean_wd()
-
-    proc = wrapper.run()
+    wrapper.run()
     wrapper.clean_up()
-
     wrapper.load_out()
     energy = wrapper.energy()
-
     logging.info("Total energy: {}".format(energy))
+    logging.info("---------------------------------------------------------\n")
+
+    logging.info(" --- CO2 RHF ENERGY CALCULATION USING BASIS=CC-PVDZ --- ")
+    wrapper = Wrapper(wd="1_co2_rhf_en", inpfname="1_co2_rhf_en-basis=cc-pvdz.fly")
+    wrapper.clean_wd()
+    wrapper.run(link_basis="cc-pvdz")
+    wrapper.clean_up()
+    wrapper.load_out()
+    energy = wrapper.energy()
+    logging.info("Total energy: {}".format(energy))
+    logging.info("---------------------------------------------------------\n")
 
 def run_example_02():
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt.inp")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt.fly")
     wrapper.clean_wd()
 
     proc = wrapper.run()
@@ -128,7 +149,7 @@ def run_example_02():
 
     wrapper.clean_up()
 
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess.inp")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess.fly")
     proc = wrapper.run()
     wrapper.load_out()
     freqs = wrapper.frequencies()
@@ -152,5 +173,5 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    #run_example_01()
-    run_example_02()
+    run_example_01()
+    #run_example_02()
