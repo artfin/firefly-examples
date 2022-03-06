@@ -29,25 +29,29 @@ class Wrapper:
 
         self.outfname = self.basename + '.out'
 
-    def set_basis(self, gbasis, ngauss=None, external=False):
-        with open(self.inpfname) as inp:
-            lines = inp.readlines()
-
-        basis_start = None
+    def locate_group(self, lines, group):
+        group_start = None
         for n, line in enumerate(lines):
-            if '$BASIS' in line:
-                basis_start = n
+            if group in line:
+                group_start = n
                 break
 
-        basis_end = None
-        for n in range(basis_start, len(lines)):
+        group_end = None
+        for n in range(group_start, len(lines)):
             line = lines[n]
             if '$END' in line:
-                basis_end = n
+                group_end = n
                 break
 
-        for k in range(basis_start, basis_end + 1):
-            lines.pop(k)
+        return group_start, group_end
+
+    def load_inpfile(self):
+        with open(self.inpfname) as inp:
+            self.inp_code = inp.readlines()
+
+    def set_basis(self, gbasis, ngauss=None, external=False):
+        basis_start, basis_end = self.locate_group(self.inp_code, group='$BASIS')
+        del self.inp_code[basis_start : basis_end + 1]
 
         s = " $BASIS GBASIS={}".format(gbasis)
         if ngauss is not None:
@@ -56,11 +60,21 @@ class Wrapper:
         if external:
             s += " EXTFILE=.T."
 
+        s += " $END\n"
+
+        self.inp_code.insert(basis_start, s)
+
+    def set_geometry(self, geometry):
+        data_start, data_end = self.locate_group(self.inp_code, group='$DATA')
+        del self.inp_code[data_start : data_end + 1]
+
+        s = """ $DATA\n CO2 HESSIAN AT OPT\n C1\n"""
+        for atom in geometry:
+            s += f"   {atom.symbol} {atom.charge:.1f} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}\n"
+
         s += " $END"
 
-        lines.insert(basis_start, s)
-        self.inp_code = lines
-
+        self.inp_code.insert(data_start, s)
 
     def save_inpfile(self, fname):
         path = os.path.join(self.wd, fname)
@@ -175,9 +189,16 @@ def run_example_01():
 
 def run_example_02():
     logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=STO-3G --- ")
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt-basis=sto-3g.fly")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_basis(gbasis='STO', ngauss=3)
+    wrapper.save_inpfile("2_co2_rhf_opt-basis=sto-3g.fly")
+
     wrapper.clean_wd()
     wrapper.run()
+    wrapper.clean_up()
+
     wrapper.load_out()
     geometries = wrapper.opt_geometries()
 
@@ -187,14 +208,23 @@ def run_example_02():
         logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
     logging.info("Optimized geometry (BOHR):")
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
     for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x / BOHR_TO_ANG:.10f} {atom.y / BOHR_TO_ANG:.10f} {atom.z / BOHR_TO_ANG:.10f}")
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
-    wrapper.clean_up()
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess.fly")
 
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess-basis=sto-3g.fly")
+    wrapper.load_inpfile()
+    wrapper.set_basis(gbasis='STO', ngauss=3)
+    wrapper.set_geometry(geometry=opt)
+    wrapper.save_inpfile("2_co2_rhf_hess-basis=sto-3g.fly")
+
     wrapper.clean_wd()
     wrapper.run()
+    wrapper.clean_up()
+
     wrapper.load_out()
     freqs = wrapper.frequencies()
 
@@ -205,12 +235,17 @@ def run_example_02():
     positive = all(f > 0.0 for f in freqs)
     logging.info("Assert freqs > 0: {}".format(positive))
     assert positive
-    wrapper.clean_up()
 
     logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt-basis=cc-pvdz.fly")
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_opt.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_basis(gbasis='CC-PVDZ', external=True)
+    wrapper.save_inpfile("2_co2_rhf_opt-basis=cc-pvdz.fly")
+
     wrapper.clean_wd()
     wrapper.run(link_basis='cc-pvdz')
+    wrapper.clean_up()
     wrapper.load_out()
     geometries = wrapper.opt_geometries()
 
@@ -220,15 +255,23 @@ def run_example_02():
         logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
     logging.info("Optimized geometry (BOHR):")
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
     for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x / BOHR_TO_ANG:.10f} {atom.y / BOHR_TO_ANG:.10f} {atom.z / BOHR_TO_ANG:.10f}")
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
-    wrapper.clean_up()
+    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess.fly")
 
-    wrapper = Wrapper(wd="2_co2_rhf_opt", inpfname="2_co2_rhf_hess-basis=cc-pvdz.fly")
+    wrapper.load_inpfile()
+    wrapper.set_basis(gbasis="CC-PVDZ", external=True)
+    wrapper.set_geometry(geometry=opt)
+    wrapper.save_inpfile("2_co2_rhf_hess-basis=cc-pvdz.fly")
+
     wrapper.clean_wd()
     wrapper.run(link_basis='cc-pvdz')
     wrapper.load_out()
+
     freqs = wrapper.frequencies()
 
     logging.info("Frequencies at optimized geometry (cm-1):")
@@ -248,5 +291,5 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    run_example_01()
-    #run_example_02()
+    #run_example_01()
+    run_example_02()
