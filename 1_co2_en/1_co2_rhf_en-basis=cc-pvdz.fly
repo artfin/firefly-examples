@@ -1,0 +1,88 @@
+! EXAMPLE 01
+
+! Logical variables can be .TRUE. or .FALSE. (equivalently, .T. or .F.).
+! The periods are required.
+
+! Comment fields are turned on by the exclamation mark (!)
+! Notice: All namelist groups ($..) should be indented by a single space
+! in order to be properly parsed. 
+
+! $CONTRL options:
+! * Distance unit: 
+!    
+!   For cartesian coordinates, the distance unit is set with the keyword `UNITS`
+!   in the $CONTRL group. Possible values are ANGS (the default) and BOHR (Bohr
+!   atomic units).
+! 
+! * Integral implementation (p. 87):
+!
+!   INTTYP=POPLE/HONDO; 
+!   HONDO is more accurate albeit slower
+!
+!   FSTINT=.T./.F. (default: T)
+!   The keyword selects the fastints/gencon code which
+!   is a newer, faster code available for direct runs only.
+! 
+!   GENCON=.T./.F. (default: T) 
+!   Enables the use of the special version of the fastints code
+!   designed for general contraction (GC) type basis sets (ANO basis sets and, 
+!   in some degree, cc-pVXZ sets).
+!
+! * General accuracy switches (p.87):
+!   
+!   ICUT (default: 9) 
+!   sets the cutoff used to decide which integrals to discard. 
+!   For higher accuracy it is recommended to increase ICUT to 11
+
+ $CONTRL SCFTYP=RHF MULT=1 UNITS=BOHR $END
+
+! $SYSTEM options:
+! * TIMLIM (default: 2880) -- CPU time limit, in minutes.
+!   When running in parallel, this is the CPU time allotted to 
+!   each instance of Firefly.
+!
+! * MEMORY (default: 20,000,000 words)
+!   The maximum amount of dynamic memory that can be used by each
+!   instance of Firefly.
+!   Note: word=8-byte quanity (1 double precision number) 
+
+ $SYSTEM TIMLIM=2880 MEMORY=2000000 $END
+ $BASIS GBASIS=CC-PVDZ EXTFILE=.T. $END
+
+! -PK- option for the calcultion of the 2e integrals
+! $SCF options:
+! * DIRSCF=.T./.F. (default: .F.)
+!   Specifies whether the SCF calculation is performed in direct or
+!   conventional way. In the case of direct calculation, the integrals
+!   are recomputed at every calculation as needed.
+!
+! * NCONV (default: 5)
+!   SCF density convergence threshold. Convergence is reached when the
+!   density change between two consecutive SCF cycles is less than 10**(-N).
+! 
+! * ENGTHR (default: 9)
+!   Energy convergence threshold for SCF, in Hartrees (10**(-N)).
+!
+! * DAMP=.T./.F. (default: .F.)
+!   Controls the use of Davidson damping of the Fock matrix.
+!   ???
+!   Probable source: H. Hsu, E. R. Davidson, R. M. Pitzer, JCP, 65, 609 (1976)
+!   Application of Aitken's delta2 extrapolation formula
+
+ $SCF DIRSCF=.T. DIIS=.T. NCONV=8 ENGTHR=9 $END
+
+! The GUESS keyword selects the type of starting orbitals
+! The default for all runs is GUESS=HUCKEL (extended Huckel calculation
+! using a Huzinaga MINI-1 basis that is projected onto the current basis set).
+! Other option is HCORE, where the one-electron Hamiltonian is diagonalized
+! in order to obtain the initial guess. In general, HUCKEL works better, allowing
+! for faster convergence of SCF.
+ $GUESS GUESS=HUCKEL $END 
+
+ $DATA
+  CO2 SINGLE-POINT CALCULATION 
+ C1
+C 6.0   0.0 0.0 0.0
+O 8.0 -1.25 0.0 0.0
+O 8.0  1.25 0.0 0.0
+ $END

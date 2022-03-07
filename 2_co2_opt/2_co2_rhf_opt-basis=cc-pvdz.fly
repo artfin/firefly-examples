@@ -1,0 +1,53 @@
+! EXAMPLE 02.1
+!
+! Firefly locates minima by geometry optimization as RUNTYP=OPTIMIZE,
+! and transition states by first-order saddle point searches as RUNTYP=SADPOINT.
+ $CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE MULT=1 UNITS=BOHR $END
+ 
+ $SYSTEM TIMLIM=2880 MEMORY=2000000 $END
+
+! The input to control both of these RUNTYPs is part of the $STATPT group.
+! RUNTYP=OPTIMIZE run does not always find a minimum, and a RUNTYP=SADPOINT run 
+! may not find a transition state, even though the gradient is brought to zero.
+! You can prove you have located a minimum by inspecting the local curvatures of the
+! PES near the stationary point. This can be done by a separate RUNTYP=HESSIAN job.
+
+! Geometry searches do not bring the gradient exactly to zero. Instead, they stop
+! when the largest component of the gradient is below the value of OPTTOL and the RMS
+! of components of gradient vector is below OPTTOL/3.
+! $STATPT options:
+! * METHOD=GDIIS/RFO/QA/NR/... (default: GDIIS)
+!   GDIIS: direct inversion in the iterative subspace
+!   RFO:   rational function optimization -- augmented Hessian technique that uses the 
+!          rational function approximation to the PES
+!   QA:    quadratic approximation -- augmented Hessian technique that uses the quadratic
+!          approximation to the PES
+!   NR:    Newton-Raphson method
+!
+! * OPTTOL (default: 1e-4) 
+!   Gradient convergence tolerance in Hartree/Bohr.
+!
+! * NSTEP (default: 100)
+!   Maximum number of steps to take
+! 
+! * UPHESS=BFGS/... (default: BFGS)
+!   Chooses the method to update the Hessian
+
+! * HSSEND=.T./.F.
+!   When a geometry optimization has converged, the nature of the stationary point can
+!   be investigated by alculating the Hessianat the same level of theory. This can be done
+!   in the same job by specifying HSSEND=.T.
+
+ $STATPT METHOD=GDIIS UPHESS=BFGS OPTTOL=1e-5 $END
+
+ $BASIS GBASIS=CC-PVDZ EXTFILE=.T. $END
+
+ $SCF DIRSCF=.T. DIIS=.T. NCONV=8 ENGTHR=9 $END
+
+ $DATA
+  CO2 GEOMETRY OPTIMIZATION
+ C1
+C 6.0   0.0 0.0 0.0
+O 8.0 -1.25 0.0 0.0
+O 8.0  1.25 0.0 0.0
+ $END
