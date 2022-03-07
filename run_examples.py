@@ -495,15 +495,49 @@ def run_example_03():
     wrapper.load_out()
     thermo = wrapper.thermo()
 
-    Cp_calculated = [block["CP"] for _, block in thermo.items()]
-    print("Cp_calculated: {}".format(Cp_calculated))
+    Cp_RHF = [block["CP"] for _, block in thermo.items()]
+    print("Cp_RHF: {}".format(Cp_RHF))
+
+    #############################################################################
+
+    logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
+
+    wrapper.load_inpfile()
+
+    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+    temperature_field = ", ".join(list(map(str, temperatures)))
+
+    wrapper.set_options({
+        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "mp2"   : {"METHOD": 1},
+        "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "force" : {"TEMP(1)" : temperature_field}
+    })
+    wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=gbasis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    thermo = wrapper.thermo()
+
+    Cp_MP2 = [block["CP"] for _, block in thermo.items()]
+    print("Cp_MP2: {}".format(Cp_MP2))
+
+    #############################################################################
 
     Cp_NIST = np.asarray([NIST_CO2_CP(t) for t in temperatures])
     print("Cp_NIST:       {}".format(Cp_NIST))
 
     plt.figure(figsize=(10, 10))
 
-    plt.plot(temperatures, Cp_calculated, color='y', label=f"HF/{gbasis}")
+    plt.plot(temperatures, Cp_RHF, color='y', label=f"HF/{gbasis}")
+    plt.plot(temperatures, Cp_MP2, color='b', label=f"MP2/{gbasis}")
     plt.plot(temperatures, Cp_NIST, color='r', label="NIST")
 
     plt.legend(fontsize=14)
@@ -516,9 +550,12 @@ def run_example_03():
 def run_example_04():
     gbasis = 'CC-PVDZ'
 
-    SCLFAC = {'HF/CC-PVDZ': 0.908, 'HF/CC-PVTZ': 0.9101, 'HF/CC-PVQZ': 0.9084}
-    sclfac = SCLFAC[f'HF/{gbasis}']
+    #Source: https://cccbdb.nist.gov/vibscalejust.asp
+    SCLFAC = {'HF/CC-PVDZ': 0.908, 'HF/CC-PVTZ': 0.9101, 'HF/CC-PVQZ': 0.9084,
+              'MP2/CC-PVDZ': 0.953, 'MP2/CC-PVTZ': 0.950, 'MP2/CC-PVQZ': 0.948,}
 
+    #############################################################################
+    sclfac = SCLFAC[f'HF/{gbasis}']
     logging.info(f" --- CO2 RHF THERMOCHEMISTRY USING BASIS={gbasis} AND SCALING FACTOR={sclfac} --- ")
     wrapper = Wrapper(wd="4_co2_thermo_sclfac", inpfname="4_co2_thermo_sclfac.fly")
 
@@ -526,6 +563,7 @@ def run_example_04():
 
     temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
     temperature_field = ", ".join(list(map(str, temperatures)))
+
     wrapper.set_options({
         "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
@@ -537,29 +575,69 @@ def run_example_04():
 
     wrapper.save_inpfile(f"4_co2_rhf_thermo_sclfac-basis={gbasis}.fly")
 
-    wrapper.clean_wd()
-    wrapper.run(link_basis=gbasis)
-    wrapper.clean_up()
+    #wrapper.clean_wd()
+    #wrapper.run(link_basis=gbasis)
+    #wrapper.clean_up()
 
     wrapper.load_out()
     thermo = wrapper.thermo()
 
-    Cp_calculated = [block["CP"] for _, block in thermo.items()]
-    print("Cp_calculated: {}".format(Cp_calculated))
+    Cp_RHF = [block["CP"] for _, block in thermo.items()]
+    print("Cp_RHF: {}".format(Cp_RHF))
+
+    #############################################################################
+    sclfac = SCLFAC[f'MP2/{gbasis}']
+    logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} AND SCALING FACTOR={sclfac} --- ")
+    wrapper = Wrapper(wd="4_co2_thermo_sclfac", inpfname="4_co2_thermo_sclfac.fly")
+
+    wrapper.load_inpfile()
+
+    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+    temperature_field = ", ".join(list(map(str, temperatures)))
+    sclfac = SCLFAC[f'MP2/{gbasis}']
+
+    wrapper.set_options({
+        "system": {"TIMLIM": 2880, "MEMORY": 8000000},
+        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "mp2"   : {"METHOD": 1},
+        "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "force" : {"TEMP(1)" : temperature_field, "SCLFAC": sclfac}
+    })
+
+    wrapper.save_inpfile(f"4_co2_mp2_thermo_sclfac-basis={gbasis}.fly")
+
+    #wrapper.clean_wd()
+    #wrapper.run(link_basis=gbasis)
+    #wrapper.clean_up()
+
+    wrapper.load_out()
+    thermo = wrapper.thermo()
+
+    Cp_MP2 = [block["CP"] for _, block in thermo.items()]
+    print("Cp_MP2: {}".format(Cp_MP2))
+    #############################################################################
 
     Cp_NIST = np.asarray([NIST_CO2_CP(t) for t in temperatures])
     print("Cp_NIST:       {}".format(Cp_NIST))
 
     plt.figure(figsize=(10, 10))
 
-    plt.plot(temperatures, Cp_calculated, color='y', label=f"HF/{gbasis}+sclfac")
+    plt.plot(temperatures, Cp_RHF, color='y', label=f"HF/{gbasis}+sclfac")
+    plt.plot(temperatures, Cp_MP2, color='b', label=f"MP2/{gbasis}+sclfac")
     plt.plot(temperatures, Cp_NIST, color='r', label="NIST")
 
     plt.legend(fontsize=14)
     plt.xlabel("Temperature, K")
     plt.ylabel("Heat capacity, kcal/mol")
 
+    figpath = os.path.join("4_co2_thermo_sclfac", f"CP-RHF-vs-MP2-basis={gbasis}.png")
+    plt.savefig(figpath, format='png', dpi=300)
+
     plt.show()
+
     logging.info("---------------------------------------------------------\n")
 
 
@@ -573,9 +651,9 @@ if __name__ == "__main__":
     logger.addHandler(ch)
 
     #run_example_01()
-    run_example_02()
+    #run_example_02()
     #run_example_03()
-    #run_example_04()
+    run_example_04()
 
 
 

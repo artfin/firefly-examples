@@ -1,6 +1,9 @@
 ! EXAMPLE 03.1
 !
- $CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE MULT=1 UNITS=BOHR ICUT=11
+! There is a partial linear dependence in the case when GBASIS=cc-pVQZ is used
+! In order to make this calculation work we can try to increase the accuracy
+! of the integrals (ICUT).
+ $CONTRL SCFTYP=RHF MPLEVL=2 RUNTYP=OPTIMIZE MULT=1 UNITS=BOHR ICUT=11
 INTTYP=HONDO MAXIT=100 $END
  
  $SYSTEM TIMLIM=2880 MEMORY=2000000 $END
@@ -9,11 +12,14 @@ INTTYP=HONDO MAXIT=100 $END
  
  $BASIS GBASIS=CC-PVDZ EXTFILE=.T. $END
 
+! FDIFF: .T./.F. (default: .T.)
+! Flag used to request incremental Fock matrix formation.
  $SCF DIRSCF=.T. DIIS=.T. NCONV=8 ENGTHR=9 FDIFF=.F. $END
 
  $FORCE TEMP(1)=200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0,
-900.0, 1000.0 SCLFAC=0.908 $END
+900.0, 1000.0 $END
 
+ $MP2 METHOD=1 $END
  $DATA
   CO2 GEOMETRY OPTIMIZATION
  C1
