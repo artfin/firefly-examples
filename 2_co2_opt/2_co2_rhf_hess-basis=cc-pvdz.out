@@ -54,7 +54,7 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY BEGUN  3:27:07  7-MAR-2022    
+ EXECUTION OF FIREFLY BEGUN  4:09:41  7-MAR-2022    
 
             ECHO OF THE FIRST FEW INPUT CARDS -
  INPUT CARD>! EXAMPLE 02.2                                                                  
@@ -254,7 +254,7 @@
      ---------------
      KDIAG =       0     MEMORY= 20000000     TIMLIM=   172800.0 SEC.
      COREFL=       F     PTIME =        F     XDR   =       F
-     BALTYP=LOOP         CBASE = F03B1000     FBASE = 00000000
+     BALTYP=LOOP         CBASE = F0461000     FBASE = 00000000
 
           ----------------
           PROPERTIES INPUT
@@ -296,7 +296,7 @@
 
  CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.03 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    127.39%,  TOTAL =     254.79%
+ CPU UTILIZATION:   STEP =    126.50%,  TOTAL =     189.75%
 
      ---------------------------------
      HESSIAN MATRIX CONTROL PARAMETERS
@@ -322,7 +322,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     246.88%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     183.88%
 
           -------------
           GUESS OPTIONS
@@ -345,7 +345,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     236.10%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     175.97%
 
           --------------------
           2 ELECTRON INTEGRALS
@@ -380,7 +380,7 @@
 
  CPU        TIME:   STEP =      0.10 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.09 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    113.27%,  TOTAL =     147.34%
+ CPU UTILIZATION:   STEP =    111.48%,  TOTAL =     129.24%
 
           -------------------
           RHF SCF CALCULATION
@@ -866,7 +866,7 @@
 
  CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.02 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    113.17%,  TOTAL =     143.02%
+ CPU UTILIZATION:   STEP =    119.52%,  TOTAL =     128.08%
 
 
                          ------------------------------
@@ -1029,21 +1029,21 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     142.16%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     127.31%
  ......END OF NBO ANALYSIS......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     141.92%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     127.15%
 
      ---------------------------------------------
      1ST AND 2ND INTEGRAL DERIVATIVE CONTRIBUTIONS
      ---------------------------------------------
  ...... END OF 1-ELECTRON GRAD+HESS+FOCKDER ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        0.2 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    183.42%,  TOTAL =     144.90%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     118.23%
 
      ----------------------------------------------
      TWO ELECTRON INTEGRAL DERIVATIVE CONTRIBUTIONS
@@ -1054,9 +1054,9 @@
  THE NUMBER OF DERIVATIVE INTEGRAL BLOCKS COMPUTED WAS     13839
  ...... END OF 2-ELECTRON GRAD+HESS+FOCKDER ......
 
- CPU        TIME:   STEP =      1.68 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      1.68 ,  TOTAL =        1.8 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     99.95%,  TOTAL =     103.67%
+ CPU        TIME:   STEP =      1.70 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
+ WALL CLOCK TIME:   STEP =      1.69 ,  TOTAL =        1.8 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =    100.34%,  TOTAL =     101.82%
 
      -------------------------------------------
      COUPLED-PERTURBED CLOSED SHELL HARTREE-FOCK
@@ -1069,7 +1069,7 @@
                THERE ARE  20000000 WORDS AVAILABLE.
         TIME FOR -FA-   =        0.000
         TIME FOR -TA-   =        0.000
-        TIME FOR -FCK-  =        0.000
+        TIME FOR -FCK-  =        0.020
  PRECONDITIONED CONJUGATE GRADIENT SOLVER     CONV. TOLERANCE=1.00E-05
              MAXIMUM          RESPONSES
  ITER    RESPONSE ERROR        IMPROVED
@@ -1084,12 +1084,12 @@
    9       4.71196E-06             2
  THE CPHF HAS CONVERGED AFTER  9 ITERATIONS.
  IT REQUIRED    67 FOCK-LIKE BUILDS TO FIND THE   9 SYMMETRY UNIQUE RESPONSES.
-        TIME FOR -YA-   =        0.080
+        TIME FOR -YA-   =        0.060
  ...... DONE WITH CPHF CONTRIBUTIONS ......
 
  CPU        TIME:   STEP =      0.08 ,  TOTAL =        2.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.08 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     99.63%,  TOTAL =     103.50%
+ CPU UTILIZATION:   STEP =     99.66%,  TOTAL =     101.73%
 
           ---------------
           ENERGY GRADIENT
@@ -1250,11 +1250,11 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.0 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     103.48%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.71%
       396867 WORDS OF    DYNAMIC MEMORY USED
       170688 BYTES OF    HEAP MEMORY    USED,      113783 BYTES REMAIN IN USE
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY TERMINATED NORMALLY  3:27:09  7-MAR-2022    
+ EXECUTION OF FIREFLY TERMINATED NORMALLY  4:09:43  7-MAR-2022    

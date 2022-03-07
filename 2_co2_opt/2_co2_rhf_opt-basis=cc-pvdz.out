@@ -54,7 +54,7 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY BEGUN  3:27:00  7-MAR-2022    
+ EXECUTION OF FIREFLY BEGUN  4:09:34  7-MAR-2022    
 
             ECHO OF THE FIRST FEW INPUT CARDS -
  INPUT CARD>! EXAMPLE 02.1                                                                  
@@ -290,7 +290,7 @@
      ---------------
      KDIAG =       0     MEMORY=  2000000     TIMLIM=   172800.0 SEC.
      COREFL=       F     PTIME =        F     XDR   =       F
-     BALTYP=LOOP         CBASE = F03F1000     FBASE = 00000000
+     BALTYP=LOOP         CBASE = 09001000     FBASE = 00000000
 
           ----------------
           PROPERTIES INPUT
@@ -330,9 +330,9 @@
 
  ..... DONE SETTING UP THE RUN .....
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.03 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     62.74%,  TOTAL =     250.96%
+ CPU UTILIZATION:   STEP =    123.57%,  TOTAL =     185.36%
 
 
           -----------------------------
@@ -375,7 +375,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     242.02%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     179.02%
 
           -------------
           GUESS OPTIONS
@@ -398,7 +398,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     231.51%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     171.31%
 
           --------------------
           2 ELECTRON INTEGRALS
@@ -411,7 +411,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     220.40%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     163.28%
 
           -------------------
           RHF SCF CALCULATION
@@ -425,7 +425,7 @@
      MEMORY REQUIRED FOR RHF STEP=     45379 WORDS.
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
- SCHWARZ INEQUALITY OVERHEAD:      1035 INTEGRALS, CPU TIME=        0.02
+ SCHWARZ INEQUALITY OVERHEAD:      1035 INTEGRALS, CPU TIME=        0.00
 
                                                                               NONZERO    BLOCKS
  ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
@@ -451,7 +451,7 @@
           DENSITY CONVERGED
           -----------------
      TIME TO FORM FOCK OPERATORS =       0.54 SECONDS (       0.03 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.06, LAST ITERATION=       0.02
+     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -183.6544293942 AFTER  16 ITERATIONS
@@ -906,9 +906,9 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.56 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.54 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    103.39%,  TOTAL =     110.74%
+ CPU        TIME:   STEP =      0.54 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.55 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =     98.83%,  TOTAL =     102.89%
 
 
                          ------------------------------
@@ -1071,19 +1071,19 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     110.57%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.73%
  ......END OF NBO ANALYSIS......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     110.45%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.62%
 
  BEGINNING ONE ELECTRON GRADIENT...
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.7 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        0.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    359.32%,  TOTAL =     112.81%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.68%
 
           ----------------------
           GRADIENT OF THE ENERGY
@@ -1095,9 +1095,9 @@
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.28 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.30 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.29 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     97.98%,  TOTAL =     107.94%
+ CPU UTILIZATION:   STEP =    105.01%,  TOTAL =     102.77%
 
           NSERCH=  0     ENERGY=    -183.6544294
 
@@ -1120,7 +1120,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     107.93%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.75%
 
  NSERCH=   1
 
@@ -1147,14 +1147,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     107.78%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.61%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  3.30914425E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.9 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     107.33%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.19%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1187,22 +1187,22 @@
  ...... END OF RHF CALCULATION ......
 
  CPU        TIME:   STEP =      0.36 ,  TOTAL =        1.3 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.37 ,  TOTAL =        1.2 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     97.55%,  TOTAL =     104.43%
+ WALL CLOCK TIME:   STEP =      0.37 ,  TOTAL =        1.3 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =     97.28%,  TOTAL =     100.73%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.02 ,  TOTAL =        1.3 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        1.3 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    371.89%,  TOTAL =     105.58%
+ CPU UTILIZATION:   STEP =    371.20%,  TOTAL =     101.90%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.26 ,  TOTAL =        1.6 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.26 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    100.28%,  TOTAL =     104.67%
+ CPU        TIME:   STEP =      0.26 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.27 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =     97.06%,  TOTAL =     101.04%
 
           NSERCH=  1     ENERGY=    -185.9633168
 
@@ -1223,9 +1223,9 @@
                NR STEP HAS LENGTH         =   0.281717
           RADIUS OF STEP TAKEN=   0.28172  CURRENT TRUST RADIUS=   0.30000
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.6 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     104.67%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.04%
 
  NSERCH=   2
 
@@ -1250,16 +1250,16 @@
 
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.6 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     104.59%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.95%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  3.03794477E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.6 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        1.5 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     104.34%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.70%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1280,7 +1280,7 @@
           DENSITY CONVERGED
           -----------------
      TIME TO FORM FOCK OPERATORS =       0.32 SECONDS (       0.04 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.04
+     FOCK TIME ON FIRST ITERATION=       0.06, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.0094829345 AFTER   9 ITERATIONS
@@ -1292,12 +1292,12 @@
 
  CPU        TIME:   STEP =      0.32 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.32 ,  TOTAL =        1.8 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    100.56%,  TOTAL =     103.68%
+ CPU UTILIZATION:   STEP =    100.53%,  TOTAL =     100.67%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        1.8 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     103.37%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        1.9 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =    373.83%,  TOTAL =     101.46%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -1306,7 +1306,7 @@
 
  CPU        TIME:   STEP =      0.24 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.24 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    100.01%,  TOTAL =     102.98%
+ CPU UTILIZATION:   STEP =     98.48%,  TOTAL =     101.12%
 
           NSERCH=  2     ENERGY=    -187.0094829
 
@@ -1328,7 +1328,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.98%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.11%
 
  NSERCH=   3
 
@@ -1355,14 +1355,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.93%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.06%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.88682660E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.1 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.75%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.88%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1394,14 +1394,14 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.32 ,  TOTAL =        2.5 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.34 ,  TOTAL =        2.4 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     95.07%,  TOTAL =     101.68%
+ CPU        TIME:   STEP =      0.34 ,  TOTAL =        2.5 SECONDS (    0.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.33 ,  TOTAL =        2.4 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =    102.95%,  TOTAL =     101.16%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        2.5 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.5 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        2.4 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    372.30%,  TOTAL =     102.28%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.94%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -1409,8 +1409,8 @@
  ...... END OF 2-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.22 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.22 ,  TOTAL =        2.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     99.04%,  TOTAL =     102.01%
+ WALL CLOCK TIME:   STEP =      0.23 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =     97.58%,  TOTAL =     100.66%
 
           NSERCH=  3     ENERGY=    -187.4506450
 
@@ -1431,8 +1431,8 @@
           RADIUS OF STEP TAKEN=   0.20511  CURRENT TRUST RADIUS=   0.50000
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     102.01%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.65%
 
  NSERCH=   4
 
@@ -1458,15 +1458,15 @@
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.6 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.96%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.61%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.77982642E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        2.7 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.83%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.47%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1487,7 +1487,7 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.30 SECONDS (       0.03 SEC/ITER)
+     TIME TO FORM FOCK OPERATORS =       0.32 SECONDS (       0.03 SEC/ITER)
      FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
@@ -1498,23 +1498,23 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.30 ,  TOTAL =        3.0 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.32 ,  TOTAL =        3.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.31 ,  TOTAL =        3.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =     97.49%,  TOTAL =     101.37%
+ CPU UTILIZATION:   STEP =    102.51%,  TOTAL =     100.69%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        3.0 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        3.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    384.54%,  TOTAL =     101.87%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.43%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.20 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.22 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.21 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     94.99%,  TOTAL =     101.41%
+ CPU UTILIZATION:   STEP =    104.02%,  TOTAL =     100.67%
 
           NSERCH=  4     ENERGY=    -187.6050347
 
@@ -1536,7 +1536,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.41%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.66%
 
  NSERCH=   5
 
@@ -1563,14 +1563,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.37%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.63%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71950832E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.26%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.52%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1591,8 +1591,8 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.28 SECONDS (       0.03 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.02, LAST ITERATION=       0.02
+     TIME TO FORM FOCK OPERATORS =       0.32 SECONDS (       0.03 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.06, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6463372936 AFTER  10 ITERATIONS
@@ -1602,23 +1602,23 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.30 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.29 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    102.20%,  TOTAL =     101.34%
+ CPU        TIME:   STEP =      0.32 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.30 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    106.77%,  TOTAL =     101.05%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        3.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.19%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.90%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.22 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    108.69%,  TOTAL =     101.60%
+ CPU        TIME:   STEP =      0.20 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.21 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     97.35%,  TOTAL =     100.71%
 
           NSERCH=  5     ENERGY=    -187.6463373
 
@@ -1640,7 +1640,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.60%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.70%
 
  NSERCH=   6
 
@@ -1667,14 +1667,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.57%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.67%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71314453E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        3.8 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        3.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.47%
+ CPU UTILIZATION:   STEP =    546.60%,  TOTAL =     101.11%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1708,12 +1708,12 @@
 
  CPU        TIME:   STEP =      0.28 ,  TOTAL =        4.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.29 ,  TOTAL =        4.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     98.06%,  TOTAL =     101.22%
+ CPU UTILIZATION:   STEP =     97.59%,  TOTAL =     100.86%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        4.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.09%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.73%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -1722,7 +1722,7 @@
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.23%,  TOTAL =     101.10%
+ CPU UTILIZATION:   STEP =    100.41%,  TOTAL =     100.71%
 
           NSERCH=  6     ENERGY=    -187.6530151
 
@@ -1744,7 +1744,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.10%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.71%
 
  NSERCH=   7
 
@@ -1771,14 +1771,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.07%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.68%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71299921E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.2 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.99%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.60%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1798,8 +1798,8 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.24 SECONDS (       0.03 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
+     TIME TO FORM FOCK OPERATORS =       0.22 SECONDS (       0.02 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.02, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6530707468 AFTER   9 ITERATIONS
@@ -1811,12 +1811,12 @@
 
  CPU        TIME:   STEP =      0.24 ,  TOTAL =        4.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.23 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    105.27%,  TOTAL =     101.21%
+ CPU UTILIZATION:   STEP =    104.78%,  TOTAL =     100.82%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.09%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.70%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -1824,8 +1824,8 @@
  ...... END OF 2-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        4.6 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.42%,  TOTAL =     101.10%
+ WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     97.63%,  TOTAL =     100.56%
 
           NSERCH=  7     ENERGY=    -187.6530707
 
@@ -1846,8 +1846,8 @@
           RADIUS OF STEP TAKEN=   0.01107  CURRENT TRUST RADIUS=   0.50000
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.6 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.10%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.56%
 
  NSERCH=   8
 
@@ -1873,15 +1873,15 @@
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.6 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.08%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.53%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71197593E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.6 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     101.00%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        4.7 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.46%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -1902,9 +1902,9 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.26 SECONDS (       0.03 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
-     TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
+     TIME TO FORM FOCK OPERATORS =       0.22 SECONDS (       0.02 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.02, LAST ITERATION=       0.00
+     TIME TO SOLVE SCF EQUATIONS =       0.02 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6533524441 AFTER  10 ITERATIONS
 
@@ -1915,12 +1915,12 @@
 
  CPU        TIME:   STEP =      0.26 ,  TOTAL =        4.9 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.26 ,  TOTAL =        4.9 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.48%,  TOTAL =     101.03%
+ CPU UTILIZATION:   STEP =    101.87%,  TOTAL =     100.53%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        4.9 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        4.9 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.92%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.43%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -1929,7 +1929,7 @@
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.27%,  TOTAL =     100.93%
+ CPU UTILIZATION:   STEP =    101.49%,  TOTAL =     100.47%
 
           NSERCH=  8     ENERGY=    -187.6533524
 
@@ -1951,7 +1951,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.93%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.47%
 
  NSERCH=   9
 
@@ -1978,14 +1978,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.91%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.44%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71099755E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.84%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.38%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -2006,7 +2006,7 @@
           DENSITY CONVERGED
           -----------------
      TIME TO FORM FOCK OPERATORS =       0.24 SECONDS (       0.03 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
+     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.00
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6534579023 AFTER   9 ITERATIONS
@@ -2017,13 +2017,13 @@
  ...... END OF RHF CALCULATION ......
 
  CPU        TIME:   STEP =      0.24 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.24 ,  TOTAL =        5.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    100.85%,  TOTAL =     100.84%
+ WALL CLOCK TIME:   STEP =      0.24 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     99.36%,  TOTAL =     100.33%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        5.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.74%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    381.97%,  TOTAL =     100.60%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -2031,8 +2031,8 @@
  ...... END OF 2-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.01%,  TOTAL =     100.75%
+ WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     97.95%,  TOTAL =     100.51%
 
           NSERCH=  9     ENERGY=    -187.6534579
 
@@ -2053,8 +2053,8 @@
           RADIUS OF STEP TAKEN=   0.00190  CURRENT TRUST RADIUS=   0.50000
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.75%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.50%
 
  NSERCH=  10
 
@@ -2080,15 +2080,15 @@
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.73%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.48%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71081839E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    560.22%,  TOTAL =     101.02%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        5.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.38%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -2109,7 +2109,7 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.22 SECONDS (       0.02 SEC/ITER)
+     TIME TO FORM FOCK OPERATORS =       0.24 SECONDS (       0.02 SEC/ITER)
      FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
@@ -2120,14 +2120,14 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.22 ,  TOTAL =        5.8 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.22 ,  TOTAL =        5.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     97.90%,  TOTAL =     100.90%
+ CPU        TIME:   STEP =      0.24 ,  TOTAL =        5.8 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.23 ,  TOTAL =        5.8 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    103.03%,  TOTAL =     100.48%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.8 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        5.8 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.81%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.39%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -2136,7 +2136,7 @@
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    100.99%,  TOTAL =     100.82%
+ CPU UTILIZATION:   STEP =     99.94%,  TOTAL =     100.38%
 
           NSERCH= 10     ENERGY=    -187.6534607
 
@@ -2158,7 +2158,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.81%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.37%
 
  NSERCH=  11
 
@@ -2185,14 +2185,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.80%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.36%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71081323E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.0 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.73%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.30%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -2211,9 +2211,9 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.14 SECONDS (       0.02 SEC/ITER)
+     TIME TO FORM FOCK OPERATORS =       0.16 SECONDS (       0.02 SEC/ITER)
      FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.00
-     TIME TO SOLVE SCF EQUATIONS =       0.02 SECONDS (       0.00 SEC/ITER)
+     TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6534607032 AFTER   8 ITERATIONS
 
@@ -2223,13 +2223,13 @@
  ...... END OF RHF CALCULATION ......
 
  CPU        TIME:   STEP =      0.16 ,  TOTAL =        6.2 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.16 ,  TOTAL =        6.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.22%,  TOTAL =     100.75%
+ WALL CLOCK TIME:   STEP =      0.16 ,  TOTAL =        6.2 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    101.02%,  TOTAL =     100.32%
  ..... END OF 1-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.2 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        6.1 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.66%
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        6.2 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.23%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
@@ -2237,8 +2237,8 @@
  ...... END OF 2-ELECTRON GRADIENT ......
 
  CPU        TIME:   STEP =      0.20 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        6.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    101.49%,  TOTAL =     100.69%
+ WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    100.80%,  TOTAL =     100.25%
 
           NSERCH= 11     ENERGY=    -187.6534607
 
@@ -2259,8 +2259,8 @@
           RADIUS OF STEP TAKEN=   0.00006  CURRENT TRUST RADIUS=   0.50000
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.69%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.25%
 
  NSERCH=  12
 
@@ -2286,15 +2286,15 @@
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.67%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.23%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  2.71080778E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
  CPU        TIME:   STEP =      0.02 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.3 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    556.95%,  TOTAL =     100.93%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    557.41%,  TOTAL =     100.49%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=T
 
@@ -2313,8 +2313,8 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       0.14 SECONDS (       0.02 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.02, LAST ITERATION=       0.00
+     TIME TO FORM FOCK OPERATORS =       0.16 SECONDS (       0.02 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.04, LAST ITERATION=       0.02
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.6534607047 AFTER   8 ITERATIONS
@@ -2324,23 +2324,23 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      0.16 ,  TOTAL =        6.5 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.16 ,  TOTAL =        6.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     99.23%,  TOTAL =     100.89%
+ CPU        TIME:   STEP =      0.16 ,  TOTAL =        6.6 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.16 ,  TOTAL =        6.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     99.07%,  TOTAL =     100.45%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.5 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        6.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.80%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.6 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        6.6 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.37%
 
  THE MINIMUM MEMORY REQUIRED FOR THIS RUN IS     102055 WORDS.
  USING    1077575 WORDS OF MEMORY.
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.20 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    100.71%,  TOTAL =     100.80%
+ CPU        TIME:   STEP =      0.20 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.20 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =    100.85%,  TOTAL =     100.39%
 
           NSERCH= 12     ENERGY=    -187.6534607
 
@@ -2793,14 +2793,14 @@
      0.000000    0.000000    0.000000    0.000000
  ...... END OF PROPERTY EVALUATION ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.77%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.35%
  ......END OF NBO ANALYSIS......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.76%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.35%
   $VIB   
           IVIB=   0 IATOM=   0 ICOORD=   0 E=     -187.6534607047
  -1.446128619E-08 0.000000000E+00 0.000000000E+00 2.963684966E-07 0.000000000E+00
@@ -2808,13 +2808,13 @@
  -2.723598553E-08 6.259618013E-15-8.419785601E-16
  ......END OF GEOMETRY SEARCH......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.7 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.76%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        6.8 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.34%
      1077593 WORDS OF    DYNAMIC MEMORY USED
       170688 BYTES OF    HEAP MEMORY    USED,      113783 BYTES REMAIN IN USE
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY TERMINATED NORMALLY  3:27:06  7-MAR-2022    
+ EXECUTION OF FIREFLY TERMINATED NORMALLY  4:09:40  7-MAR-2022    

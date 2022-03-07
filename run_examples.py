@@ -82,8 +82,8 @@ class Wrapper:
             s = " " + group_name
             for k, v in options.items():
                 s += " {}={}".format(k, v)
-            s += " $END\n"
-            s = self.wrap_field(s) 
+            s += " $END"
+            s = self.wrap_field(s) + "\n"
 
         self.inp_code.insert(group_start, s)
 
@@ -273,62 +273,62 @@ def run_example_01():
 
 
 def run_example_02():
-    logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=STO-3G --- ")
-    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
+    #logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=STO-3G --- ")
+    #wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
 
-    wrapper.load_inpfile()
-    wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
-        "basis" : {"GBASIS": "STO", "NGAUSS": 3},
-    })
-    wrapper.save_inpfile("2_co2_rhf_opt-basis=sto-3g.fly")
+    #wrapper.load_inpfile()
+    #wrapper.set_options({
+    #    "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
+    #    "basis" : {"GBASIS": "STO", "NGAUSS": 3},
+    #})
+    #wrapper.save_inpfile("2_co2_rhf_opt-basis=sto-3g.fly")
 
-    wrapper.clean_wd()
-    wrapper.run()
-    wrapper.clean_up()
+    #wrapper.clean_wd()
+    #wrapper.run()
+    #wrapper.clean_up()
 
-    wrapper.load_out()
-    geometries = wrapper.opt_geometries()
+    #wrapper.load_out()
+    #geometries = wrapper.opt_geometries()
 
-    opt = geometries[-1]
-    logging.info("Optimized geometry (ANG):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+    #opt = geometries[-1]
+    #logging.info("Optimized geometry (ANG):")
+    #for atom in opt:
+    #    logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
-    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
-           for atom in opt]
+    #opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+    #       for atom in opt]
 
-    logging.info("Optimized geometry (BOHR):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+    #logging.info("Optimized geometry (BOHR):")
+    #for atom in opt:
+    #    logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
 
     #############################################################################
 
-    logging.info(" --- CO2 RHF HESSIAN VERIFICATION USING BASIS=STO-3G --- ")
-    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+    #logging.info(" --- CO2 RHF HESSIAN VERIFICATION USING BASIS=STO-3G --- ")
+    #wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
 
-    wrapper.load_inpfile()
-    wrapper.set_options({
-        "contrl" : {"SCFTYP": "RHF", "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
-        "basis"  : {"GBASIS": "STO", "NGAUSS": 3},
-        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
-    })
-    wrapper.save_inpfile("2_co2_rhf_hess-basis=sto-3g.fly")
+    #wrapper.load_inpfile()
+    #wrapper.set_options({
+    #    "contrl" : {"SCFTYP": "RHF", "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
+    #    "basis"  : {"GBASIS": "STO", "NGAUSS": 3},
+    #    "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
+    #})
+    #wrapper.save_inpfile("2_co2_rhf_hess-basis=sto-3g.fly")
 
-    wrapper.clean_wd()
-    wrapper.run()
-    wrapper.clean_up()
+    #wrapper.clean_wd()
+    #wrapper.run()
+    #wrapper.clean_up()
 
-    wrapper.load_out()
-    freqs = wrapper.frequencies()
+    #wrapper.load_out()
+    #freqs = wrapper.frequencies()
 
-    logging.info("Frequencies at optimized geometry (cm-1):")
-    for f in freqs:
-        logging.info("  {:.3f}".format(f))
+    #logging.info("Frequencies at optimized geometry (cm-1):")
+    #for f in freqs:
+    #    logging.info("  {:.3f}".format(f))
 
-    positive = all(f > 0.0 for f in freqs)
-    logging.info("Assert freqs > 0: {}".format(positive))
-    assert positive
+    #positive = all(f > 0.0 for f in freqs)
+    #logging.info("Assert freqs > 0: {}".format(positive))
+    #assert positive
 
     #############################################################################
 
@@ -363,6 +363,7 @@ def run_example_02():
 
     #############################################################################
 
+    logging.info(" --- CO2 RHF HESSIAN VERIFICATION USING BASIS=CC-PVDZ --- ")
     wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
 
     wrapper.load_inpfile()
@@ -372,6 +373,65 @@ def run_example_02():
         "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
     })
     wrapper.save_inpfile("2_co2_rhf_hess-basis=cc-pvdz.fly")
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis='cc-pvdz')
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    freqs = wrapper.frequencies()
+
+    logging.info("Frequencies at optimized geometry (cm-1):")
+    for f in freqs:
+        logging.info("  {:.3f}".format(f))
+
+    positive = all(f > 0.0 for f in freqs)
+    logging.info("Assert freqs > 0: {}".format(positive))
+    assert positive
+    #############################################################################
+
+    logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_options({
+        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
+        "basis" : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
+        "mp2"   : {"METHOD": 1},
+    })
+    wrapper.save_inpfile("2_co2_mp2_opt-basis=cc-pvdz.fly")
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis='cc-pvdz')
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    geometries = wrapper.opt_geometries()
+
+    opt = geometries[-1]
+    logging.info("Optimized geometry (ANG):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
+    logging.info("Optimized geometry (BOHR):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+    #############################################################################
+
+    logging.info(" --- CO2 MP2 HESSIAN VERIFICATION USING BASIS=CC-PVDZ --- ")
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
+        "basis"  : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
+        "mp2"    : {"METHOD": 1},
+        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
+    })
+    wrapper.save_inpfile("2_co2_mp2_hess-basis=cc-pvdz.fly")
 
     wrapper.clean_wd()
     wrapper.run(link_basis='cc-pvdz')
@@ -513,9 +573,9 @@ if __name__ == "__main__":
     logger.addHandler(ch)
 
     #run_example_01()
-    #run_example_02()
+    run_example_02()
     #run_example_03()
-    run_example_04()
+    #run_example_04()
 
 
 
