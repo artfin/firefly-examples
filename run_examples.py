@@ -1,8 +1,6 @@
 from collections import namedtuple
 
 import numpy as np
-import matplotlib.pyplot as plt
-plt.style.use('dark_background')
 
 import logging
 import os
@@ -12,7 +10,29 @@ import subprocess
 import textwrap
 import time
 
-BOHR_TO_ANG = 0.529177
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+plt.style.use('dark_background')
+plt.rcParams["text.usetex"] =True
+plt.rcParams["mathtext.fontset"] = "cm"
+
+mpl.rcParams['font.serif'] = 'Times'
+mpl.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+
+mpl.rcParams['figure.titlesize'] = 'large'
+mpl.rcParams['axes.labelsize'] = 21
+mpl.rcParams['axes.titlesize'] = 21
+mpl.rcParams['xtick.labelsize'] = 21
+mpl.rcParams['ytick.labelsize'] = 21
+
+Boltzmann    = 1.380649e-23        # SI: J / K
+Planck       = 6.62607015e-34      # SI: J * s
+Dalton       = 1.6605300000013e-27 # SI: kg
+UGC          = 8.31446261815324    # SI: m^3 * Pa / K / mol
+a0           = 5.29177210903e-11   # SI: m
+SpeedOfLight = 299792458.0         # SI: m/s
+
+BOHR_TO_ANG  = 0.529177
 
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
@@ -208,6 +228,99 @@ class Wrapper:
 
         return total_thermo
 
+    def trans_partf(self, T):
+        lines = "".join(self.outfile)
+
+        pattern ="""ATOMIC WEIGHTS \(AMU\)\n\n (?: +\d+ +\w +\d+.\d+\n)+"""
+        m = re.findall(pattern, lines)[0]
+
+        m = m.split('\n')[2:-1]
+        masses = [float(line.split()[2]) for line in m]
+
+        CM = sum(masses)
+ 
+        p = 1.01325E+05 # pascal
+        V = Boltzmann * T / p
+        trans = (2.0 * np.pi * CM * Dalton * Boltzmann * T / Planck**2)**1.5 * V
+
+        return trans
+
+    def trans_cp(self, T):
+        return 5.0 / 2.0 * UGC
+
+    def rot_cp_cl(self, T):
+        return UGC
+
+    JMAX = 100
+    def rot_partf_q(self, T):
+        IT = 158.00455 * Dalton * a0**2
+        theta_rot = Planck * Planck / (8.0 * np.pi**2 * IT * Boltzmann)
+
+        qrot = 0.0
+        for J in range(0, self.JMAX, 2): # due to nuclear statistics only even J are allowed
+            qrot += (2 * J + 1) * np.exp(-J * (J + 1) * theta_rot / T)
+
+        return qrot
+
+    def rot_partf_cl(self, T):
+        lines = "".join(self.outfile)
+
+        pattern = """THE MOMENTS OF INERTIA ARE \(IN AMU\*BOHR\*\*2\)\n +(\d+.\d+) +(\d+.\d+) +(\d+.\d+)"""
+        m = re.search(pattern, lines).groups()
+
+        IT = list(map(float, m))
+        assert(IT[1] == IT[2] and IT[0] == 0)
+
+        ITT = IT[1]
+        ITT = ITT * Dalton * a0**2
+
+        Sigma = 2.0 # symmetry number
+        qrot = 8.0 * np.pi**2 * ITT * Boltzmann * T / Sigma / Planck**2
+        return qrot
+
+    def rot_int_energy_cl(self, T):
+        return UGC * T
+
+    def rot_int_energy_q(self, T):
+        dT = 1e-5
+        #der = (np.log(self.rot_partf_q(T + dT)) - np.log(self.rot_partf_q(T))) / dT
+        der = (np.log(self.rot_partf_q(T + dT)) - np.log(self.rot_partf_q(T - dT))) / (2.0 * dT)
+
+        return UGC * T**2 * der
+
+    def rot_cp_q(self, T):
+        dT = 1e-5
+        return (self.rot_int_energy_q(T + dT) - self.rot_int_energy_q(T - dT)) / (2.0 * dT)
+
+    def vib_cp_q(self, T):
+        freqs = self.frequencies()[5:]
+
+        cp = 0.0
+        for f in freqs:
+            x = Planck * SpeedOfLight * 100.0 * f / Boltzmann / T
+            cp += x**2 * np.exp(-x) / (np.exp(-x) - 1)**2
+
+        return UGC * cp
+
+    def vib_partf_q(self, T):
+        freqs = self.frequencies()[5:]
+
+        qvib = 1.0
+        for f in freqs:
+            a = Planck * SpeedOfLight * 100.0 * f / Boltzmann / T
+            qvib *= 1.0 / (1.0 - np.exp(-a))
+
+        return qvib
+
+    def vib_partf_cl(self, T):
+        freqs = self.frequencies()[5:]
+
+        qvib = 1.0
+        for f in freqs:
+            qvib *= Boltzmann * T / (Planck * SpeedOfLight * 100.0 * f)
+
+        return qvib
+
 
 def run_example_01():
     logging.info(" --- CO2 RHF ENERGY CALCULATION USING BASIS=STO-3G --- ")
@@ -332,109 +445,119 @@ def run_example_02():
 
     #############################################################################
 
-    logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
+    #logging.info(" --- CO2 RHF GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
+    #wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
+
+    #wrapper.load_inpfile()
+    #wrapper.set_options({
+    #    "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
+    #    "basis" : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
+    #    "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."}
+    #})
+    #wrapper.save_inpfile("2_co2_rhf_opt-basis=cc-pvdz.fly")
+
+    #wrapper.clean_wd()
+    #wrapper.run(link_basis='cc-pvdz')
+    #wrapper.clean_up()
+
+    #wrapper.load_out()
+    #geometries = wrapper.opt_geometries()
+
+    #opt = geometries[-1]
+    #logging.info("Optimized geometry (ANG):")
+    #for atom in opt:
+    #    logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    #opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+    #       for atom in opt]
+
+    #logging.info("Optimized geometry (BOHR):")
+    #for atom in opt:
+    #    logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    #############################################################################
+
+   # logging.info(" --- CO2 RHF HESSIAN VERIFICATION USING BASIS=CC-PVDZ --- ")
+   # wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+
+   # wrapper.load_inpfile()
+   # wrapper.set_options({
+   #     "contrl" : {"SCFTYP": "RHF", "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
+   #     "basis"  : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
+   #     "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
+   # })
+   # wrapper.save_inpfile("2_co2_rhf_hess-basis=cc-pvdz.fly")
+
+   # wrapper.clean_wd()
+   # wrapper.run(link_basis='cc-pvdz')
+   # wrapper.clean_up()
+
+   # wrapper.load_out()
+   # freqs = wrapper.frequencies()
+
+   # logging.info("Frequencies at optimized geometry (cm-1):")
+   # for f in freqs:
+   #     logging.info("  {:.3f}".format(f))
+
+   # positive = all(f > 0.0 for f in freqs)
+   # logging.info("Assert freqs > 0: {}".format(positive))
+   # assert positive
+    #############################################################################
+
+    basis = "CC-PVQZ"
+    logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS={} --- ".format(basis))
     wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
 
     wrapper.load_inpfile()
     wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
-        "basis" : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
-    })
-    wrapper.save_inpfile("2_co2_rhf_opt-basis=cc-pvdz.fly")
-
-    wrapper.clean_wd()
-    wrapper.run(link_basis='cc-pvdz')
-    wrapper.clean_up()
-
-    wrapper.load_out()
-    geometries = wrapper.opt_geometries()
-
-    opt = geometries[-1]
-    logging.info("Optimized geometry (ANG):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
-
-    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
-           for atom in opt]
-
-    logging.info("Optimized geometry (BOHR):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
-
-    #############################################################################
-
-    logging.info(" --- CO2 RHF HESSIAN VERIFICATION USING BASIS=CC-PVDZ --- ")
-    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
-
-    wrapper.load_inpfile()
-    wrapper.set_options({
-        "contrl" : {"SCFTYP": "RHF", "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
-        "basis"  : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
-        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
-    })
-    wrapper.save_inpfile("2_co2_rhf_hess-basis=cc-pvdz.fly")
-
-    wrapper.clean_wd()
-    wrapper.run(link_basis='cc-pvdz')
-    wrapper.clean_up()
-
-    wrapper.load_out()
-    freqs = wrapper.frequencies()
-
-    logging.info("Frequencies at optimized geometry (cm-1):")
-    for f in freqs:
-        logging.info("  {:.3f}".format(f))
-
-    positive = all(f > 0.0 for f in freqs)
-    logging.info("Assert freqs > 0: {}".format(positive))
-    assert positive
-    #############################################################################
-
-    logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS=CC-PVDZ --- ")
-    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
-
-    wrapper.load_inpfile()
-    wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR"},
-        "basis" : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
-        "mp2"   : {"METHOD": 1},
-    })
-    wrapper.save_inpfile("2_co2_mp2_opt-basis=cc-pvdz.fly")
-
-    wrapper.clean_wd()
-    wrapper.run(link_basis='cc-pvdz')
-    wrapper.clean_up()
-
-    wrapper.load_out()
-    geometries = wrapper.opt_geometries()
-
-    opt = geometries[-1]
-    logging.info("Optimized geometry (ANG):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
-
-    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
-           for atom in opt]
-
-    logging.info("Optimized geometry (BOHR):")
-    for atom in opt:
-        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
-    #############################################################################
-
-    logging.info(" --- CO2 MP2 HESSIAN VERIFICATION USING BASIS=CC-PVDZ --- ")
-    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
-
-    wrapper.load_inpfile()
-    wrapper.set_options({
-        "contrl" : {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR"},
-        "basis"  : {"GBASIS": "CC-PVDZ", "EXTFILE": ".T."},
+        "contrl" : {"SCFTYP": "RHF", "MAXIT": 100, "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
         "mp2"    : {"METHOD": 1},
-        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt}
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5},
     })
-    wrapper.save_inpfile("2_co2_mp2_hess-basis=cc-pvdz.fly")
+    wrapper.save_inpfile("2_co2_mp2_opt-basis={}.fly".format(basis.lower()))
 
     wrapper.clean_wd()
-    wrapper.run(link_basis='cc-pvdz')
+    wrapper.run(link_basis=basis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    geometries = wrapper.opt_geometries()
+
+    opt = geometries[-1]
+    logging.info("Optimized geometry (ANG):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
+    logging.info("Optimized geometry (BOHR):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    #############################################################################
+
+    logging.info(" --- CO2 MP2 HESSIAN VERIFICATION USING BASIS={} --- ".format(basis))
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "mp2"    : {"METHOD": 1},
+        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt},
+        "force"  : {"NVIB" : 2, "PROJCT" : ".T."},
+    })
+    wrapper.save_inpfile("2_co2_mp2_hess-basis={}.fly".format(basis.lower()))
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=basis)
     wrapper.clean_up()
 
     wrapper.load_out()
@@ -444,7 +567,7 @@ def run_example_02():
     for f in freqs:
         logging.info("  {:.3f}".format(f))
 
-    positive = all(f > 0.0 for f in freqs)
+    positive = all(f >= 0.0 for f in freqs)
     logging.info("Assert freqs > 0: {}".format(positive))
     assert positive
     #############################################################################
@@ -466,86 +589,137 @@ def NIST_CO2_CP(T):
     t = T / 1000.0
     return JTOKCAL * (A + B * t + C * t**2 + D * t**3 + E * t**(-2)) # cal/mol*K
 
+def run_cp_contributions():
+    gbasis = 'CC-PVDZ'
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    wrapper.load_out()
+
+    #qrot_cl = wrapper.rot_partf_cl(T=200.0)
+    #qrot_q = wrapper.rot_partf_q(T=200.0)
+
+    #print("[Q]  Rotational partf: {}".format(qrot_q))
+    #print("[Cl] Classical  partf: {}".format(qrot_cl))
+
+    #Urot_cl = wrapper.rot_int_energy_cl(T=200.0)
+    #Urot_q  = wrapper.rot_int_energy_q(T=200.0)
+
+    #print("[Q]  Rotational U: {}".format(Urot_q))
+    #print("[Cl] Rotational U: {}".format(Urot_cl))
+
+    T = np.linspace(0.1, 10.0, 300)
+
+    Cprot_cl = np.asarray([wrapper.rot_cp_cl(tt) for tt in T])
+    Cprot_q  = np.asarray([wrapper.rot_cp_q(tt) for tt in T])
+
+    plt.figure(figsize=(10, 8))
+
+    plt.plot(T, Cprot_cl, color='#FF6F61', linestyle='--')
+    plt.plot(T, Cprot_q,  color='#CFBFF7')
+
+    plt.xlabel(r"Temperature, K")
+    plt.ylabel(r"$C_p^\textrm{rot}$, J $\cdot$ mol$^{-1} \cdot$K$^{-1}$")
+
+    plt.xlim((0.0, 6.0))
+    plt.ylim((0.0, 15.0))
+
+    plt.show()
+
+    #trans_cp  = wrapper.trans_cp(T=200.0)
+    #rot_cp_cl = wrapper.rot_cp_cl(T=200.0)
+    #rot_cp_q  = wrapper.rot_cp_q(T=200.0)
+    #vib_cp_q  = wrapper.vib_cp_q(T=200.0)
+
+    #total_cp = trans_cp + rot_cp_cl + vib_cp_q
+
+    #print(" -----  T = 200K ----")
+    #print("Translational contribution to CP: {}".format(trans_cp))
+    #print("[Cl] Rotational contribution    to CP: {}".format(rot_cp_cl))
+    #print("[Q]  Rotational contribution    to CP: {}".format(rot_cp_q))
+    #print("Vibrational contribution   to CP: {}".format(vib_cp_q))
+    #print("                        TOTAL CP: {}".format(total_cp))
 
 def run_example_03():
     gbasis = 'CC-PVDZ'
 
-    logging.info(f" --- CO2 RHF THERMOCHEMISTRY USING BASIS={gbasis} --- ")
-    wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
-
-    wrapper.load_inpfile()
-
-    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
-    temperature_field = ", ".join(list(map(str, temperatures)))
-
-    wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
-        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
-        "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
-        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
-        "force" : {"TEMP(1)" : temperature_field}
-    })
-    wrapper.save_inpfile(f"3_co2_rhf_thermo-basis={gbasis}.fly")
-
-    wrapper.clean_wd()
-    wrapper.run(link_basis=gbasis)
-    wrapper.clean_up()
-
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
     wrapper.load_out()
-    thermo = wrapper.thermo()
 
-    Cp_RHF = [block["CP"] for _, block in thermo.items()]
-    print("Cp_RHF: {}".format(Cp_RHF))
+    #logging.info(f" --- CO2 RHF THERMOCHEMISTRY USING BASIS={gbasis} --- ")
+    #wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
 
-    #############################################################################
+    #wrapper.load_inpfile()
 
-    logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
-    wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
+    #temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+    #temperature_field = ", ".join(list(map(str, temperatures)))
 
-    wrapper.load_inpfile()
+    #wrapper.set_options({
+    #    "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+    #               "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+    #    "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+    #    "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+    #    "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+    #    "force" : {"TEMP(1)" : temperature_field}
+    #})
+    #wrapper.save_inpfile(f"3_co2_rhf_thermo-basis={gbasis}.fly")
 
-    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
-    temperature_field = ", ".join(list(map(str, temperatures)))
+    #wrapper.clean_wd()
+    #wrapper.run(link_basis=gbasis)
+    #wrapper.clean_up()
 
-    wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
-        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
-        "mp2"   : {"METHOD": 1},
-        "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
-        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
-        "force" : {"TEMP(1)" : temperature_field}
-    })
-    wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    #wrapper.load_out()
+    #thermo = wrapper.thermo()
 
-    wrapper.clean_wd()
-    wrapper.run(link_basis=gbasis)
-    wrapper.clean_up()
+    #Cp_RHF = [block["CP"] for _, block in thermo.items()]
+    #print("Cp_RHF: {}".format(Cp_RHF))
 
-    wrapper.load_out()
-    thermo = wrapper.thermo()
+    ##############################################################################
 
-    Cp_MP2 = [block["CP"] for _, block in thermo.items()]
-    print("Cp_MP2: {}".format(Cp_MP2))
+    #logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
+    #wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
 
-    #############################################################################
+    #wrapper.load_inpfile()
 
-    Cp_NIST = np.asarray([NIST_CO2_CP(t) for t in temperatures])
-    print("Cp_NIST:       {}".format(Cp_NIST))
+    #temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+    #temperature_field = ", ".join(list(map(str, temperatures)))
 
-    plt.figure(figsize=(10, 10))
+    #wrapper.set_options({
+    #    "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+    #               "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+    #    "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+    #    "mp2"   : {"METHOD": 1},
+    #    "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+    #    "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+    #    "force" : {"TEMP(1)" : temperature_field}
+    #})
+    #wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
 
-    plt.plot(temperatures, Cp_RHF, color='y', label=f"HF/{gbasis}")
-    plt.plot(temperatures, Cp_MP2, color='b', label=f"MP2/{gbasis}")
-    plt.plot(temperatures, Cp_NIST, color='r', label="NIST")
+    #wrapper.clean_wd()
+    #wrapper.run(link_basis=gbasis)
+    #wrapper.clean_up()
 
-    plt.legend(fontsize=14)
-    plt.xlabel("Temperature, K")
-    plt.ylabel("Heat capacity, kcal/mol")
+    #wrapper.load_out()
+    #thermo = wrapper.thermo()
 
-    plt.show()
-    logging.info("---------------------------------------------------------\n")
+    #Cp_MP2 = [block["CP"] for _, block in thermo.items()]
+    #print("Cp_MP2: {}".format(Cp_MP2))
+
+    ##############################################################################
+
+    #Cp_NIST = np.asarray([NIST_CO2_CP(t) for t in temperatures])
+    #print("Cp_NIST:       {}".format(Cp_NIST))
+
+    #plt.figure(figsize=(10, 10))
+
+    #plt.plot(temperatures, Cp_RHF, color='y', label=f"HF/{gbasis}")
+    #plt.plot(temperatures, Cp_MP2, color='b', label=f"MP2/{gbasis}")
+    #plt.plot(temperatures, Cp_NIST, color='r', label="NIST")
+
+    #plt.legend(fontsize=14)
+    #plt.xlabel("Temperature, K")
+    #plt.ylabel("Heat capacity, kcal/mol")
+
+    #plt.show()
+    #logging.info("---------------------------------------------------------\n")
 
 def run_example_04():
     gbasis = 'CC-PVDZ'
@@ -640,6 +814,59 @@ def run_example_04():
 
     logging.info("---------------------------------------------------------\n")
 
+def basis_extrapolation():
+    n  = np.array([2.0, 3.0, 4.0])
+
+    mode = 'bond'
+
+    if mode == 'nu2':
+        freqs = np.array([645.66, 658.94, 662.65])
+    elif mode == 'nu1':
+        freqs = np.array([1327.69, 1331.60, 1334.69])
+    elif mode == 'nu3':
+        freqs = np.array([2442.93, 2422.67, 2420.14])
+    elif mode == 'bond':
+        freqs = np.array([1.176, 1.169, 1.166])
+
+    def model(x, e_cbs, a):
+        return e_cbs + a * x**(-3)
+
+    from scipy.optimize import curve_fit
+
+    if mode == 'nu2':
+        initial_params = np.array([670.0, -150.0])
+    elif mode == 'nu1':
+        initial_params = np.array([1350.0, -50.0])
+    elif mode == 'nu3':
+        initial_params = np.array([2400.0, 50.0])
+    elif mode == 'bond':
+        initial_params = np.array([1.160, 1.0])
+
+    popt, pcov = curve_fit(model, n, freqs, p0=initial_params, method='lm', epsfcn=1e-3)
+
+    print("Optimized parameters: {}".format(popt))
+
+    n_min, n_max = 2.0, 4.0
+    n_pred  = np.linspace(n_min, n_max, 300)
+    freqs_pred = model(n_pred, *popt)
+
+    plt.figure(figsize=(10, 8))
+
+    plt.scatter(n, freqs, color='r', s=40)
+    plt.plot(n_pred, freqs_pred, color='y', lw=2.0)
+
+    if mode == 'nu2':
+        plt.ylim((600.0, 700.0))
+    elif mode == 'nu1':
+        plt.ylim((1300.0, 1350.0))
+    elif mode == 'nu3':
+        plt.ylim((2400.0, 2450.0))
+    elif mode == 'bond':
+        plt.ylim((1.160, 1.180))
+
+    plt.show()
+
+
 
 if __name__ == "__main__":
     logger = logging.getLogger()
@@ -650,10 +877,14 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
+    run_cp_contributions()
+
+    #basis_extrapolation()
+
     #run_example_01()
     #run_example_02()
     #run_example_03()
-    run_example_04()
+    #run_example_04()
 
 
 

@@ -4,14 +4,14 @@
 ! The periods are required.
 
 ! Comment fields are turned on by the exclamation mark (!)
-! Notice: All namelist groups ($..) should be indented by a single space
+! Notice: All namelist groups should be indented by a single space
 ! in order to be properly parsed. 
 
-! $CONTRL options:
+! CONTRL options:
 ! * Distance unit: 
 !    
 !   For cartesian coordinates, the distance unit is set with the keyword `UNITS`
-!   in the $CONTRL group. Possible values are ANGS (the default) and BOHR (Bohr
+!   in the CONTRL group. Possible values are ANGS (the default) and BOHR (Bohr
 !   atomic units).
 ! 
 ! * Integral implementation (p. 87):
@@ -36,7 +36,7 @@
 
  $CONTRL SCFTYP=RHF MULT=1 UNITS=BOHR $END
 
-! $SYSTEM options:
+! SYSTEM options:
 ! * TIMLIM (default: 2880) -- CPU time limit, in minutes.
 !   When running in parallel, this is the CPU time allotted to 
 !   each instance of Firefly.
@@ -50,7 +50,7 @@
  $BASIS EXTFILE=.t. GBASIS=cc-pVDZ $END
 
 ! -PK- option for the calcultion of the 2e integrals
-! $SCF options:
+! SCF options:
 ! * DIRSCF=.T./.F. (default: .F.)
 !   Specifies whether the SCF calculation is performed in direct or
 !   conventional way. In the case of direct calculation, the integrals
