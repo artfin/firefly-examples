@@ -32,7 +32,8 @@ UGC          = 8.31446261815324    # SI: m^3 * Pa / K / mol
 a0           = 5.29177210903e-11   # SI: m
 SpeedOfLight = 299792458.0         # SI: m/s
 
-BOHR_TO_ANG  = 0.529177
+BOHR_TO_ANG = 0.529177
+CAL_TO_J    = 4.184
 
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
@@ -238,7 +239,7 @@ class Wrapper:
         masses = [float(line.split()[2]) for line in m]
 
         CM = sum(masses)
- 
+
         p = 1.01325E+05 # pascal
         V = Boltzmann * T / p
         trans = (2.0 * np.pi * CM * Dalton * Boltzmann * T / Planck**2)**1.5 * V
@@ -288,9 +289,34 @@ class Wrapper:
 
         return UGC * T**2 * der
 
+
     def rot_cp_q(self, T):
         dT = 1e-5
         return (self.rot_int_energy_q(T + dT) - self.rot_int_energy_q(T - dT)) / (2.0 * dT)
+
+    def rot_cp_EM1(self, T):
+        IT = 158.00455 * Dalton * a0**2
+        theta_rot = Planck * Planck / (8.0 * np.pi**2 * IT * Boltzmann)
+
+        return 3.0 * UGC * T * (3.0 * T + 2.0 * theta_rot) / (3.0 * T + theta_rot)**2
+
+    def rot_cp_EM2(self, T):
+        IT = 158.00455 * Dalton * a0**2
+        theta_rot = Planck * Planck / (8.0 * np.pi**2 * IT * Boltzmann)
+
+        return UGC * (225.0 * T**4 + 150.0 * T**3 * theta_rot + 60.0 * T**2 * theta_rot**2 - theta_rot**4) / (15.0 * T**2 + 5.0 * theta_rot * T + theta_rot**2)**2
+
+    def rot_cp_EM3(self, T):
+        IT = 158.00455 * Dalton * a0**2
+        theta_rot = Planck * Planck / (8.0 * np.pi**2 * IT * Boltzmann)
+
+        return UGC * (99225.0 * T**6 + 66150.0 * T**5 * theta_rot + 26460.0 * T**4 * theta_rot**2 + 10080.0 * T**3 * theta_rot**3 + 399.0 * T**2 * theta_rot**4 - 168.0 * T * theta_rot**5 - 32.0 * theta_rot**6) / (315.0 * T**3 + 105.0 * theta_rot * T**2 + 21.0 * theta_rot**2 * T + 4.0 * theta_rot**3)**2
+
+    def rot_cp_EM4(self, T):
+        IT = 158.00455 * Dalton * a0**2
+        theta_rot = Planck * Planck / (8.0 * np.pi**2 * IT * Boltzmann)
+
+        return UGC * (99225.0 * T**8 + 66150.0 * T**7 * theta_rot + 26460.0 * T**6 * theta_rot**2 + 10080.0 * T**5 * theta_rot**3 + 4809.0 * T**4 * theta_rot**4 + 462.0 * T**3 * theta_rot**5 - 32.0 * T**2 * theta_rot**6 - 16.0 * T * theta_rot**7 - 3 * theta_rot**8) / (315.0 * T**4 + 105.0 * theta_rot * T**3 + 21.0 * theta_rot**2 * T**2 + 4.0 * theta_rot**3 * T + theta_rot**4)**2
 
     def vib_cp_q(self, T):
         freqs = self.frequencies()[5:]
@@ -301,6 +327,9 @@ class Wrapper:
             cp += x**2 * np.exp(-x) / (np.exp(-x) - 1)**2
 
         return UGC * cp
+
+    def vib_cp_cl(self, T):
+        return 4.0 * UGC
 
     def vib_partf_q(self, T):
         freqs = self.frequencies()[5:]
@@ -320,6 +349,37 @@ class Wrapper:
             qvib *= Boltzmann * T / (Planck * SpeedOfLight * 100.0 * f)
 
         return qvib
+
+    def rot_entropy_q(self, T):
+        return self.rot_int_energy_q(T) / T + UGC * self.rot_partf_q(T)
+
+    def rot_entropy_cl(self, T):
+        return UGC * np.log(self.rot_partf_cl(T)) + UGC
+
+    def trans_entropy(self, T):
+        lines = "".join(self.outfile)
+
+        pattern ="""ATOMIC WEIGHTS \(AMU\)\n\n (?: +\d+ +\w +\d+.\d+\n)+"""
+        m = re.findall(pattern, lines)[0]
+
+        m = m.split('\n')[2:-1]
+        masses = [float(line.split()[2]) for line in m]
+
+        CM = sum(masses)
+
+        # Source: https://mipt.ru/dbmp/upload/088/glava3-arphlf43020.pdf (p.49; eq. 3.16)
+        p = 1.0 # atm
+        return 1.5 * UGC * np.log(CM) + 2.5 * UGC * np.log(T) - UGC * np.log(p) - 9.7
+
+    def vib_entropy_q(self, T):
+        freqs = self.frequencies()[5:]
+
+        svib = 0.0
+        for f in freqs:
+            a = Planck * SpeedOfLight * 100.0 * f / Boltzmann / T
+            svib = svib + a * np.exp(-a) / (1 - np.exp(-a)) - np.log(1 - np.exp(-a))
+
+        return UGC * svib
 
 
 def run_example_01():
@@ -585,11 +645,64 @@ def NIST_CO2_CP(T):
     D = 7.948387
     E = -0.136638
 
-    JTOKCAL = 0.2390057361
     t = T / 1000.0
-    return JTOKCAL * (A + B * t + C * t**2 + D * t**3 + E * t**(-2)) # cal/mol*K
+    return A + B * t + C * t**2 + D * t**3 + E * t**(-2) # J/(mol*K)
 
-def run_cp_contributions():
+def NIST_CO2_S(T):
+    A = 24.99735
+    B = 55.18696
+    C = -33.69137
+    D = 7.948387
+    E = -0.136638
+    G = 228.2431
+
+    t = T / 1000.0
+    return A * np.log(t) + B * t + C * t**2 / 2 + D * t**3 / 3 - E / (2.0 * t**2) + G # J/mol/K
+
+
+def run_cp_vib():
+    gbasis = 'CC-PVDZ'
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    wrapper.load_out()
+
+    T = np.linspace(0.01, 3000.0, 300)
+
+    Cpvib_q  = np.asarray([wrapper.vib_cp_q(tt) for tt in T])
+    Cpvib_cl = np.asarray([wrapper.vib_cp_cl(tt) for tt in T])
+
+    plt.figure(figsize=(10, 8))
+
+    plt.plot(T, Cpvib_cl, color='#FF6F61', linestyle='--', label='Class')
+    plt.plot(T, Cpvib_q, color='#CFBFF7', label='Q')
+
+    plt.xlim((0.0, 3000.0))
+    plt.ylim((0.0, 35.0))
+
+    plt.xlabel("Temperature, K")
+    plt.ylabel(r"$C_p^\textrm{vib}$, J $\cdot$ mol$^{-1} \cdot$K$^{-1}$")
+
+    plt.legend(fontsize=14)
+
+    plt.show()
+
+def run_entropy_rot():
+    gbasis = 'CC-PVTZ'
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    wrapper.load_out()
+
+    T = np.linspace(0.01, 5.0, 100)
+
+    rot_S_q  = np.asarray([wrapper.rot_entropy_q(tt) for tt in T])
+    rot_S_cl = np.asarray([wrapper.rot_entropy_cl(tt) for tt in T])
+
+    plt.figure(figsize=(10, 8))
+
+    plt.plot(T, rot_S_cl, color='#FF6F61', linestyle='--', label='Class')
+    plt.plot(T, rot_S_q, color='#CFBFF7', label='Q')
+
+    plt.show()
+
+def run_cp_rot():
     gbasis = 'CC-PVDZ'
     wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
     wrapper.load_out()
@@ -606,15 +719,24 @@ def run_cp_contributions():
     #print("[Q]  Rotational U: {}".format(Urot_q))
     #print("[Cl] Rotational U: {}".format(Urot_cl))
 
-    T = np.linspace(0.1, 10.0, 300)
+    T = np.linspace(0.01, 10.0, 300)
 
     Cprot_cl = np.asarray([wrapper.rot_cp_cl(tt) for tt in T])
     Cprot_q  = np.asarray([wrapper.rot_cp_q(tt) for tt in T])
 
+    Cprot_EM1 = np.asarray([wrapper.rot_cp_EM1(tt) for tt in T])
+    Cprot_EM2 = np.asarray([wrapper.rot_cp_EM2(tt) for tt in T])
+    Cprot_EM3 = np.asarray([wrapper.rot_cp_EM3(tt) for tt in T])
+    Cprot_EM4 = np.asarray([wrapper.rot_cp_EM4(tt) for tt in T])
+
     plt.figure(figsize=(10, 8))
 
-    plt.plot(T, Cprot_cl, color='#FF6F61', linestyle='--')
-    plt.plot(T, Cprot_q,  color='#CFBFF7')
+    plt.plot(T, Cprot_cl, color='#FF6F61', linestyle='--', label='Class')
+    plt.plot(T, Cprot_q,  color='#CFBFF7', label='QM')
+    #plt.plot(T, Cprot_EM1, color='#6CD4FF', label='EM-1')
+    #plt.plot(T, Cprot_EM2, color='#88B04B', label='EM-2')
+    #plt.plot(T, Cprot_EM3, color='#6B5B95', label='EM-3')
+    #plt.plot(T, Cprot_EM4, color='yellow', label='EM-4')
 
     plt.xlabel(r"Temperature, K")
     plt.ylabel(r"$C_p^\textrm{rot}$, J $\cdot$ mol$^{-1} \cdot$K$^{-1}$")
@@ -622,27 +744,16 @@ def run_cp_contributions():
     plt.xlim((0.0, 6.0))
     plt.ylim((0.0, 15.0))
 
+    plt.legend(fontsize=14)
+
     plt.show()
 
-    #trans_cp  = wrapper.trans_cp(T=200.0)
-    #rot_cp_cl = wrapper.rot_cp_cl(T=200.0)
-    #rot_cp_q  = wrapper.rot_cp_q(T=200.0)
-    #vib_cp_q  = wrapper.vib_cp_q(T=200.0)
-
-    #total_cp = trans_cp + rot_cp_cl + vib_cp_q
-
-    #print(" -----  T = 200K ----")
-    #print("Translational contribution to CP: {}".format(trans_cp))
-    #print("[Cl] Rotational contribution    to CP: {}".format(rot_cp_cl))
-    #print("[Q]  Rotational contribution    to CP: {}".format(rot_cp_q))
-    #print("Vibrational contribution   to CP: {}".format(vib_cp_q))
-    #print("                        TOTAL CP: {}".format(total_cp))
 
 def run_example_03():
-    gbasis = 'CC-PVDZ'
+    gbasis = 'CC-PVTZ'
 
-    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
-    wrapper.load_out()
+    #wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    #wrapper.load_out()
 
     #logging.info(f" --- CO2 RHF THERMOCHEMISTRY USING BASIS={gbasis} --- ")
     #wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
@@ -653,11 +764,12 @@ def run_example_03():
     #temperature_field = ", ".join(list(map(str, temperatures)))
 
     #wrapper.set_options({
-    #    "contrl": {"SCFTYP": "RHF", "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-    #               "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
-    #    "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
-    #    "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
-    #    "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+    #    "contrl" : {"SCFTYP": "RHF", "MAXIT": 100, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+    #                "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+    #    "system" : {"memory" : 12000000},
+    #    "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+    #    "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+    #    "statpt" : {"METHOD": "NR", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
     #    "force" : {"TEMP(1)" : temperature_field}
     #})
     #wrapper.save_inpfile(f"3_co2_rhf_thermo-basis={gbasis}.fly")
@@ -672,54 +784,83 @@ def run_example_03():
     #Cp_RHF = [block["CP"] for _, block in thermo.items()]
     #print("Cp_RHF: {}".format(Cp_RHF))
 
-    ##############################################################################
+    #############################################################################
 
-    #logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
-    #wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
+    logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
+    wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
 
-    #wrapper.load_inpfile()
+    wrapper.load_inpfile()
 
-    #temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
-    #temperature_field = ", ".join(list(map(str, temperatures)))
+    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+    temperature_field = ", ".join(list(map(str, temperatures)))
 
-    #wrapper.set_options({
-    #    "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-    #               "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
-    #    "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
-    #    "mp2"   : {"METHOD": 1},
-    #    "statpt": {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
-    #    "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
-    #    "force" : {"TEMP(1)" : temperature_field}
-    #})
-    #wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
+    wrapper.set_options({
+        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "mp2"   : {"METHOD": 1},
+        "statpt" : {"METHOD": "NR", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "force" : {"TEMP(1)" : temperature_field}
+    })
+    wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
 
     #wrapper.clean_wd()
     #wrapper.run(link_basis=gbasis)
     #wrapper.clean_up()
 
-    #wrapper.load_out()
-    #thermo = wrapper.thermo()
+    wrapper.load_out()
+    thermo = wrapper.thermo()
 
-    #Cp_MP2 = [block["CP"] for _, block in thermo.items()]
-    #print("Cp_MP2: {}".format(Cp_MP2))
+    Cp_MP2 = [block["CP"] * CAL_TO_J for _, block in thermo.items()]
 
-    ##############################################################################
+    #############################################################################
 
-    #Cp_NIST = np.asarray([NIST_CO2_CP(t) for t in temperatures])
-    #print("Cp_NIST:       {}".format(Cp_NIST))
+    def tot_entropy(T):
+        trans_entropy = wrapper.trans_entropy(T)
+        rot_entropy   = wrapper.rot_entropy_cl(T)
+        vib_entropy   = wrapper.vib_entropy_q(T)
+        return trans_entropy + rot_entropy + vib_entropy
+
+    temperatures = np.linspace(200.0, 1000.0, 300)
+
+    S_MP2 = np.asarray([tot_entropy(tt) for tt in temperatures])
+    S_NIST = np.asarray([NIST_CO2_S(tt) for tt in temperatures])
+
+    plt.figure(figsize=(10, 10))
+
+    plt.plot(temperatures, S_MP2, color='#FF6F61', label=f"MP2/{gbasis}")
+    plt.plot(temperatures, S_NIST, color='#CFBFF7', label="NIST", linestyle='--')
+
+    plt.xlabel("Temperature")
+    plt.ylabel(r"S, J$\cdot$mol$^{-1}\cdot$K$^{-1}$")
+
+    plt.legend(fontsize=14)
+
+    plt.show()
+
+    #def tot_cp(T):
+    #    trans_cp  = wrapper.trans_cp(T)
+    #    rot_cp_q = wrapper.rot_cp_q(T)
+    #    vib_cp_q  = wrapper.vib_cp_q(T)
+    #    total_cp = trans_cp + rot_cp_q + vib_cp_q
+    #    return total_cp
+
+
+    #temperatures = np.linspace(1.0, 50.0, 100)
+    #Cp_MP2  = np.asarray([tot_cp(tt) for tt in temperatures])
+    #Cp_NIST = np.asarray([NIST_CO2_CP(tt) for tt in temperatures])
 
     #plt.figure(figsize=(10, 10))
 
-    #plt.plot(temperatures, Cp_RHF, color='y', label=f"HF/{gbasis}")
-    #plt.plot(temperatures, Cp_MP2, color='b', label=f"MP2/{gbasis}")
-    #plt.plot(temperatures, Cp_NIST, color='r', label="NIST")
+    #plt.plot(temperatures, Cp_MP2, color='#FF6F61', label=f"MP2/{gbasis}")
 
     #plt.legend(fontsize=14)
     #plt.xlabel("Temperature, K")
-    #plt.ylabel("Heat capacity, kcal/mol")
+    #plt.ylabel("$C_p$, J$\cdot$mol$^{-1} \cdot$ K$^{-1}$")
 
     #plt.show()
-    #logging.info("---------------------------------------------------------\n")
 
 def run_example_04():
     gbasis = 'CC-PVDZ'
@@ -877,7 +1018,8 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    run_cp_contributions()
+    run_cp_rot()
+    #run_cp_vib()
 
     #basis_extrapolation()
 
