@@ -38,8 +38,10 @@ CAL_TO_J    = 4.184
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
 class Wrapper:
-    EXE = "/home/artfin/Desktop/QC-2022/firefly/firefly820"
-    LIB = "/home/artfin/Desktop/QC-2022/firefly-examples/lib/"
+    EXE     = "/home/artfin/Desktop/QC-2022/firefly/firefly820"
+    PROCGRP = "/home/artfin/Desktop/QC-2022/firefly/procgrp"
+    P2PLIB  = "/home/artfin/Desktop/QC-2022/firefly/"
+    LIB     = "/home/artfin/Desktop/QC-2022/firefly-examples/lib/"
 
     def __init__(self, wd=None, inpfname=None):
         self.wd = os.path.abspath(wd)
@@ -54,8 +56,24 @@ class Wrapper:
 
         self.outfname = self.basename + '.out'
 
+    @classmethod
+    def generate_input(cls, wd, inpfname, options):
+        wd = os.path.abspath(wd)
+        fname = os.path.join(wd, inpfname)
+        open(fname, 'w').close()
+
+        obj = cls(wd, inpfname)
+
+        obj.inp_code = [""]
+        obj.set_options(options)
+        obj.inp_code = obj.inp_code[::-1]
+
+        obj.save_inpfile(fname)
+
+        return obj
+
     def locate_group(self, lines, group):
-        group_start = None 
+        group_start = None
         for n, line in enumerate(lines):
             if group in line:
                 group_start = n
@@ -92,6 +110,8 @@ class Wrapper:
             del self.inp_code[group_start : group_end + 1]
         else:
             group_start, _ = self.locate_group(self.inp_code, group="$DATA")
+            if group_start is None:
+                group_start = 0
 
         if group_name == "$DATA":
             s = """ $DATA\n {}\n {}\n""".format(options["COMMENT"], options["SYMMETRY"])
@@ -107,7 +127,6 @@ class Wrapper:
             s = self.wrap_field(s) + "\n"
 
         self.inp_code.insert(group_start, s)
-
 
     def save_inpfile(self, fname):
         path = os.path.join(self.wd, fname)
@@ -141,7 +160,7 @@ class Wrapper:
             os.remove(f)
 
     def run(self, link_basis=None):
-        cmd = f"{self.EXE} -r -f -p -stdext -i {self.inpfname} -o {self.outfname} -t {self.wd}"
+        cmd = f"{self.EXE} -r -f -p -stdext -i {self.inpfname} -o {self.outfname} -t {self.wd} -ex {self.P2PLIB} -p4pg {self.PROCGRP}"
 
         if link_basis is not None:
             link_basis = link_basis.lower()
@@ -564,7 +583,7 @@ def run_example_02():
    # assert positive
     #############################################################################
 
-    basis = "CC-PVQZ"
+    basis = "CC-PVTZ"
     logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS={} --- ".format(basis))
     wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
 
@@ -703,21 +722,21 @@ def run_entropy_rot():
     plt.show()
 
 def run_cp_rot():
-    gbasis = 'CC-PVDZ'
+    gbasis = 'CC-PVTZ'
     wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
     wrapper.load_out()
 
-    #qrot_cl = wrapper.rot_partf_cl(T=200.0)
-    #qrot_q = wrapper.rot_partf_q(T=200.0)
+    qrot_cl = wrapper.rot_partf_cl(T=1.0)
+    qrot_q = wrapper.rot_partf_q(T=1.0)
 
-    #print("[Q]  Rotational partf: {}".format(qrot_q))
-    #print("[Cl] Classical  partf: {}".format(qrot_cl))
+    print("[Q]  Rotational partf: {}".format(qrot_q))
+    print("[Cl] Classical  partf: {}".format(qrot_cl))
 
-    #Urot_cl = wrapper.rot_int_energy_cl(T=200.0)
-    #Urot_q  = wrapper.rot_int_energy_q(T=200.0)
+    Urot_cl = wrapper.rot_int_energy_cl(T=1.0)
+    Urot_q  = wrapper.rot_int_energy_q(T=1.0)
 
-    #print("[Q]  Rotational U: {}".format(Urot_q))
-    #print("[Cl] Rotational U: {}".format(Urot_cl))
+    print("[Q]  Rotational U: {}".format(Urot_q))
+    print("[Cl] Rotational U: {}".format(Urot_cl))
 
     T = np.linspace(0.01, 10.0, 300)
 
@@ -1008,6 +1027,396 @@ def basis_extrapolation():
     plt.show()
 
 
+def nitrobenzene():
+
+    # INITIAL GEOMETRY
+    #  Atom(symbol="C", charge=6, x=-3.5048225421, y= 0.0711805817, z= 0.1456897967),
+    #  Atom(symbol="C", charge=6, x=-2.1242069042, y= 0.0676957680, z= 0.1437250554),
+    #  Atom(symbol="C", charge=6, x=-1.4565144627, y= 1.2657898054, z= 0.0112805274),
+    #  Atom(symbol="C", charge=6, x=-2.1243502782, y= 2.4616659201, z=-0.1394727314),
+    #  Atom(symbol="C", charge=6, x=-3.5049153121, y= 2.4578370923, z=-0.1457245349),
+    #  Atom(symbol="C", charge=6, x=-4.1936081427, y= 1.2645153194, z= 0.0001955136),
+    #  Atom(symbol="H", charge=1, x=-4.0381801262, y=-0.8505059514, z= 0.2559173303),
+    #  Atom(symbol="H", charge=1, x=-1.5620288767, y=-0.8346363876, z= 0.2389155097),
+    #  Atom(symbol="H", charge=1, x=-1.5619534389, y= 3.3630228735, z=-0.2428628637),
+    #  Atom(symbol="H", charge=1, x=-4.0382012347, y= 3.3785626398, z=-0.2639829256),
+    #  Atom(symbol="H", charge=1, x=-5.2650389640, y= 1.2641688843, z=-0.0022762561),
+    #  Atom(symbol="N", charge=7, x=-0.0085078655, y= 1.2648596634, z=-0.0056641832),
+    #  Atom(symbol="O", charge=8, x= 0.5639468379, y= 0.1670702678, z=-0.1297708787),
+    #  Atom(symbol="O", charge=8, x= 0.5668300231, y= 2.3598431617, z= 0.1306822195),
+
+    # Optimized geometry at B3LYP/aug-cc-pvdz [takes almost 3 hours of optimization from the INITIAL 
+    # geometry above]
+
+    def nitrobenzene_optimization():
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE DFT ENERGY USING BASIS={gbasis} --- ")
+        geom = [
+            Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
+            Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
+            Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
+            Atom(symbol="C", charge=6.0, x=-2.1223665235, y= 2.4810881214, z=-0.1197323600),
+            Atom(symbol="C", charge=6.0, x=-3.5180686681, y= 2.4726126865, z=-0.1186804612),
+            Atom(symbol="C", charge=6.0, x=-4.2147274028, y= 1.2645070081, z=-0.0004746888),
+            Atom(symbol="H", charge=1.0, x=-4.0625666258, y=-0.8829026850, z= 0.2078697524),
+            Atom(symbol="H", charge=1.0, x=-1.5543436055, y=-0.8744126626, z= 0.2082094593),
+            Atom(symbol="H", charge=1.0, x=-1.5540485677, y= 3.4029710264, z=-0.2096948047),
+            Atom(symbol="H", charge=1.0, x=-4.0622624422, y= 3.4117648649, z=-0.2101477738),
+            Atom(symbol="H", charge=1.0, x=-5.3046313610, y= 1.2646613789, z= 0.0002413395),
+            Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
+            Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
+            Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
+        ]
+
+        options = {
+            "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP" : "OPTIMIZE", "MULT": 1, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
+
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene.fly", options=options)
+
+        wrapper.clean_wd()
+        wrapper.run(link_basis=gbasis)
+        wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method="rhf")
+        logging.info("DFT B3LYP ENERGY: {}".format(energy))
+        logging.info("---------------------------------------------------------\n")
+
+    def nitrobenzene_freqs():
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE DFT HESSIAN USING BASIS={gbasis} --- ")
+        geom = [
+            Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
+            Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
+            Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
+            Atom(symbol="C", charge=6.0, x=-2.1223665235, y= 2.4810881214, z=-0.1197323600),
+            Atom(symbol="C", charge=6.0, x=-3.5180686681, y= 2.4726126865, z=-0.1186804612),
+            Atom(symbol="C", charge=6.0, x=-4.2147274028, y= 1.2645070081, z=-0.0004746888),
+            Atom(symbol="H", charge=1.0, x=-4.0625666258, y=-0.8829026850, z= 0.2078697524),
+            Atom(symbol="H", charge=1.0, x=-1.5543436055, y=-0.8744126626, z= 0.2082094593),
+            Atom(symbol="H", charge=1.0, x=-1.5540485677, y= 3.4029710264, z=-0.2096948047),
+            Atom(symbol="H", charge=1.0, x=-4.0622624422, y= 3.4117648649, z=-0.2101477738),
+            Atom(symbol="H", charge=1.0, x=-5.3046313610, y= 1.2646613789, z= 0.0002413395),
+            Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
+            Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
+            Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
+        ]
+
+        options = {
+            "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP" : "HESSIAN", "MULT": 1, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "force"  : {"NVIB" : 1, "PROJCT": ".T."},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
+
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-hessian.fly", options=options)
+
+        wrapper.clean_wd()
+        wrapper.run(link_basis=gbasis)
+        wrapper.clean_up()
+
+        wrapper.load_out()
+        logging.info("---------------------------------------------------------\n")
+
+
+    def nitrobenzene_energy_pcm():
+       gbasis = "ACC-PVDZ"
+       logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
+
+       geom = [
+           Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
+           Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
+           Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
+           Atom(symbol="C", charge=6.0, x=-2.1223665235, y= 2.4810881214, z=-0.1197323600),
+           Atom(symbol="C", charge=6.0, x=-3.5180686681, y= 2.4726126865, z=-0.1186804612),
+           Atom(symbol="C", charge=6.0, x=-4.2147274028, y= 1.2645070081, z=-0.0004746888),
+           Atom(symbol="H", charge=1.0, x=-4.0625666258, y=-0.8829026850, z= 0.2078697524),
+           Atom(symbol="H", charge=1.0, x=-1.5543436055, y=-0.8744126626, z= 0.2082094593),
+           Atom(symbol="H", charge=1.0, x=-1.5540485677, y= 3.4029710264, z=-0.2096948047),
+           Atom(symbol="H", charge=1.0, x=-4.0622624422, y= 3.4117648649, z=-0.2101477738),
+           Atom(symbol="H", charge=1.0, x=-5.3046313610, y= 1.2646613789, z= 0.0002413395),
+           Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
+           Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
+           Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
+       ]
+
+       # UFF model: 
+       # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
+
+       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
+             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
+       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
+            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
+       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
+             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
+
+       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
+
+       xe_field = ", ".join(list(map(str, xe)))
+       ye_field = ", ".join(list(map(str, ye)))
+       ze_field = ", ".join(list(map(str, ze)))
+       RIN_field = ", ".join(list(map(str, radii)))
+
+       options = {
+           "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "MULT": 1, "UNITS": "ANGS",
+                       "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+           "system" : {"memory" : 12000000},
+           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+           "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
+           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
+           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+       }
+
+       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-ch3cn.fly", options=options)
+
+       wrapper.clean_wd()
+       wrapper.run(link_basis=gbasis)
+       wrapper.clean_up()
+
+       wrapper.load_out()
+       energy = wrapper.energy(method="rhf")
+       logging.info("DFT B3LYP ENERGY: {}".format(energy))
+       logging.info("---------------------------------------------------------\n")
+
+    def nitrobenzene_anion_optimization():
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE DFT ENERGY USING BASIS={gbasis} --- ")
+        # geom = [
+        #     Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
+        #     Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
+        #     Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
+        #     Atom(symbol="C", charge=6.0, x=-2.1223665235, y= 2.4810881214, z=-0.1197323600),
+        #     Atom(symbol="C", charge=6.0, x=-3.5180686681, y= 2.4726126865, z=-0.1186804612),
+        #     Atom(symbol="C", charge=6.0, x=-4.2147274028, y= 1.2645070081, z=-0.0004746888),
+        #     Atom(symbol="H", charge=1.0, x=-4.0625666258, y=-0.8829026850, z= 0.2078697524),
+        #     Atom(symbol="H", charge=1.0, x=-1.5543436055, y=-0.8744126626, z= 0.2082094593),
+        #     Atom(symbol="H", charge=1.0, x=-1.5540485677, y= 3.4029710264, z=-0.2096948047),
+        #     Atom(symbol="H", charge=1.0, x=-4.0622624422, y= 3.4117648649, z=-0.2101477738),
+        #     Atom(symbol="H", charge=1.0, x=-5.3046313610, y= 1.2646613789, z= 0.0002413395),
+        #     Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
+        #     Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
+        #     Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
+        # ]
+
+        # FINAL OPTIMIZED GEOMETRY OF THE ANION
+        geom = [
+            Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711), 
+            Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
+            Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
+            Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
+            Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
+            Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
+            Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
+            Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
+            Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
+            Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
+            Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
+            Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
+            Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
+            Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
+        ]
+
+        options = {
+            "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "RUNTYP" : "OPTIMIZE", "ICHARG": -1, "MULT": 2, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
+
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion.fly", options=options)
+
+        wrapper.clean_wd()
+        wrapper.run(link_basis=gbasis)
+        wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method="rhf")
+        logging.info("DFT B3LYP ENERGY: {}".format(energy))
+        logging.info("---------------------------------------------------------\n")
+
+    def nitrobenzene_anion_freqs():
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE ANION-RADICAL DFT HESSIAN USING BASIS={gbasis} --- ")
+
+        geom = [
+            Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711), 
+            Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
+            Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
+            Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
+            Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
+            Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
+            Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
+            Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
+            Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
+            Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
+            Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
+            Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
+            Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
+            Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
+        ]
+
+        options = {
+            "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "RUNTYP" : "HESSIAN", "ICHARG": -1, "MULT": 2, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "force"  : {"NVIB" : 1, "PROJCT": ".T."},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
+
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion-hessian.fly", options=options)
+
+        wrapper.clean_wd()
+        wrapper.run(link_basis=gbasis)
+        wrapper.clean_up()
+
+        wrapper.load_out()
+        logging.info("---------------------------------------------------------\n")
+
+    def nitrobenzene_anion_energy_pcm():
+       gbasis = "ACC-PVDZ"
+       logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
+
+       geom = [
+           Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711), 
+           Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
+           Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
+           Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
+           Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
+           Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
+           Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
+           Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
+           Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
+           Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
+           Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
+           Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
+           Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
+           Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
+       ]
+
+       # UFF model: 
+       # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
+
+       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
+             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
+       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
+            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
+       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
+             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
+
+       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
+
+       xe_field = ", ".join(list(map(str, xe)))
+       ye_field = ", ".join(list(map(str, ye)))
+       ze_field = ", ".join(list(map(str, ze)))
+       RIN_field = ", ".join(list(map(str, radii)))
+
+       options = {
+           "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "ICHARG": -1, "MULT": 2, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+           "system" : {"memory" : 12000000},
+           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+           "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
+           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
+           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+           "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+       }
+
+       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion-ch3cn.fly", options=options)
+
+       wrapper.clean_wd()
+       wrapper.run(link_basis=gbasis)
+       wrapper.clean_up()
+
+       wrapper.load_out()
+       energy = wrapper.energy(method="rhf")
+       logging.info("DFT B3LYP ENERGY: {}".format(energy))
+       logging.info("---------------------------------------------------------\n")
+
+    def gas_phase_ionization():
+        E_NB_neutral = -436.8199112585
+        E_NB_anion   = -436.8638008151
+
+        ZPE_neutral = 0.102718
+        ZPE_anion   = 0.099631
+
+        AU_TO_EV = 27.211
+        E_neutral = E_NB_neutral + ZPE_neutral
+        E_anion   = E_NB_anion   + ZPE_anion
+        EA = (E_neutral - E_anion) * AU_TO_EV
+
+        print("Gas phase ionization potential: {} eV".format(EA))
+
+    def redox_potential():
+        # SCF E + Delta G(solv) 
+        E_NB_neutral_solv = -436.8257920569
+        E_NB_anion_solv   = -436.9478811603
+
+        ZPE_neutral = 0.102718
+        ZPE_anion   = 0.099631
+
+        G_corr_neutral = 0.0708299
+        G_corr_anion   = 0.067418
+
+        AU_TO_EV = 27.211
+        G_NB_neutral = E_NB_neutral_solv + ZPE_neutral + G_corr_neutral
+        G_NB_anion   = E_NB_anion_solv   + ZPE_anion   + G_corr_anion
+        dGred = (- G_NB_neutral + G_NB_anion) * AU_TO_EV
+
+        print("Delta G of reduction: {}".format(dGred))
+
+        ne = 1.0
+        F  = 1.0
+        NHE = -4.43 # eV; NHE = Normal Hydrogen Electrode
+        redox = -dGred / ne / F + NHE
+        print("Redox potential: {}".format(redox))
+
+    # Neutral molecule
+    # Gas phase: DFT B3LYP ENERGY: -436.8199112585                                       [90 min optimization]
+    # CH3CN:     DFT B3LYP ENERGY: -436.8257920569 <= UFF van der Waals atom radii
+    # CH3CN:     DFT B3LYP ENERGY: -436.8288505477 <= default van der Waals atom radii
+
+    # Hessian: [130 min x 4 proc]
+    # THE HARMONIC ZERO POINT ENERGY IS 0.102718 HARTREE/MOLECULE  
+    # free energy correction (total=trans+rot+vib): 44.446 kcal/mol = 0.0708299 Eh 
+
+    # Anion
+    # Gas phase: DFT B3LYP ENERGY: -436.8638008151                                       [60 min optimization from gas phase structure]
+    # CH3CN:     DFT B3LYP ENERGY: -436.9478811603 <= UFF van der Waals atom radii
+
+    # Hessian: [200 min x 4 proc]
+    # THE HARMONIC ZERO POINT ENERGY IS 0.099631 HARTREE/MOLECULE
+    # free energy correction (total=trans+rot+vib): 42.305 kcal/mol = 0.067418 Eh 
+
+    # 1 Eh = 627.503 kcal/mol
+
+    # charge | minimized E (gas) | free energy correction (gas) |      ZPE     | SCF E + Delta G(solv) 
+    #    0   |  -436.8199112585  |           0.0708299          |   0.102718   |   -436.8257920569        
+    #    -1  |  -436.8638008151  |           0.067418           |   0.099631   |   -436.9478811603  
+
+
+    gas_phase_ionization()
+    #nitrobenzene_freqs()
+    #nitrobenzene_anion_freqs()
+    redox_potential()
+
 
 if __name__ == "__main__":
     logger = logging.getLogger()
@@ -1018,7 +1427,8 @@ if __name__ == "__main__":
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    run_cp_rot()
+    # --------- PRAK 1 --------------
+    #run_cp_rot()
     #run_cp_vib()
 
     #basis_extrapolation()
@@ -1028,5 +1438,6 @@ if __name__ == "__main__":
     #run_example_03()
     #run_example_04()
 
-
+    # --------- PRAK 2 --------------
+    nitrobenzene()
 
