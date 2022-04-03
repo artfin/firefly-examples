@@ -32,8 +32,9 @@ UGC          = 8.31446261815324    # SI: m^3 * Pa / K / mol
 a0           = 5.29177210903e-11   # SI: m
 SpeedOfLight = 299792458.0         # SI: m/s
 
-BOHR_TO_ANG = 0.529177
-CAL_TO_J    = 4.184
+BOHR_TO_ANG   = 0.529177
+CAL_TO_J      = 4.184
+H_TO_KCAL_MOL = 627.509608
 
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
@@ -102,7 +103,7 @@ class Wrapper:
 
     @staticmethod
     def wrap_field(s, WIDTH=70):
-        return "\n".join(textwrap.wrap(s, width=WIDTH, initial_indent=''))
+        return "\n".join(textwrap.wrap(s, width=WIDTH, initial_indent='', replace_whitespace=True))
 
     def set_block(self, group_name, options):
         group_start, group_end = self.locate_group(self.inp_code, group=group_name)
@@ -139,9 +140,10 @@ class Wrapper:
         self.outfname = self.basename + '.out'
 
     def clean_up(self):
-        tmp_dir = self.wd + '.0'
-        assert os.path.isdir(tmp_dir)
-        shutil.rmtree(tmp_dir)
+        for n in range(4):
+            tmp_dir = self.wd + f'.{n}'
+            if os.path.isdir(tmp_dir):
+                shutil.rmtree(tmp_dir)
 
         dat = os.path.splitext(self.inpfname)[0] + '.dat'
         assert os.path.isfile(dat)
@@ -193,11 +195,26 @@ class Wrapper:
             energy = re.findall(pattern, lines)
             assert len(energy) == 1
             energy = float(energy[0])
-
+        elif method == "optimize":
+            pattern = "TOTAL ENERGY = + ([-+]?\d+.\d+)"
+            energy = re.findall(pattern, lines)
+            energy = list(map(float, energy))
+        elif method == "solution":
+            pattern = "TOTAL FREE ENERGY IN SOLVENT + = + ([-+]?\d+.\d+)"
+            energy = re.findall(pattern, lines)
+            assert len(energy) == 1
+            energy = float(energy[0])
         else:
             raise ValueError("unreachable")
 
         return energy
+
+    def parse_zpe(self):
+        lines = "".join(self.outfile)
+        pattern = "THE HARMONIC ZERO POINT ENERGY IS \(SCALED BY   1.000\)\n + (\d+.\d+) HARTREE/MOLECULE"
+        zpe = re.findall(pattern, lines)
+        assert len(zpe) == 1
+        return float(zpe[0])
 
     def frequencies(self):
         freqs = []
@@ -231,15 +248,14 @@ class Wrapper:
 
         pattern = """E         H         G         CV        CP        S
        + KCAL/MOL  KCAL/MOL  KCAL/MOL CAL/MOL-K CAL/MOL-K CAL/MOL-K
- ELEC. + \d+.\d+ + \d+.\d+ + \d+.\d+ + \d+.\d+ + \d+.\d+ + \d+.\d+
+ ELEC. + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+
  TRANS. + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+
  ROT. + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+
  VIB. + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+ + [-+]?\d+.\d+
- TOTAL. + ([-+]?\d+.\d+) + ([-+]?\d+.\d+) + ([-+]?\d+.\d+) + ([-+]?\d+.\d+) + ([-+]?\d+.\d+) + ([-+]?\d+.\d+)"""
+ TOTAL +([-+]?\d+.\d+) +([-+]?\d+.\d+) +([-+]?\d+.\d+) +([-+]?\d+.\d+) +([-+]?\d+.\d+) +([-+]?\d+.\d+)"""
 
         quantities = ("E", "H", "G", "CV", "CP", "S")
         total_matches = re.findall(pattern, lines)
-
         assert len(temperatures) == len(total_matches)
 
         total_thermo = {}
@@ -1571,6 +1587,749 @@ def nitrobenzene():
 
     redox_potential_opt()
 
+
+def acetic_acid():
+    gbasis = "ACC-PVDZ"
+    logging.info(f" --- ACETIC ACID DFT ENERGY USING BASIS={gbasis} --- ")
+    geom = [
+        Atom(symbol="H", charge=1.0, x=-0.911466037, y= 0.134713529, z=-4.436015650),
+        Atom(symbol="O", charge=8.0, x=-0.911466037, y=-0.373052567, z=-3.607012062),
+        Atom(symbol="O", charge=8.0, x=-0.911466037, y= 1.737765752, z=-2.821469232),
+        Atom(symbol="C", charge=6.0, x=-0.911466037, y= 0.546532271, z=-2.607978107),
+        Atom(symbol="C", charge=6.0, x=-0.911466037, y=-0.113120930, z=-1.252643138),
+        Atom(symbol="H", charge=1.0, x=-0.030318037, y=-0.753033297, z=-1.149291593),
+        Atom(symbol="H", charge=1.0, x=-0.911466037, y= 0.650936769, z=-0.476687742),
+        Atom(symbol="H", charge=1.0, x=-1.792614037, y=-0.753033297, z=-1.149291593),
+    ]
+
+    options = {
+        "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP" : "OPTIMIZE", "MULT": 1, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F."},
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+        "data"   : {"COMMENT": "ACETIC ACID", "SYMMETRY": "C1", "GEOMETRY": geom},
+    }
+
+    wrapper = Wrapper.generate_input(wd="acetic-acid", inpfname="acetic-acid.fly", options=options)
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=gbasis)
+    wrapper.clean_up()
+
+    logging.info("---------------------------------------------------------\n")
+
+def dft_optimize(gbasis, charge, mult, geom):
+    if mult == 1:
+        SCFTYP = "RHF"
+    elif mult == 2:
+        SCFTYP = "UHF"
+
+    return {
+        "contrl" : {"SCFTYP": SCFTYP, "DFTTYP" : "B3LYP", "RUNTYP": "OPTIMIZE", "ICHARG": charge, "MULT" : mult,
+                    "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 150},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F."},
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom},
+    }
+
+def dft_hessian(gbasis, charge, mult, geom):
+    if mult == 1:
+        SCFTYP = "RHF"
+    elif mult == 2:
+        SCFTYP = "UHF"
+
+    return {
+        "contrl" : {"SCFTYP": SCFTYP, "DFTTYP" : "B3LYP", "RUNTYP" : "HESSIAN", "ICHARG" : charge, "MULT" : mult,
+                    "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F."},
+        "force"  : {"NVIB" : 1, "PROJCT": ".T."},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom},
+    }
+
+Solvent = namedtuple("Solvent", ["EPS", "EPSINF", "RSOLV"])
+
+
+
+def dft_optimize_pcm(gbasis, charge, geom, xe_field=None, ye_field=None, ze_field=None, RIN_field=None, solvent=None):
+    return {
+        "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP": "OPTIMIZE", "ICHARG": charge,
+                   "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+#       "pcm"    : {"PCMTYP" : "CPCM", "EPS": solvent.EPS, "EPSINF": solvent.EPSINF, "RSOLV": solvent.RSOLV, "ICENT": 1},
+#       "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
+        "pcm"    : {"PCMTYP" : "DPCM", "solvnt" : "water"},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
+    }
+
+def dft_hessian_pcm(gbasis, charge, geom):
+    return {
+       "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP" : "HESSIAN", "ICHARG": charge,
+                   "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+       "system" : {"memory" : 12000000},
+       "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+       "force"  : {"NVIB" : 1, "PROJCT": ".T."},
+       "pcm"    : {"PCMTYP" : "DPCM", "solvnt" : "water"},
+       "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+       "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+       "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
+    }
+
+
+def formic_acid():
+    def free_energy_gas(run=True, charge=0):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- FORMIC ACID DFT ENERGY USING BASIS={gbasis} CHARGE={charge} --- ")
+
+        if charge == 0:
+            geom = [
+                Atom(symbol="C", charge=6.0, x=-0.136440, y= 0.398339, z=0.0),
+                Atom(symbol="O", charge=8.0, x=-1.134475, y=-0.263170, z=0.0),
+                Atom(symbol="O", charge=8.0, x=1.118039, y=-0.090345, z=0.0),
+                Atom(symbol="H", charge=1.0, x=-0.097393, y=1.496365, z=0.0),
+                Atom(symbol="H", charge=1.0, x=1.047524, y=-1.05278, z=0.0),
+            ]
+        elif charge == -1:
+            geom = [
+                Atom(symbol="H", charge=1.0, x=-0.000527, y=1.46308, z=0.0),
+                Atom(symbol="C", charge=6.0, x=0.0, y=0.307752, z=0.0),
+                Atom(symbol="O", charge=8.0, x=-1.137525, y=-0.207123, z=0.0),
+                Atom(symbol="O", charge=8.0, x=1.137591, y=-0.206574, z=0.0),
+            ]
+
+        wrapper = Wrapper.generate_input(
+            wd="formic-acid",
+            inpfname="formic-acid-opt-charge={}.fly".format(charge),
+            options=dft_optimize(gbasis, charge, geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='optimize')[-1]
+        print("Energy at optimized geometry: {} HARTREE".format(energy)) 
+
+        geometries = wrapper.opt_geometries(natoms=len(geom))
+
+        opt = geometries[-1]
+        logging.info("Optimized geometry (ANG):")
+        for atom in opt:
+            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+        wrapper = Wrapper.generate_input(
+            wd="formic-acid",
+            inpfname="formic-acid-hess-charge={}.fly".format(charge),
+            options=dft_hessian(gbasis, charge, opt)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        freqs = wrapper.frequencies()
+        zpe = wrapper.parse_zpe()
+        thermo = wrapper.thermo()
+
+        positive = all(f >= 0.0 for f in freqs)
+        logging.info("Assert freqs > 0: {}".format(positive))
+        assert positive
+
+        print("ZPE: {} HARTREE/MOLECULE".format(zpe))
+
+        free_energy_corr = thermo[298.15]['G'] / H_TO_KCAL_MOL
+        print("Free energy correction: {} HARTREE".format(free_energy_corr))
+
+        free_energy = energy + zpe + free_energy_corr
+        print("Free energy: {} HARTREE".format(free_energy))
+
+        logging.info("---------------------------------------------------------\n")
+
+        return opt, free_energy
+
+    def free_energy_solv(geom, run=True, charge=0):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- FORMIC ACID DFT/PCM ENERGY USING BASIS={gbasis} charge={charge} --- ")
+
+        # UFF model: 
+        # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
+        #UFF_RADII = {
+        #    "C" : 1.9255,
+        #    "H" : 1.4430,
+        #    "N" : 1.83,
+        #    "O" : 1.75
+        #}
+
+        #Source: https://pcmsolver.readthedocs.io/en/stable/users/input.html#available-solvents
+        #WATER = Solvent(EPS=78.39, EPSINF=1.776, RSOLV=1.385)
+
+        wrapper = Wrapper.generate_input(
+            wd="formic-acid",
+            inpfname="formic-acid-solv-opt-charge={}.fly".format(charge),
+            options=dft_optimize_pcm(
+                gbasis, charge, geom,
+                #xe_field=", ".join(list(map(str, [atom.x for atom in geom]))),
+                #ye_field=", ".join(list(map(str, [atom.y for atom in geom]))),
+                #ze_field=", ".join(list(map(str, [atom.z for atom in geom]))),
+                #RIN_field=", ".join(list(map(str, [UFF_RADII[atom.symbol] for atom in geom]))),
+                #solvent=WATER
+            )
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='optimize')[-1]
+        logging.info("Energy in solvent at optimized geometry: {} Hartree".format(energy))
+        logging.info("---------------------------------------------------------\n")
+
+        geometries = wrapper.opt_geometries(natoms=len(geom))
+
+        opt = geometries[-1]
+        logging.info("Optimized geometry in solvent (ANG):")
+        for atom in opt:
+            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+        wrapper = Wrapper.generate_input(
+            wd="formic-acid",
+            inpfname="formic-acid-solv-hess-charge={}.fly".format(charge),
+            options=dft_hessian_pcm(gbasis, charge, opt)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        freqs = wrapper.frequencies()
+        zpe = wrapper.parse_zpe()
+        thermo = wrapper.thermo()
+
+        positive = all(f >= 0.0 for f in freqs)
+        logging.info("Assert freqs > 0: {}".format(positive))
+        assert positive
+
+        print("ZPE: {} HARTREE/MOLECULE".format(zpe))
+
+        free_energy_corr = thermo[298.15]['G'] / H_TO_KCAL_MOL
+        print("Free energy correction: {} HARTREE".format(free_energy_corr))
+
+        free_energy = energy + zpe + free_energy_corr
+        print("Free energy: {} HARTREE".format(free_energy))
+
+        return free_energy
+
+    G_gas_Hcat                 = -6.28 # kcal/mol; Source: 10.1021/ja010534f, p.7316
+    opt_neutral, G_gas_neutral = free_energy_gas(run=False, charge=0)
+    opt_anion,   G_gas_anion   = free_energy_gas(run=False, charge=-1)
+
+    G_gas_neutral  *= H_TO_KCAL_MOL
+    G_gas_anion    *= H_TO_KCAL_MOL
+
+    print("G_gas_neutral: {}".format(G_gas_neutral))
+    print("G_gas_anion: {}".format(G_gas_anion))
+
+    # experimental dG0: 339.14 kcal/mol; Source: https://webbook.nist.gov/cgi/cbook.cgi?ID=C64186&Units=SI&Mask=8#Thermo-React 
+    dG0 = G_gas_anion + G_gas_Hcat - G_gas_neutral
+    print("dG0_gas: {} KCAL/MOL".format(dG0))
+
+    G_solv_neutral = free_energy_solv(opt_neutral, run=False, charge=0)
+    G_solv_anion   = free_energy_solv(opt_anion,   run=False, charge=-1)
+
+    G_solv_neutral *= H_TO_KCAL_MOL
+    G_solv_anion   *= H_TO_KCAL_MOL
+
+    print("G_solv_neutral: {}".format(G_solv_neutral))
+    print("G_solv_anion:   {}".format(G_solv_anion))
+
+    dG_neutral = G_solv_neutral - G_gas_neutral
+    dG_anion   = G_solv_anion - G_gas_anion
+    dG_Hcat = -264.61 # kcal/mol; Source: 10.1021/ja010534f, p.7316  
+    print("dGs(AH): {} KCAL/MOL".format(dG_neutral))
+    print("dGs(A-): {} KCAL/MOL".format(dG_anion))
+
+    ddG = dG_Hcat + dG_anion - dG_neutral
+    print("ddG: {} KCAL/MOL".format(ddG))
+
+    dGaq = dG0 + ddG + 1.89
+    pK = dGaq / 1.3644
+    print("dG0_gas: {} KCAL/MOL".format(dG0))
+    print("dGaq: {} KCAL/MOL".format(dGaq))
+    print("pK: {}".format(pK))
+
+    ###
+
+    print('------')
+    G_solv_Hcat = G_gas_Hcat + dG_Hcat
+    dG_direct = G_solv_anion + G_solv_Hcat - G_solv_neutral
+    print("[DIRECT] dGaq: {} KCAL/MOL".format(dG_direct))
+    print('------')
+
+
+
+    #####
+    dG_neutral = -7.0
+    dG_anion   = -78.0
+    dG0        = 338.3
+
+    dG_aq = dG0 + dG_anion + dG_Hcat - dG_neutral + 1.89
+    print("[literature] dGaq: {} KCAL/MOL".format(dG_aq))
+    pK = dG_aq / 1.3644
+    print("[literature] pK: {}".format(pK))
+
+def dft_energy_pcm(gbasis, charge, mult, geom, xe_field=None, ye_field=None, ze_field=None, RIN_field=None, solvent=None):
+    if mult == 1:
+        SCFTYP = "RHF"
+    elif mult == 2:
+        SCFTYP = "UHF"
+
+    # minimal exponent of the function of the given angular momentum in aug-cc-pVDZ basis set
+    BASIS_MIN_EXPONENT = {
+        "C" : {0 : 0.0469, 2 : 0.151},  #1 : 0.04041, 2 : 0.151},
+        "H" : {0 : 0.02974}, #1 : 0.141},
+        "O" : {0 : 0.07896, 2 : 0.332}, #1 : 0.06856, 2 : 0.332},
+    }
+
+    NKTYP = [l for atom in geom for l in list(BASIS_MIN_EXPONENT[atom.symbol].keys())]
+    NKTYP_field = ", ".join(map(str, NKTYP))
+
+    NADD = len(NKTYP)
+
+    XYZE_field = ""
+    for atom in geom:
+        ls = BASIS_MIN_EXPONENT[atom.symbol]
+        for (l, exponent) in ls.items():
+            s = "{:.7f} {:.7f} {:.7f} {:.8f}\n".format(atom.x / BOHR_TO_ANG , atom.y / BOHR_TO_ANG, atom.z / BOHR_TO_ANG, exponent / 3) # NOTE: exponent is divided by 3
+            XYZE_field += s
+
+    return {
+        "contrl" : {"SCFTYP": SCFTYP, "DFTTYP": "B3LYP", "ICHARG": charge, "MULT" : mult,
+                   "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+        #"pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IDISP": 1, "solvnt" : "water"},
+        #"disrep" : {"ICLAV" : 1, "RHO" : "3.348D-02", "N" : 2, "NT(1)" : "2,1", "RDIFF(1)": "1.20,1.50", "DKT(1)": "1.0,1.36", "RWT(1)": "1.2,1.5"},
+        "pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IREP": 1, "IDP" : 1, "solvnt" : "water"},
+        #"disbs"  : {"NADD" : NADD, "NKTYP(1)" : NKTYP_field, "XYZE(1)" : XYZE_field},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
+    }
+
+
+def phenol():
+    def free_energy_gas(run=True, charge=0, mult=1):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- PHENOL DFT ENERGY USING BASIS={gbasis} charge={charge} --- ")
+
+        #### INITIAL GEOMETRY FROM CHEMCRAFT
+        #geom = [
+        #    Atom(symbol="C", charge=6.0, x=3.077618713, y= 0.000000000, z=-1.893164308),
+        #    Atom(symbol="C", charge=6.0, x=1.921550020, y=-0.354690359, z=-1.195000308),
+        #    Atom(symbol="C", charge=6.0, x=4.233687406, y= 0.354690359, z=-1.195000308),
+        #    Atom(symbol="H", charge=1.0, x=1.022124914, y=-0.630640582, z=-1.738173308),
+        #    Atom(symbol="H", charge=1.0, x=5.133112512, y= 0.630640582, z=-1.738173308),
+        #    Atom(symbol="C", charge=6.0, x=1.921550020, y=-0.354690359, z= 0.201329692),
+        #    Atom(symbol="C", charge=6.0, x=4.233687406, y= 0.354690359, z= 0.201329692),
+        #    Atom(symbol="H", charge=1.0, x=5.133112512, y= 0.630640582, z= 0.744502692),
+        #    Atom(symbol="C", charge=6.0, x=3.077618713, y= 0.000000000, z= 0.899493692),
+        #    Atom(symbol="H", charge=1.0, x=3.077618713, y= 0.000000000, z= 1.985840692),
+        #    Atom(symbol="H", charge=1.0, x=3.077618713, y= 0.000000000, z=-2.979511308),
+        #    Atom(symbol="O", charge=8.0, x=1.136591214, y=-0.832127798, z= 0.925523141),
+        #    Atom(symbol="H", charge=1.0, x=1.167760370, y=-0.074590798, z= 2.030895686),
+        #]
+
+        # OPTIMIZED GEOMETRY, NEUTRAL PHENOL
+        geom = [
+            Atom(symbol="C", charge=6.0, x=3.0874765509, y= -0.0101365583, z= -1.8711320889),
+            Atom(symbol="C", charge=6.0, x=1.9418949289, y= -0.3291555015, z= -1.1402020000),
+            Atom(symbol="C", charge=6.0, x=4.2742081570, y=  0.3492036802, z= -1.2210803661),
+            Atom(symbol="H", charge=1.0, x=1.0128936692, y= -0.6097163450, z= -1.6348087086),
+            Atom(symbol="H", charge=1.0, x=5.1645981155, y=  0.5977614354, z= -1.7971793838),
+            Atom(symbol="C", charge=6.0, x=1.9828636115, y= -0.2884372428, z=  0.2585036530),
+            Atom(symbol="C", charge=6.0, x=4.3052622087, y=  0.3853849015, z=  0.1755708406),
+            Atom(symbol="H", charge=1.0, x=5.2223451981, y=  0.6625426104, z=  0.6958663949),
+            Atom(symbol="C", charge=6.0, x=3.1645231381, y=  0.0677341531, z=  0.9192987400),
+            Atom(symbol="H", charge=1.0, x=3.1925563006, y=  0.0972045766, z=  2.0105734110),
+            Atom(symbol="H", charge=1.0, x=3.0514265920, y= -0.0430690918, z= -2.9603017292),
+            Atom(symbol="O", charge=8.0, x=0.8297376855, y= -0.6083082950, z=  0.9319640896),
+            Atom(symbol="H", charge=1.0, x=0.9838650700, y= -0.5470863368, z=  1.8828195864),
+        ]
+
+        wrapper = Wrapper.generate_input(
+            wd="phenol",
+            inpfname="phenol-opt-charge={}.fly".format(charge),
+            options=dft_optimize(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='optimize')[-1]
+        logging.info("Energy at optimized geometry: {} Hartree".format(energy))
+
+        geometries = wrapper.opt_geometries(natoms=len(geom))
+
+        opt = geometries[-1]
+        logging.info("Optimized geometry (ANG):")
+        for atom in opt:
+            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+        if mult != 2:
+            wrapper = Wrapper.generate_input(
+                wd="phenol",
+                inpfname="phenol-hess-charge={}.fly".format(charge),
+                options=dft_hessian(gbasis, charge=charge, mult=mult, geom=opt)
+            )
+
+            if run:
+                wrapper.clean_wd()
+                wrapper.run(link_basis=gbasis)
+                wrapper.clean_up()
+
+            wrapper.load_out()
+            freqs = wrapper.frequencies()
+            zpe = wrapper.parse_zpe()
+            thermo = wrapper.thermo()
+
+            positive = all(f >= 0.0 for f in freqs)
+            logging.info("Assert freqs > 0: {}".format(positive))
+            assert positive
+
+            print("ZPE: {} HARTREE/MOLECULE".format(zpe))
+
+            free_energy_corr = thermo[298.15]['G'] / H_TO_KCAL_MOL
+            print("Free energy correction: {} HARTREE".format(free_energy_corr))
+
+            free_energy = energy + zpe + free_energy_corr
+            print("Free energy: {} HARTREE".format(free_energy))
+
+            logging.info("---------------------------------------------------------\n")
+        else:
+            free_energy = energy
+
+        return opt, free_energy
+
+    def free_energy_solv(run=False, geom=None, charge=0, mult=1):
+        gbasis = "ACC-PVDZ"
+
+        wrapper = Wrapper.generate_input(
+            wd="phenol",
+            inpfname="phenol-pcm-en-charge={}.fly".format(charge),
+            options=dft_energy_pcm(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='solution')
+        logging.info("Total free energy in solution: {}".format(energy))
+
+        return energy
+
+    def gas_phase_attachment():
+        E_phenol_neutral = -307.5163862183
+        E_phenol_anion   = -307.5015694141
+
+        ZPE_neutral = 0.104200
+        ZPE_anion   = 0.102974
+
+        AU_TO_EV = 27.211
+        E_neutral = E_phenol_neutral + ZPE_neutral
+        E_anion   = E_phenol_anion   + ZPE_anion
+        EA = (E_neutral - E_anion) * AU_TO_EV
+
+        logging.info("Gas phase electron attachment energy: {} eV".format(EA))
+
+    def VIE_phenol_gas():
+        E_phenol_neutral = -307.5163862183
+        E_phenol_cat     = -307.2120048479
+
+        ZPE_neutral = 0.104200
+        ZPE_cat   = 0.102974 ### THIS IS NOT TRUE
+
+        AU_TO_EV = 27.211
+        E_neutral = E_phenol_neutral + ZPE_neutral
+        E_cat     = E_phenol_cat     + ZPE_cat
+        return (E_cat - E_neutral) * AU_TO_EV
+
+
+    def VIE_phenol_solution():
+        AU_TO_EV = 27.211
+
+        E_sol_neutral = -307.519516828
+        E_sol_cat     = -307.3001277169
+
+        ZPE_neutral = 0.104200
+        ZPE_cat = 0.109274 ### THIS IS NOT TRUE
+
+        E_neutral = E_sol_neutral + ZPE_neutral
+        E_cat     = E_sol_cat     + ZPE_cat
+        return (E_cat - E_neutral) * AU_TO_EV
+
+    opt_neutral, G_neutral_gas = free_energy_gas(run=False, charge=0, mult=1)
+    opt_cation, G_cation_gas = free_energy_gas(run=False, charge=+1, mult=2)
+
+    G_neutral_solv = free_energy_solv(run=False, geom=opt_neutral, charge=0, mult=1)
+    G_cation_solv  = free_energy_solv(run=False, geom=opt_cation, charge=+1, mult=2)
+
+    IE_gas = VIE_phenol_gas()
+    IE_sol = VIE_phenol_solution()
+
+    IE_gas_exp = 8.51 # eV
+    IE_sol_exp = 7.8  # eV 
+
+    logging.info("-------------------------------------")
+    logging.info("(Gas phase) calculated   ionization potential: {:.2f} eV".format(IE_gas))
+    logging.info("(Gas phase) experimental ionization potential: {:.2f} eV [adiabatic]".format(IE_gas_exp))
+    logging.info("(Solution)  calculated   ionization potential: {:.2f} eV".format(IE_sol))
+    logging.info("(Solution)  experimental ionization potential: {:.2f} eV".format(IE_sol_exp))
+    logging.info("-------------------------------------")
+
+ # XCPCM = 0.5, i.e. COSMO
+ # TOTAL FREE ENERGY IN SOLVENT                        =     -307.5243606139 A.U.
+
+# IREP/IDP, only s-functions in dispersion basis set with 1/3 exponent from the aug-cc-pVDZ basis set
+#
+#  FREE ENERGY IN SOLVENT = <PSI| H(0)+V/2 |PSI>       =     -307.5463315373 A.U.
+#  INTERNAL ENERGY IN SOLVENT = <PSI| H(0) |PSI>       =     -307.5147319841 A.U.
+#  DELTA INTERNAL ENERGY =  <D-PSI| H(0) |D-PSI>       =        0.0016542342 A.U.
+#  ELECTROSTATIC INTERACTION = 1/2(PB+PC) + 1/2PX + UNZ=       -0.0091981606 A.U.
+#  PIEROTTI CAVITATION ENERGY                          =        0.0257815840 A.U.
+#  DISPERSION FREE ENERGY                              =       -0.0301763157 A.U.
+#  REPULSION FREE ENERGY                               =        0.0077749230 A.U.
+#  TOTAL INTERACTION (DELTA + ES + CAV + DISP + REP)   =       -0.0058179693 A.U.
+#  TOTAL FREE ENERGY IN SOLVENT                        =     -307.5205499533 A.U.
+#      PB  =   428.67554897 A.U.   PC  =   428.84842627 A.U.
+#      PX  =  -429.08498446 A.U.   UNZ =  -214.22869355 A.U.
+
+# NO $DISBS GROUP => DISPERSION IS CALCULATED USING DEFAULT BASIS: AUG-CC-PVDZ
+#
+# FREE ENERGY IN SOLVENT = <PSI| H(0)+V/2 |PSI>       =     -307.5452984119 A.U.
+# INTERNAL ENERGY IN SOLVENT = <PSI| H(0) |PSI>       =     -307.5149125280 A.U.
+# DELTA INTERNAL ENERGY =  <D-PSI| H(0) |D-PSI>       =        0.0014736903 A.U.
+# ELECTROSTATIC INTERACTION = 1/2(PB+PC) + 1/2PX + UNZ=       -0.0092106250 A.U.
+# PIEROTTI CAVITATION ENERGY                          =        0.0257815840 A.U.
+# DISPERSION FREE ENERGY                              =       -0.0289250728 A.U.
+# REPULSION FREE ENERGY                               =        0.0077498138 A.U.
+# TOTAL INTERACTION (DELTA + ES + CAV + DISP + REP)   =       -0.0046042999 A.U.
+# TOTAL FREE ENERGY IN SOLVENT                        =     -307.5195168280 A.U.
+#     PB  =   428.67389422 A.U.   PC  =   428.84599638 A.U.
+#     PX  =  -429.08092475 A.U.   UNZ =  -214.22869355 A.U.
+
+
+
+def phenolate():
+    def free_energy_gas(run=True, charge=-1, mult=1):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- PHENOLATE DFT ENERGY USING BASIS={gbasis} charge={charge} --- ")
+
+        # OPTIMIZED GEOMETRY, PHENOLATE ANION
+        geom = [
+            Atom(symbol="C", charge= 6.0, x= 3.0907826422, y= -0.0090863665, z= -1.8730878818),
+            Atom(symbol="C", charge= 6.0, x= 1.9447341925, y= -0.3283230938, z= -1.1491767377),
+            Atom(symbol="C", charge= 6.0, x= 4.2915519175, y=  0.3536499986, z= -1.2343411527),
+            Atom(symbol="H", charge= 1.0, x= 1.0229139792, y= -0.6073321773, z= -1.6667557839),
+            Atom(symbol="H", charge= 1.0, x= 5.1852831172, y=  0.6029126285, z= -1.8089421666),
+            Atom(symbol="C", charge= 6.0, x= 1.9062627265, y= -0.3097533080, z=  0.2999158757),
+            Atom(symbol="C", charge= 6.0, x= 4.2976899080, y=  0.3832000167, z=  0.1729262609),
+            Atom(symbol="H", charge= 1.0, x= 5.2180006709, y=  0.6614080034, z=  0.6986136184),
+            Atom(symbol="C", charge= 6.0, x= 3.1631124093, y=  0.0676032391, z=  0.9161200922),
+            Atom(symbol="H", charge= 1.0, x= 3.1912527858, y=  0.0972356676, z=  2.0087094936),
+            Atom(symbol="H", charge= 1.0, x= 3.0553402767, y= -0.0416672973, z= -2.9677937325),
+            Atom(symbol="O", charge= 8.0, x= 0.8628615302, y= -0.5988389882, z=  0.9708849667),
+        ]
+
+        wrapper = Wrapper.generate_input(
+            wd="phenolate",
+            inpfname="phenolate-opt-charge={}.fly".format(charge),
+            options=dft_optimize(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='optimize')[-1]
+        logging.info("Energy at optimized geometry: {} Hartree".format(energy))
+
+        geometries = wrapper.opt_geometries(natoms=len(geom))
+        opt = geometries[-1]
+        logging.info("Optimized geometry (ANG):")
+        for atom in opt:
+            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+        return opt, energy
+
+    def free_energy_solv(run=False, geom=None, charge=0, mult=1):
+        gbasis = "ACC-PVDZ"
+
+        wrapper = Wrapper.generate_input(
+            wd="phenolate",
+            inpfname="phenolate-pcm-en-charge={}.fly".format(charge),
+            options=dft_energy_pcm(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='solution')
+        logging.info("Total free energy in solution: {}".format(energy))
+
+        return energy
+
+    def VIE_phenolate_gas():
+        E_phenolate     = -306.9518000619
+        E_phenolate_rad = -306.8380905507
+
+        AU_TO_EV = 27.211
+        return (E_phenolate_rad - E_phenolate) * AU_TO_EV
+
+
+    def VIE_phenolate_solution():
+        E_sol_phenolate     = -307.0430584917
+        E_sol_phenolate_rad = -306.842265044
+
+        AU_TO_EV = 27.211
+        return (E_sol_phenolate_rad - E_sol_phenolate) * AU_TO_EV
+
+    opt_anion, G_anion_gas = free_energy_gas(run=False, charge=-1, mult=1)
+    opt_rad, G_rad_gas     = free_energy_gas(run=False, charge=0, mult=2)
+
+    G_anion_solv = free_energy_solv(run=False, geom=opt_anion, charge=-1, mult=1)
+    G_rad_solv   = free_energy_solv(run=False,  geom=opt_rad, charge=0, mult=2)
+
+    IE_gas = VIE_phenolate_gas()
+    IE_sol = VIE_phenolate_solution()
+
+    IE_gas_exp = 2.25 # eV
+    IE_sol_exp = 7.1  # eV
+
+    logging.info("-------------------------------------")
+    logging.info("(Gas phase) calculated   ionization potential: {:.2f} eV".format(IE_gas))
+    logging.info("(Gas phase) experimental ionization potential: {:.2f} eV [adiabatic]".format(IE_gas_exp))
+    logging.info("(Solution)  calculated   ionization potential: {:.2f} eV".format(IE_sol))
+    logging.info("(Solution)  experimental ionization potential: {:.2f} eV".format(IE_sol_exp))
+    logging.info("-------------------------------------")
+
+def phenolate_1water():
+    def free_energy_gas(run=True, charge=-1, mult=1):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- PHENOLATE DFT ENERGY USING BASIS={gbasis} charge={charge} --- ")
+
+        # OPTIMIZED GEOMETRY, PHENOLATE RADICAL + WATER
+        geom = [
+            Atom(symbol="C", charge=6.0, x=  3.2647017670, y=  0.0463657916, z= -1.8675326894), 
+            Atom(symbol="C", charge=6.0, x=  2.1360814093, y= -0.3007037204, z= -1.1274481271),
+            Atom(symbol="C", charge=6.0, x=  4.4528099538, y=  0.4662112463, z= -1.2448613812),
+            Atom(symbol="H", charge=1.0, x=  1.2218523497, y= -0.6210664214, z= -1.6310059227),
+            Atom(symbol="H", charge=1.0, x=  5.3315938273, y=  0.7371284851, z= -1.8321002423),
+            Atom(symbol="C", charge=6.0, x=  2.1218407694, y= -0.2502609309, z=  0.3109867395),
+            Atom(symbol="C", charge=6.0, x=  4.4712968680, y=  0.5271806411, z=  0.1591571354),
+            Atom(symbol="H", charge=1.0, x=  5.3830454661, y=  0.8513106299, z=  0.6712391904),
+            Atom(symbol="C", charge=6.0, x=  3.3528981177, y=  0.1839890412, z=  0.9162673192),
+            Atom(symbol="H", charge=1.0, x=  3.3823584383, y=  0.2382423591, z=  2.0070096365),
+            Atom(symbol="H", charge=1.0, x=  3.2213276062, y= -0.0094919654, z= -2.9599310402),
+            Atom(symbol="O", charge=8.0, x=  1.0909750759, y= -0.5671231870, z=  1.0169593764),
+            Atom(symbol="O", charge=8.0, x= -1.1380652064, y= -1.5634562797, z= -0.0040470331),
+            Atom(symbol="H", charge=1.0, x= -0.2933156817, y= -1.1403827689, z=  0.3561584472),
+            Atom(symbol="H", charge=1.0, x= -0.9279380537, y= -2.5035422239, z=  0.0022223760),
+        ]
+
+        wrapper = Wrapper.generate_input(
+            wd="phenolate-1water",
+            inpfname="phenolate-opt-charge={}.fly".format(charge),
+            options=dft_optimize(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='optimize')[-1]
+        logging.info("Energy at optimized geometry: {} Hartree".format(energy))
+
+        geometries = wrapper.opt_geometries(natoms=len(geom))
+        opt = geometries[-1]
+        logging.info("Optimized geometry (ANG):")
+        for atom in opt:
+            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+        return opt, energy
+
+    def free_energy_solv(run=False, geom=None, charge=0, mult=1):
+        gbasis = "ACC-PVDZ"
+
+        wrapper = Wrapper.generate_input(
+            wd="phenolate-1water",
+            inpfname="phenolate-pcm-en-charge={}.fly".format(charge),
+            options=dft_energy_pcm(gbasis, charge=charge, mult=mult, geom=geom)
+        )
+
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
+
+        wrapper.load_out()
+        energy = wrapper.energy(method='solution')
+        logging.info("Total free energy in solution: {}".format(energy))
+
+        return energy
+
+    def VIE_phenolate_solution():
+        E_sol_phenolate     = -383.5079865587
+        E_sol_phenolate_rad = -383.293209034
+
+        AU_TO_EV = 27.211
+        return (E_sol_phenolate_rad - E_sol_phenolate) * AU_TO_EV
+
+    opt_anion, G_anion_gas = free_energy_gas(run=False, charge=-1, mult=1)
+    opt_rad, G_rad_gas     = free_energy_gas(run=False, charge=0,  mult=2)
+
+    G_anion_solv = free_energy_solv(run=False, geom=opt_anion, charge=-1, mult=1)
+    G_rad_solv   = free_energy_solv(run=False,  geom=opt_rad,  charge=0,  mult=2)
+
+    IE_sol = VIE_phenolate_solution()
+    IE_sol_exp = 7.1  # eV
+
+    logging.info("-------------------------------------")
+    logging.info("(Solution)  calculated   ionization potential: {:.2f} eV".format(IE_sol))
+    logging.info("(Solution)  experimental ionization potential: {:.2f} eV".format(IE_sol_exp))
+    logging.info("-------------------------------------")
+
 if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -1592,5 +2351,11 @@ if __name__ == "__main__":
     #run_example_04()
 
     # --------- PRAK 2 --------------
-    nitrobenzene()
+    #nitrobenzene()
+    #acetic_acid()
+    formic_acid()
+
+    #phenol()
+    #phenolate()
+    #phenolate_1water()
 
