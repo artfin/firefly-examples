@@ -1044,7 +1044,6 @@ def basis_extrapolation():
 
 
 def nitrobenzene():
-
     # INITIAL GEOMETRY
     #  Atom(symbol="C", charge=6, x=-3.5048225421, y= 0.0711805817, z= 0.1456897967),
     #  Atom(symbol="C", charge=6, x=-2.1242069042, y= 0.0676957680, z= 0.1437250554),
@@ -1145,11 +1144,11 @@ def nitrobenzene():
         logging.info("---------------------------------------------------------\n")
 
 
-    def nitrobenzene_energy_pcm():
-       gbasis = "ACC-PVDZ"
-       logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
+    def nitrobenzene_energy_pcm(run=True):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
 
-       geom = [
+        geom = [
            Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
            Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
            Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
@@ -1164,47 +1163,50 @@ def nitrobenzene():
            Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
            Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
            Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
-       ]
+        ]
 
        # UFF model: 
        # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
 
-       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
-             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
-       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
-            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
-       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
-             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
+       #xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
+       #      -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
+       #ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
+       #     -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
+       #ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
+       #      0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
 
-       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
+       #radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
 
-       xe_field = ", ".join(list(map(str, xe)))
-       ye_field = ", ".join(list(map(str, ye)))
-       ze_field = ", ".join(list(map(str, ze)))
-       RIN_field = ", ".join(list(map(str, radii)))
+       #xe_field = ", ".join(list(map(str, xe)))
+       #ye_field = ", ".join(list(map(str, ye)))
+       #ze_field = ", ".join(list(map(str, ze)))
+       #RIN_field = ", ".join(list(map(str, radii)))
 
-       options = {
-           "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "MULT": 1, "UNITS": "ANGS",
-                       "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
-           "system" : {"memory" : 12000000},
-           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
-           "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
-           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
-           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
-           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
-           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
-       }
+        options = {
+            "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "MULT": 1, "UNITS": "ANGS",
+                        "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICAV" : 1,
+                       "TCE" : 0.001397, "VMOL" : 52.8521, "STEN": 29.29, "IDP": 1, "IREP" : 1},
+            "newcav" : {"RHOW": 0.77674, "PM" : 41.0524, "NEVAL": 16},
+            #"pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
 
-       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-ch3cn.fly", options=options)
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-ch3cn.fly", options=options)
 
-       wrapper.clean_wd()
-       wrapper.run(link_basis=gbasis)
-       wrapper.clean_up()
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
 
-       wrapper.load_out()
-       energy = wrapper.energy(method="rhf")
-       logging.info("DFT B3LYP ENERGY: {}".format(energy))
-       logging.info("---------------------------------------------------------\n")
+        wrapper.load_out()
+        energy = wrapper.energy(method="solution")
+        logging.info("PCM ENERGY OF NITROBENZENE: {}".format(energy))
+        logging.info("---------------------------------------------------------\n")
 
     def nitrobenzene_anion_optimization():
         gbasis = "ACC-PVDZ"
@@ -1305,201 +1307,70 @@ def nitrobenzene():
         wrapper.load_out()
         logging.info("---------------------------------------------------------\n")
 
-    def nitrobenzene_anion_energy_pcm():
-       gbasis = "ACC-PVDZ"
-       logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
+    def nitrobenzene_anion_energy_pcm(run=True):
+        gbasis = "ACC-PVDZ"
+        logging.info(f" --- NITROBENZENE DFT/PCM ENERGY USING BASIS={gbasis} --- ")
 
-       geom = [
-           Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711),
-           Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
-           Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
-           Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
-           Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
-           Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
-           Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
-           Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
-           Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
-           Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
-           Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
-           Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
-           Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
-           Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
-       ]
+        geom = [
+            Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711),
+            Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
+            Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
+            Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
+            Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
+            Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
+            Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
+            Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
+            Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
+            Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
+            Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
+            Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
+            Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
+            Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
+        ]
 
-       # UFF model: 
-       # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
+        # UFF model: 
+        # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
 
-       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
-             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
-       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
-            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
-       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
-             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
+        #xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
+        #      -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
+        #ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
+        #     -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
+        #ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
+        #      0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
 
-       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
+        #radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
 
-       xe_field = ", ".join(list(map(str, xe)))
-       ye_field = ", ".join(list(map(str, ye)))
-       ze_field = ", ".join(list(map(str, ze)))
-       RIN_field = ", ".join(list(map(str, radii)))
+        #xe_field = ", ".join(list(map(str, xe)))
+        #ye_field = ", ".join(list(map(str, ye)))
+        #ze_field = ", ".join(list(map(str, ze)))
+        #RIN_field = ", ".join(list(map(str, radii)))
 
-       options = {
-           "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "ICHARG": -1, "MULT": 2, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
-           "system" : {"memory" : 12000000},
-           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
-           "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
-           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
-           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
-           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
-           "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
-           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
-       }
+        options = {
+            "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "ICHARG": -1, "MULT": 2, "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+            "system" : {"memory" : 12000000},
+            "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+            "pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICAV" : 1,
+                        "TCE" : 0.001397, "VMOL" : 52.8521, "STEN": 29.29, "IDP": 1, "IREP" : 1},
+            "newcav" : {"RHOW": 0.77674, "PM" : 41.0524, "NEVAL": 16},
+            #"pcm"    : {"PCMTYP" : "CPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155},
+            #"pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
+            "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+            "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+            "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
+            "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
+        }
 
-       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion-ch3cn.fly", options=options)
+        wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion-ch3cn.fly", options=options)
 
-       wrapper.clean_wd()
-       wrapper.run(link_basis=gbasis)
-       wrapper.clean_up()
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
 
-       wrapper.load_out()
-       energy = wrapper.energy(method="rhf")
-       logging.info("DFT B3LYP ENERGY: {}".format(energy))
-       logging.info("---------------------------------------------------------\n")
-
-    def nitrobenzene_optimization_pcm():
-       gbasis = "ACC-PVDZ"
-       logging.info(f" --- NITROBENZENE DFT/PCM OPTIMIZATION USING BASIS={gbasis} --- ")
-
-# OPTIMIZED GEOMETRY
-# C           6.0  -3.5170445710   0.0553609040   0.1171394579
-# C           6.0  -2.1221653057   0.0463090288   0.1186021650
-# C           6.0  -1.4466932468   1.2643362243  -0.0003106816
-# C           6.0  -2.1220122981   2.4823364853  -0.1197194445
-# C           6.0  -3.5168911007   2.4734384641  -0.1186658424
-# C           6.0  -4.2128953067   1.2644665927  -0.0006539666
-# H           1.0  -4.0613064213  -0.8832986099   0.2082674940
-# H           1.0  -1.5624456598  -0.8804210634   0.2093825822
-# H           1.0  -1.5620955290   3.4090439808  -0.2098961974
-# H           1.0  -4.0609333790   3.4121694732  -0.2100185466
-# H           1.0  -5.3024834047   1.2645796863  -0.0006666887
-# N           7.0   0.0244609839   1.2642875551   0.0006727657
-# O           8.0   0.6052050406   0.1849615749   0.1140617532
-# O           8.0   0.6057489115   2.3434993421  -0.1115432712
-
-       geom = [
-           Atom(symbol="C", charge=6.0, x=-3.5182554149, y= 0.0562214119, z= 0.1169962360),
-           Atom(symbol="C", charge=6.0, x=-2.1225554325, y= 0.0475375150, z= 0.1182080376),
-           Atom(symbol="C", charge=6.0, x=-1.4488934552, y= 1.2642914380, z=-0.0003702357),
-           Atom(symbol="C", charge=6.0, x=-2.1223665235, y= 2.4810881214, z=-0.1197323600),
-           Atom(symbol="C", charge=6.0, x=-3.5180686681, y= 2.4726126865, z=-0.1186804612),
-           Atom(symbol="C", charge=6.0, x=-4.2147274028, y= 1.2645070081, z=-0.0004746888),
-           Atom(symbol="H", charge=1.0, x=-4.0625666258, y=-0.8829026850, z= 0.2078697524),
-           Atom(symbol="H", charge=1.0, x=-1.5543436055, y=-0.8744126626, z= 0.2082094593),
-           Atom(symbol="H", charge=1.0, x=-1.5540485677, y= 3.4029710264, z=-0.2096948047),
-           Atom(symbol="H", charge=1.0, x=-4.0622624422, y= 3.4117648649, z=-0.2101477738),
-           Atom(symbol="H", charge=1.0, x=-5.3046313610, y= 1.2646613789, z= 0.0002413395),
-           Atom(symbol="N", charge=7.0, x= 0.0293020707, y= 1.2642495395, z= 0.0009854496),
-           Atom(symbol="O", charge=8.0, x= 0.6007950737, y= 0.1830642665, z= 0.1150639960),
-           Atom(symbol="O", charge=8.0, x= 0.6010710678, y= 2.3454157290, z=-0.1118223671),
-       ]
-
-       # UFF model: 
-       # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
-
-       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
-             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
-       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
-            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
-       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
-             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
-
-       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
-
-       xe_field = ", ".join(list(map(str, xe)))
-       ye_field = ", ".join(list(map(str, ye)))
-       ze_field = ", ".join(list(map(str, ze)))
-       RIN_field = ", ".join(list(map(str, radii)))
-
-       options = {
-           "contrl" : {"SCFTYP": "RHF", "DFTTYP": "B3LYP", "RUNTYP" : "OPTIMIZE", "MULT": 1, "UNITS": "ANGS",
-                       "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
-           "system" : {"memory" : 12000000},
-           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
-           "pcm"    : {"PCMTYP" : "DPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
-           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
-           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
-           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
-           "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
-           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
-       }
-
-       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-ch3cn-optim.fly", options=options)
-
-       wrapper.clean_wd()
-       wrapper.run(link_basis=gbasis)
-       wrapper.clean_up()
-
-       logging.info("---------------------------------------------------------\n")
-
-    def nitrobenzene_anion_optimization_pcm():
-       gbasis = "ACC-PVDZ"
-       logging.info(f" --- NITROBENZENE ANION DFT/PCM OPTIMIZATION USING BASIS={gbasis} --- ")
-
-       geom = [
-           Atom(symbol="C", charge=6.0, x=-3.5161599401, y= 0.0593660329, z= 0.1168269711), 
-           Atom(symbol="C", charge=6.0, x=-2.1253899288, y= 0.0456644961, z= 0.1187617775),
-           Atom(symbol="C", charge=6.0, x=-1.4021428638, y= 1.2642993454, z=-0.0001776956),
-           Atom(symbol="C", charge=6.0, x=-2.1251816210, y= 2.4829698318, z=-0.1200130153),
-           Atom(symbol="C", charge=6.0, x=-3.5159561698, y= 2.4694691969, z=-0.1183486459),
-           Atom(symbol="C", charge=6.0, x=-4.2365489151, y= 1.2644941339, z=-0.0005988369),
-           Atom(symbol="H", charge=1.0, x=-4.0562222427, y=-0.8863760719, z= 0.2085871997),
-           Atom(symbol="H", charge=1.0, x=-1.5589149006, y=-0.8775282165, z= 0.2089504254),
-           Atom(symbol="H", charge=1.0, x=-1.5585624145, y= 3.4060584081, z=-0.2103848504),
-           Atom(symbol="H", charge=1.0, x=-4.0558668260, y= 3.4152597388, z=-0.2105029742),
-           Atom(symbol="H", charge=1.0, x=-5.3275005778, y= 1.2646192515, z=-0.0002542196),
-           Atom(symbol="N", charge=7.0, x=-0.0069871904, y= 1.2642654950, z= 0.0009040651),
-           Atom(symbol="O", charge=8.0, x= 0.6168189949, y= 0.1448844400, z= 0.1174188059),
-           Atom(symbol="O", charge=8.0, x= 0.6170633085, y= 2.3836235564, z=-0.1145174279),
-       ]
-
-       # UFF model: 
-       # A. K. Rappe, C. J. Casewit, K. S. Colwell, W. A. Goddard, and W. M. Skiff. UFF, a full periodic table force field for molecular mechanics and molecular dynamics simulations. J. Am. Chem. Soc., 114(25):10024–10035, 1992. URL: http://pubs.acs.org/doi/abs/10.1021/ja00051a040, doi:10.1021/ja00051a040.
-
-       xe = (-3.5182554149, -2.1225554325, -1.4488934552, -2.1223665235, -3.5180686681, -4.2147274028, -4.0625666258,
-             -1.5543436055, -1.5540485677, -4.0622624422, -5.3046313610, 0.0293020707, 0.6007950737, 0.6010710678)
-       ye = (0.0562214119, 0.0475375150, 1.2642914380, 2.4810881214, 2.4726126865, 1.2645070081, -0.8829026850,
-            -0.8744126626, 3.4029710264, 3.4117648649, 1.2646613789, 1.2642495395, 0.1830642665, 2.3454157290)
-       ze = (0.1169962360, 0.1182080376, -0.0003702357, -0.1197323600, -0.1186804612, -0.0004746888, 0.2078697524,
-             0.2082094593, -0.2096948047, -0.2101477738, 0.0002413395, 0.0009854496, 0.1150639960, -0.1118223671)
-
-       radii = (1.9255,) * 6 + (1.4430,) * 5 + (1.83,) + (1.75,) * 2
-
-       xe_field = ", ".join(list(map(str, xe)))
-       ye_field = ", ".join(list(map(str, ye)))
-       ze_field = ", ".join(list(map(str, ze)))
-       RIN_field = ", ".join(list(map(str, radii)))
-
-       options = {
-           "contrl" : {"SCFTYP": "UHF", "DFTTYP": "B3LYP", "RUNTYP" : "OPTIMIZE", "MULT": 1, "UNITS": "ANGS",
-                       "ICHARG": -1, "MULT" : 2, "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
-           "system" : {"memory" : 12000000},
-           "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
-           "pcm"    : {"PCMTYP" : "DPCM", "EPS": 36.64, "EPSINF": 1.806, "RSOLV": 2.155, "ICENT": 1},
-           "pcmcav" : {"XE(1)": xe_field, "YE(1)": ye_field, "ZE(1)": ze_field, "RIN(1)": RIN_field},
-           "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
-           "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
-           "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
-           "data"   : {"COMMENT": "NITROBENZENE", "SYMMETRY": "C1", "GEOMETRY": geom},
-       }
-
-       wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene-anion-ch3cn-optim.fly", options=options)
-
-       wrapper.clean_wd()
-       wrapper.run(link_basis=gbasis)
-       wrapper.clean_up()
-
-       logging.info("---------------------------------------------------------\n")
-
+        wrapper.load_out()
+        energy = wrapper.energy(method="solution")
+        logging.info("PCM ENERGY OF NITROBENZENE ANION: {}".format(energy))
+        logging.info("---------------------------------------------------------\n")
 
     def gas_phase_ionization():
         E_NB_neutral = -436.8199112585
@@ -1517,8 +1388,13 @@ def nitrobenzene():
 
     def redox_potential():
         # SCF E + Delta G(solv) 
-        E_NB_neutral_solv = -436.8257920569
-        E_NB_anion_solv   = -436.9478811603
+        # PURELY ELECTROSTATIC PCM
+        # E_NB_neutral_solv = -436.8257920569
+        # E_NB_anion_solv   = -436.9478811603
+
+        # ELEC + NON-ELEC PCM
+        E_NB_neutral_solv = -436.8300804902
+        E_NB_anion_solv   = -436.9623161587
 
         ZPE_neutral = 0.102718
         ZPE_anion   = 0.099631
@@ -1538,18 +1414,6 @@ def nitrobenzene():
         NHE = -4.43 # eV; NHE = Normal Hydrogen Electrode
         redox = -dGred / ne / F + NHE
         print("Redox potential: {}".format(redox))
-
-    def redox_potential_opt():
-        E_neutral_sol = -274112.52 # KCAL/MOL
-        E_anion_sol   = -274188.77 # KCAL/MOL
-
-        KCAL_TO_EV = 0.043
-        NHE        = -4.43 # eV; NHE = Normal Hydrogen Electrode
-        ne         = 1.0
-        F          = 1.0
-        redox = (E_neutral_sol - E_anion_sol) * KCAL_TO_EV / ne / F + NHE
-
-        print("redox: {} eV".format(redox))
 
 
     # Neutral molecule
@@ -1575,17 +1439,17 @@ def nitrobenzene():
     #    0   |  -436.8199112585  |           0.0708299          |   0.102718   |   -436.8257920569        
     #    -1  |  -436.8638008151  |           0.067418           |   0.099631   |   -436.9478811603  
 
-    # Optimized neutral in solution: TOTAL FREE ENERGY IN SOLVENT = -274112.52 KCAL/MOL
-    # Optimized anion   in solution: TOTAL FREE ENERGY IN SOLVENT = -274188.77 KCAL/MOL
 
     #gas_phase_ionization()
     #nitrobenzene_freqs()
     #nitrobenzene_anion_freqs()
-    #redox_potential()
     #nitrobenzene_optimization_pcm()
     #nitrobenzene_anion_optimization_pcm()
 
-    redox_potential_opt()
+    nitrobenzene_energy_pcm(run=False)
+    nitrobenzene_anion_energy_pcm(run=False)
+
+    redox_potential()
 
 
 def acetic_acid():
@@ -1686,6 +1550,44 @@ def dft_hessian_pcm(gbasis, charge, geom):
        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
     }
 
+def dft_energy_pcm(gbasis, charge, mult, geom, xe_field=None, ye_field=None, ze_field=None, RIN_field=None, solvent=None):
+    if mult == 1:
+        SCFTYP = "RHF"
+    elif mult == 2:
+        SCFTYP = "UHF"
+
+    # minimal exponent of the function of the given angular momentum in aug-cc-pVDZ basis set
+    BASIS_MIN_EXPONENT = {
+        "C" : {0 : 0.0469, 2 : 0.151},  #1 : 0.04041, 2 : 0.151},
+        "H" : {0 : 0.02974}, #1 : 0.141},
+        "O" : {0 : 0.07896, 2 : 0.332}, #1 : 0.06856, 2 : 0.332},
+    }
+
+    NKTYP = [l for atom in geom for l in list(BASIS_MIN_EXPONENT[atom.symbol].keys())]
+    NKTYP_field = ", ".join(map(str, NKTYP))
+
+    NADD = len(NKTYP)
+
+    XYZE_field = ""
+    for atom in geom:
+        ls = BASIS_MIN_EXPONENT[atom.symbol]
+        for (l, exponent) in ls.items():
+            s = "{:.7f} {:.7f} {:.7f} {:.8f}\n".format(atom.x / BOHR_TO_ANG , atom.y / BOHR_TO_ANG, atom.z / BOHR_TO_ANG, exponent / 3) # NOTE: exponent is divided by 3
+            XYZE_field += s
+
+    return {
+        "contrl" : {"SCFTYP": SCFTYP, "DFTTYP": "B3LYP", "ICHARG": charge, "MULT" : mult,
+                   "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
+        #"pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IDISP": 1, "solvnt" : "water"},
+        #"disrep" : {"ICLAV" : 1, "RHO" : "3.348D-02", "N" : 2, "NT(1)" : "2,1", "RDIFF(1)": "1.20,1.50", "DKT(1)": "1.0,1.36", "RWT(1)": "1.2,1.5"},
+        "pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IREP": 1, "IDP" : 1, "solvnt" : "water"},
+        #"disbs"  : {"NADD" : NADD, "NKTYP(1)" : NKTYP_field, "XYZE(1)" : XYZE_field},
+        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
+    }
 
 def formic_acid():
     def free_energy_gas(run=True, charge=0):
@@ -1711,7 +1613,7 @@ def formic_acid():
         wrapper = Wrapper.generate_input(
             wd="formic-acid",
             inpfname="formic-acid-opt-charge={}.fly".format(charge),
-            options=dft_optimize(gbasis, charge, geom)
+            options=dft_optimize(gbasis, charge, mult=1, geom=geom)
         )
 
         if run:
@@ -1733,7 +1635,7 @@ def formic_acid():
         wrapper = Wrapper.generate_input(
             wd="formic-acid",
             inpfname="formic-acid-hess-charge={}.fly".format(charge),
-            options=dft_hessian(gbasis, charge, opt)
+            options=dft_hessian(gbasis, charge, mult=1, geom=opt)
         )
 
         if run:
@@ -1755,7 +1657,7 @@ def formic_acid():
         free_energy_corr = thermo[298.15]['G'] / H_TO_KCAL_MOL
         print("Free energy correction: {} HARTREE".format(free_energy_corr))
 
-        free_energy = energy + zpe + free_energy_corr
+        free_energy = energy # + zpe + free_energy_corr
         print("Free energy: {} HARTREE".format(free_energy))
 
         logging.info("---------------------------------------------------------\n")
@@ -1780,15 +1682,8 @@ def formic_acid():
 
         wrapper = Wrapper.generate_input(
             wd="formic-acid",
-            inpfname="formic-acid-solv-opt-charge={}.fly".format(charge),
-            options=dft_optimize_pcm(
-                gbasis, charge, geom,
-                #xe_field=", ".join(list(map(str, [atom.x for atom in geom]))),
-                #ye_field=", ".join(list(map(str, [atom.y for atom in geom]))),
-                #ze_field=", ".join(list(map(str, [atom.z for atom in geom]))),
-                #RIN_field=", ".join(list(map(str, [UFF_RADII[atom.symbol] for atom in geom]))),
-                #solvent=WATER
-            )
+            inpfname="formic-acid-pcm-en-charge={}.fly".format(charge),
+            options=dft_energy_pcm(gbasis, charge, mult=1, geom=geom)
         )
 
         if run:
@@ -1797,46 +1692,10 @@ def formic_acid():
             wrapper.clean_up()
 
         wrapper.load_out()
-        energy = wrapper.energy(method='optimize')[-1]
-        logging.info("Energy in solvent at optimized geometry: {} Hartree".format(energy))
-        logging.info("---------------------------------------------------------\n")
+        energy = wrapper.energy(method='solution')
+        logging.info("Total free energy in solution: {}".format(energy))
 
-        geometries = wrapper.opt_geometries(natoms=len(geom))
-
-        opt = geometries[-1]
-        logging.info("Optimized geometry in solvent (ANG):")
-        for atom in opt:
-            logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
-
-        wrapper = Wrapper.generate_input(
-            wd="formic-acid",
-            inpfname="formic-acid-solv-hess-charge={}.fly".format(charge),
-            options=dft_hessian_pcm(gbasis, charge, opt)
-        )
-
-        if run:
-            wrapper.clean_wd()
-            wrapper.run(link_basis=gbasis)
-            wrapper.clean_up()
-
-        wrapper.load_out()
-        freqs = wrapper.frequencies()
-        zpe = wrapper.parse_zpe()
-        thermo = wrapper.thermo()
-
-        positive = all(f >= 0.0 for f in freqs)
-        logging.info("Assert freqs > 0: {}".format(positive))
-        assert positive
-
-        print("ZPE: {} HARTREE/MOLECULE".format(zpe))
-
-        free_energy_corr = thermo[298.15]['G'] / H_TO_KCAL_MOL
-        print("Free energy correction: {} HARTREE".format(free_energy_corr))
-
-        free_energy = energy + zpe + free_energy_corr
-        print("Free energy: {} HARTREE".format(free_energy))
-
-        return free_energy
+        return energy
 
     G_gas_Hcat                 = -6.28 # kcal/mol; Source: 10.1021/ja010534f, p.7316
     opt_neutral, G_gas_neutral = free_energy_gas(run=False, charge=0)
@@ -1884,8 +1743,6 @@ def formic_acid():
     print("[DIRECT] dGaq: {} KCAL/MOL".format(dG_direct))
     print('------')
 
-
-
     #####
     dG_neutral = -7.0
     dG_anion   = -78.0
@@ -1896,44 +1753,6 @@ def formic_acid():
     pK = dG_aq / 1.3644
     print("[literature] pK: {}".format(pK))
 
-def dft_energy_pcm(gbasis, charge, mult, geom, xe_field=None, ye_field=None, ze_field=None, RIN_field=None, solvent=None):
-    if mult == 1:
-        SCFTYP = "RHF"
-    elif mult == 2:
-        SCFTYP = "UHF"
-
-    # minimal exponent of the function of the given angular momentum in aug-cc-pVDZ basis set
-    BASIS_MIN_EXPONENT = {
-        "C" : {0 : 0.0469, 2 : 0.151},  #1 : 0.04041, 2 : 0.151},
-        "H" : {0 : 0.02974}, #1 : 0.141},
-        "O" : {0 : 0.07896, 2 : 0.332}, #1 : 0.06856, 2 : 0.332},
-    }
-
-    NKTYP = [l for atom in geom for l in list(BASIS_MIN_EXPONENT[atom.symbol].keys())]
-    NKTYP_field = ", ".join(map(str, NKTYP))
-
-    NADD = len(NKTYP)
-
-    XYZE_field = ""
-    for atom in geom:
-        ls = BASIS_MIN_EXPONENT[atom.symbol]
-        for (l, exponent) in ls.items():
-            s = "{:.7f} {:.7f} {:.7f} {:.8f}\n".format(atom.x / BOHR_TO_ANG , atom.y / BOHR_TO_ANG, atom.z / BOHR_TO_ANG, exponent / 3) # NOTE: exponent is divided by 3
-            XYZE_field += s
-
-    return {
-        "contrl" : {"SCFTYP": SCFTYP, "DFTTYP": "B3LYP", "ICHARG": charge, "MULT" : mult,
-                   "UNITS": "ANGS", "INTTYP": "HONDO", "ICUT": 11, "ITOL": 30, "MAXIT": 100},
-        "system" : {"memory" : 12000000},
-        "p2p"    : {"P2P" : ".T.", "DLB" : ".T."},
-        #"pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IDISP": 1, "solvnt" : "water"},
-        #"disrep" : {"ICLAV" : 1, "RHO" : "3.348D-02", "N" : 2, "NT(1)" : "2,1", "RDIFF(1)": "1.20,1.50", "DKT(1)": "1.0,1.36", "RWT(1)": "1.2,1.5"},
-        "pcm"    : {"PCMTYP" : "CPCM", "ICAV": 1, "IREP": 1, "IDP" : 1, "solvnt" : "water"},
-        #"disbs"  : {"NADD" : NADD, "NKTYP(1)" : NKTYP_field, "XYZE(1)" : XYZE_field},
-        "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
-        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F.", "NCONV": 8, "ENGTHR": 9},
-        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom}
-    }
 
 
 def phenol():
@@ -2351,9 +2170,9 @@ if __name__ == "__main__":
     #run_example_04()
 
     # --------- PRAK 2 --------------
-    #nitrobenzene()
+    nitrobenzene()
     #acetic_acid()
-    formic_acid()
+    #formic_acid()
 
     #phenol()
     #phenolate()
