@@ -695,6 +695,59 @@ def NIST_CO2_S(T):
     return A * np.log(t) + B * t + C * t**2 / 2 + D * t**3 / 3 - E / (2.0 * t**2) + G # J/mol/K
 
 
+def morse_levels(omega, De):
+    levels = [0.0]
+    n = 0
+    while omega * (n + 0.5) - omega**2 / (4 * De) * (n + 0.5)**2 > levels[-1]:
+        levels.append(omega * (n + 0.5) - omega**2 / (4 * De) * (n + 0.5)**2)
+        n = n + 1
+
+    return levels[1:]
+
+def morse_q(T):
+    omega = 500.0 # cm-1
+    De = 10000.0 # cm-1
+
+    levels = morse_levels(omega, De)
+    Q = 0.0
+    for level in levels:
+        Q += np.exp(-level * 100.0 * SpeedOfLight * Planck / Boltzmann / T)
+
+    return Q
+
+def morse_int_energy(T):
+    dT = 1e-3
+    der = (np.log(morse_q(T + dT)) - np.log(morse_q(T - dT))) / (2.0 * dT)
+    return UGC * T**2 * der
+
+def morse_heat_capacity(T):
+    dT = 1e-2
+    return (morse_int_energy(T + dT) - morse_int_energy(T - dT)) / (2.0 * dT)
+
+
+def harm_vs_morse():
+    omega = 500.0 # cm-1
+
+    T = np.linspace(1.0, 20000.0, 500)
+    x = Planck * 100.0 * SpeedOfLight * omega / (Boltzmann * T)
+    C_harm = UGC * x**2 * np.exp(-x) / (1 - np.exp(-x))**2
+    C_morse = np.asarray([morse_heat_capacity(tt) for tt in T])
+
+    plt.plot(figsize=(10, 10))
+
+    plt.plot(T, C_harm, color='#CFBFF7', label='Harmonic')
+    plt.plot(T, C_morse, color='#FF6F61', linestyle='--', label='Morse')
+
+    plt.xlim((0.0, 20000.0))
+    plt.ylim((0.0, 12.0))
+
+    plt.xlabel("Temperature, K")
+    plt.ylabel("Heat capacity, J/mol/K")
+
+    plt.legend(fontsize=14)
+    plt.show()
+
+
 def run_cp_vib():
     gbasis = 'CC-PVDZ'
     wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
@@ -856,6 +909,10 @@ def run_example_03():
         trans_entropy = wrapper.trans_entropy(T)
         rot_entropy   = wrapper.rot_entropy_cl(T)
         vib_entropy   = wrapper.vib_entropy_q(T)
+
+        print("T: {}; Strans: {}".format(T, trans_entropy))
+        print("T: {}; Srot: {}".format(T, rot_entropy))
+        print("T: {}; Svib: {}".format(T, vib_entropy))
         return trans_entropy + rot_entropy + vib_entropy
 
     temperatures = np.linspace(200.0, 1000.0, 300)
@@ -2161,6 +2218,7 @@ if __name__ == "__main__":
     # --------- PRAK 1 --------------
     #run_cp_rot()
     #run_cp_vib()
+    #harm_vs_morse()
 
     #basis_extrapolation()
 
@@ -2170,7 +2228,7 @@ if __name__ == "__main__":
     #run_example_04()
 
     # --------- PRAK 2 --------------
-    nitrobenzene()
+    #nitrobenzene()
     #acetic_acid()
     #formic_acid()
 
