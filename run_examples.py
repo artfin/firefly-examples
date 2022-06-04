@@ -667,6 +667,166 @@ def run_example_02():
     assert positive
     #############################################################################
 
+def co2_727_freqs():
+    basis = "CC-PVTZ"
+    logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS={} --- ".format(basis))
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
+
+    wrapper.load_inpfile()
+
+    geom = [
+        Atom(symbol="C", charge=6.0, x=0.0, y=0.0, z= 0.0),
+        Atom(symbol="O", charge=8.0, x=0.0, y=0.0, z=-2.2),
+        Atom(symbol="O", charge=8.0, x=0.0, y=0.0, z= 2.2),
+    ]
+
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MAXIT": 100, "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "mp2"    : {"METHOD": 1},
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5},
+        "mass"   : {"AMASS(2)" : 16.9991315, "AMASS(3)" : 16.9991315},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom},
+    })
+    wrapper.save_inpfile("2_co2_727_mp2_opt-basis={}.fly".format(basis.lower()))
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=basis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    geometries = wrapper.opt_geometries()
+
+    opt = geometries[-1]
+    logging.info("Optimized geometry (ANG):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
+    logging.info("Optimized geometry (BOHR):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    #############################################################################
+
+    logging.info(" --- CO2 MP2 HESSIAN VERIFICATION USING BASIS={} --- ".format(basis))
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "mp2"    : {"METHOD": 1},
+        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt},
+        "force"  : {"NVIB" : 2, "PROJCT" : ".T."},
+        "mass"   : {"AMASS(2)" : 16.9991315, "AMASS(3)" : 16.9991315},
+    })
+    wrapper.save_inpfile("2_co2_727_mp2_hess-basis={}.fly".format(basis.lower()))
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=basis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    freqs = wrapper.frequencies()
+
+    logging.info("Frequencies at optimized geometry (cm-1):")
+    for f in freqs:
+        logging.info("  {:.3f}".format(f))
+
+    positive = all(f >= 0.0 for f in freqs)
+    logging.info("Assert freqs > 0: {}".format(positive))
+    assert positive
+    #############################################################################
+
+
+def co2_636_freqs():
+    basis = "CC-PVTZ"
+    logging.info(" --- CO2 MP2 GEOMETRY OPTIMIZATION USING BASIS={} --- ".format(basis))
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_opt.fly")
+
+    wrapper.load_inpfile()
+
+    geom = [
+        Atom(symbol="C", charge=6.0, x=0.0, y=0.0, z= 0.0),
+        Atom(symbol="O", charge=8.0, x=0.0, y=0.0, z=-2.2),
+        Atom(symbol="O", charge=8.0, x=0.0, y=0.0, z= 2.2),
+    ]
+
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MAXIT": 100, "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "system" : {"memory" : 12000000},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "mp2"    : {"METHOD": 1},
+        "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5},
+        "mass"   : {"AMASS(1)" : 13.003355},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom},
+    })
+    wrapper.save_inpfile("2_co2_636_mp2_opt-basis={}.fly".format(basis.lower()))
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=basis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    geometries = wrapper.opt_geometries()
+
+    opt = geometries[-1]
+    logging.info("Optimized geometry (ANG):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    opt = [Atom(symbol=atom.symbol, charge=atom.charge, x=atom.x/BOHR_TO_ANG, y=atom.y/BOHR_TO_ANG, z=atom.z/BOHR_TO_ANG)
+           for atom in opt]
+
+    logging.info("Optimized geometry (BOHR):")
+    for atom in opt:
+        logging.info(f"  {atom.symbol} {atom.x:.10f} {atom.y:.10f} {atom.z:.10f}")
+
+    #############################################################################
+
+    logging.info(" --- CO2 MP2 HESSIAN VERIFICATION USING BASIS={} --- ".format(basis))
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_hess.fly")
+
+    wrapper.load_inpfile()
+    wrapper.set_options({
+        "contrl" : {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "HESSIAN", "MULT": 1 , "UNITS": "BOHR",
+                    "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+        "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
+        "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+        "mp2"    : {"METHOD": 1},
+        "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt},
+        "force"  : {"NVIB" : 2, "PROJCT" : ".T."},
+        "mass"   : {"AMASS(1)" : 13.003355},
+    })
+    wrapper.save_inpfile("2_co2_mp2_hess-basis={}.fly".format(basis.lower()))
+
+    wrapper.clean_wd()
+    wrapper.run(link_basis=basis)
+    wrapper.clean_up()
+
+    wrapper.load_out()
+    freqs = wrapper.frequencies()
+
+    logging.info("Frequencies at optimized geometry (cm-1):")
+    for f in freqs:
+        logging.info("  {:.3f}".format(f))
+
+    positive = all(f >= 0.0 for f in freqs)
+    logging.info("Assert freqs > 0: {}".format(positive))
+    assert positive
+    #############################################################################
+
+
 def NIST_CO2_CP(T):
     """
     Source:
@@ -910,12 +1070,12 @@ def run_example_03():
         rot_entropy   = wrapper.rot_entropy_cl(T)
         vib_entropy   = wrapper.vib_entropy_q(T)
 
-        print("T: {}; Strans: {}".format(T, trans_entropy))
-        print("T: {}; Srot: {}".format(T, rot_entropy))
-        print("T: {}; Svib: {}".format(T, vib_entropy))
+        #print("T: {}; Strans: {}".format(T, trans_entropy))
+        #print("T: {}; Srot: {}".format(T, rot_entropy))
+        #print("T: {}; Svib: {}".format(T, vib_entropy))
         return trans_entropy + rot_entropy + vib_entropy
 
-    temperatures = np.linspace(200.0, 1000.0, 300)
+    temperatures = np.linspace(10.0, 1000.0, 500)
 
     S_MP2 = np.asarray([tot_entropy(tt) for tt in temperatures])
     S_NIST = np.asarray([NIST_CO2_S(tt) for tt in temperatures])
@@ -1120,7 +1280,7 @@ def nitrobenzene():
     # Optimized geometry at B3LYP/aug-cc-pvdz [takes almost 3 hours of optimization from the INITIAL 
     # geometry above]
 
-    def nitrobenzene_optimization():
+    def nitrobenzene_optimization(run=False):
         gbasis = "ACC-PVDZ"
         logging.info(f" --- NITROBENZENE DFT ENERGY USING BASIS={gbasis} --- ")
         geom = [
@@ -1152,13 +1312,15 @@ def nitrobenzene():
 
         wrapper = Wrapper.generate_input(wd="nitrobenzene", inpfname="nitrobenzene.fly", options=options)
 
-        wrapper.clean_wd()
-        wrapper.run(link_basis=gbasis)
-        wrapper.clean_up()
+        if run:
+            wrapper.clean_wd()
+            wrapper.run(link_basis=gbasis)
+            wrapper.clean_up()
 
         wrapper.load_out()
-        energy = wrapper.energy(method="rhf")
-        logging.info("DFT B3LYP ENERGY: {}".format(energy))
+        energy = wrapper.energy(method='optimize')[-1]
+        print("Energy at optimized geometry: {} HARTREE".format(energy)) 
+
         logging.info("---------------------------------------------------------\n")
 
     def nitrobenzene_freqs():
@@ -1497,16 +1659,18 @@ def nitrobenzene():
     #    -1  |  -436.8638008151  |           0.067418           |   0.099631   |   -436.9478811603  
 
 
+    nitrobenzene_optimization(run=True)
+
     #gas_phase_ionization()
     #nitrobenzene_freqs()
     #nitrobenzene_anion_freqs()
     #nitrobenzene_optimization_pcm()
     #nitrobenzene_anion_optimization_pcm()
 
-    nitrobenzene_energy_pcm(run=False)
-    nitrobenzene_anion_energy_pcm(run=False)
+    #nitrobenzene_energy_pcm(run=False)
+    #nitrobenzene_anion_energy_pcm(run=False)
 
-    redox_potential()
+    #redox_potential()
 
 
 def acetic_acid():
@@ -1541,7 +1705,7 @@ def acetic_acid():
 
     logging.info("---------------------------------------------------------\n")
 
-def dft_optimize(gbasis, charge, mult, geom):
+def dft_optimize(gbasis, charge, mult, geom, symmetry="C1"):
     if mult == 1:
         SCFTYP = "RHF"
     elif mult == 2:
@@ -1555,7 +1719,7 @@ def dft_optimize(gbasis, charge, mult, geom):
         "basis"  : {"GBASIS": gbasis, "EXTFILE": ".T."},
         "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "FDIFF": ".F."},
         "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS"},
-        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": "C1", "GEOMETRY": geom},
+        "data"   : {"COMMENT": "COMMENT", "SYMMETRY": symmetry, "GEOMETRY": geom},
     }
 
 def dft_hessian(gbasis, charge, mult, geom):
@@ -2026,6 +2190,7 @@ def phenolate():
         logging.info(f" --- PHENOLATE DFT ENERGY USING BASIS={gbasis} charge={charge} --- ")
 
         # OPTIMIZED GEOMETRY, PHENOLATE ANION
+        # NO SYMMETRY
         geom = [
             Atom(symbol="C", charge= 6.0, x= 3.0907826422, y= -0.0090863665, z= -1.8730878818),
             Atom(symbol="C", charge= 6.0, x= 1.9447341925, y= -0.3283230938, z= -1.1491767377),
@@ -2040,12 +2205,28 @@ def phenolate():
             Atom(symbol="H", charge= 1.0, x= 3.0553402767, y= -0.0416672973, z= -2.9677937325),
             Atom(symbol="O", charge= 8.0, x= 0.8628615302, y= -0.5988389882, z=  0.9708849667),
         ]
-
         wrapper = Wrapper.generate_input(
             wd="phenolate",
             inpfname="phenolate-opt-charge={}.fly".format(charge),
             options=dft_optimize(gbasis, charge=charge, mult=mult, geom=geom)
         )
+
+        # WITH SYMMETRY:
+        #geom = [
+        #    Atom(symbol="C", charge=6.0, x=1.21252461, y=0.00000000, z=-1.17093421), 
+        #    Atom(symbol="C", charge=6.0, x=1.21234688, y=0.00000000, z= 0.22901215),
+        #    Atom(symbol="C", charge=6.0, x=0.00000000, y=0.00000000, z=-1.87090308),
+        #    Atom(symbol="C", charge=6.0, x=0.00000000, y=0.00000000, z= 0.92873447),
+        #    Atom(symbol="H", charge=1.0, x=2.14774751, y=0.00000000, z=-1.71053786),
+        #    Atom(symbol="H", charge=1.0, x=2.14762456, y=0.00000000, z= 0.76937925),
+        #    Atom(symbol="H", charge=1.0, x=0.00000000, y=0.00000000, z=-2.95112981),
+        #    Atom(symbol="O", charge=8.0, x=0.00000000, y=0.00000000, z= 2.42473446),
+        #]
+        #wrapper = Wrapper.generate_input(
+        #    wd="phenolate",
+        #    inpfname="phenolate-opt-charge={}-symmetry.fly".format(charge),
+        #    options=dft_optimize(gbasis, charge=charge, mult=mult, geom=geom, symmetry="Cnv 2\n")
+        #)
 
         if run:
             wrapper.clean_wd()
@@ -2099,24 +2280,24 @@ def phenolate():
         AU_TO_EV = 27.211
         return (E_sol_phenolate_rad - E_sol_phenolate) * AU_TO_EV
 
-    opt_anion, G_anion_gas = free_energy_gas(run=False, charge=-1, mult=1)
+    #opt_anion, G_anion_gas = free_energy_gas(run=False, charge=-1, mult=1)
     opt_rad, G_rad_gas     = free_energy_gas(run=False, charge=0, mult=2)
 
-    G_anion_solv = free_energy_solv(run=False, geom=opt_anion, charge=-1, mult=1)
-    G_rad_solv   = free_energy_solv(run=False,  geom=opt_rad, charge=0, mult=2)
+    #G_anion_solv = free_energy_solv(run=False, geom=opt_anion, charge=-1, mult=1)
+    #G_rad_solv   = free_energy_solv(run=False,  geom=opt_rad, charge=0, mult=2)
 
-    IE_gas = VIE_phenolate_gas()
-    IE_sol = VIE_phenolate_solution()
+    #IE_gas = VIE_phenolate_gas()
+    #IE_sol = VIE_phenolate_solution()
 
-    IE_gas_exp = 2.25 # eV
-    IE_sol_exp = 7.1  # eV
+    #IE_gas_exp = 2.25 # eV
+    #IE_sol_exp = 7.1  # eV
 
-    logging.info("-------------------------------------")
-    logging.info("(Gas phase) calculated   ionization potential: {:.2f} eV".format(IE_gas))
-    logging.info("(Gas phase) experimental ionization potential: {:.2f} eV [adiabatic]".format(IE_gas_exp))
-    logging.info("(Solution)  calculated   ionization potential: {:.2f} eV".format(IE_sol))
-    logging.info("(Solution)  experimental ionization potential: {:.2f} eV".format(IE_sol_exp))
-    logging.info("-------------------------------------")
+    #logging.info("-------------------------------------")
+    #logging.info("(Gas phase) calculated   ionization potential: {:.2f} eV".format(IE_gas))
+    #logging.info("(Gas phase) experimental ionization potential: {:.2f} eV [adiabatic]".format(IE_gas_exp))
+    #logging.info("(Solution)  calculated   ionization potential: {:.2f} eV".format(IE_sol))
+    #logging.info("(Solution)  experimental ionization potential: {:.2f} eV".format(IE_sol_exp))
+    #logging.info("-------------------------------------")
 
 def phenolate_1water():
     def free_energy_gas(run=True, charge=-1, mult=1):
@@ -2221,6 +2402,10 @@ if __name__ == "__main__":
     #harm_vs_morse()
 
     #basis_extrapolation()
+
+    # isotopologues:
+    #co2_636_freqs()
+    #co2_727_freqs()
 
     #run_example_01()
     #run_example_02()
