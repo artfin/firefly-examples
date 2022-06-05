@@ -39,10 +39,10 @@ H_TO_KCAL_MOL = 627.509608
 Atom = namedtuple("Atom", ["symbol", "charge", "x", "y", "z"])
 
 class Wrapper:
-    EXE     = "/home/artfin/Desktop/QC-2022/firefly/firefly820"
-    PROCGRP = "/home/artfin/Desktop/QC-2022/firefly/procgrp"
-    P2PLIB  = "/home/artfin/Desktop/QC-2022/firefly/"
-    LIB     = "/home/artfin/Desktop/QC-2022/firefly-examples/lib/"
+    EXE     = r"/home/artfin/Desktop/Практикум-по-квантовой-химии-2022/firefly/firefly820"
+    PROCGRP = r"/home/artfin/Desktop/Практикум-по-квантовой-химии-2022/firefly/procgrp"
+    P2PLIB  = r"/home/artfin/Desktop/Практикум-по-квантовой-химии-2022/firefly/"
+    LIB     = r"/home/artfin/Desktop/Практикум-по-квантовой-химии-2022/firefly-examples/lib/"
 
     def __init__(self, wd=None, inpfname=None):
         self.wd = os.path.abspath(wd)
@@ -167,6 +167,7 @@ class Wrapper:
         if link_basis is not None:
             link_basis = link_basis.lower()
             basis_path = os.path.join(self.LIB, link_basis + '.lib')
+            print(basis_path)
             assert os.path.isfile(basis_path)
             cmd += f" -b {basis_path}"
 
@@ -218,6 +219,7 @@ class Wrapper:
 
     def frequencies(self):
         freqs = []
+
         for line in self.outfile:
             if "FREQUENCY" in line:
                 words = line.split()[1:]
@@ -613,7 +615,7 @@ def run_example_02():
         "mp2"    : {"METHOD": 1},
         "statpt" : {"METHOD": "GDIIS", "UPHESS": "BFGS", "OPTTOL": 1e-5},
     })
-    wrapper.save_inpfile("2_co2_mp2_opt-basis={}.fly".format(basis.lower()))
+    wrapper.save_inpfile("2_co2_626_mp2_opt-basis={}.fly".format(basis.lower()))
 
     wrapper.clean_wd()
     wrapper.run(link_basis=basis)
@@ -649,7 +651,7 @@ def run_example_02():
         "data"   : {"COMMENT": "CO2 HESSIAN AT OPT", "SYMMETRY": "C1", "GEOMETRY": opt},
         "force"  : {"NVIB" : 2, "PROJCT" : ".T."},
     })
-    wrapper.save_inpfile("2_co2_mp2_hess-basis={}.fly".format(basis.lower()))
+    wrapper.save_inpfile("2_co2_626_mp2_hess-basis={}.fly".format(basis.lower()))
 
     wrapper.clean_wd()
     wrapper.run(link_basis=basis)
@@ -808,7 +810,7 @@ def co2_636_freqs():
         "force"  : {"NVIB" : 2, "PROJCT" : ".T."},
         "mass"   : {"AMASS(1)" : 13.003355},
     })
-    wrapper.save_inpfile("2_co2_mp2_hess-basis={}.fly".format(basis.lower()))
+    wrapper.save_inpfile("2_co2_636_mp2_hess-basis={}.fly".format(basis.lower()))
 
     wrapper.clean_wd()
     wrapper.run(link_basis=basis)
@@ -909,22 +911,39 @@ def harm_vs_morse():
 
 
 def run_cp_vib():
-    gbasis = 'CC-PVDZ'
-    wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
-    wrapper.load_out()
-
     T = np.linspace(0.01, 3000.0, 300)
 
-    Cpvib_q  = np.asarray([wrapper.vib_cp_q(tt) for tt in T])
-    Cpvib_cl = np.asarray([wrapper.vib_cp_cl(tt) for tt in T])
+    gbasis = 'cc-pvtz'
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_626_mp2_hess-basis={}.fly".format(gbasis.lower()))
+    wrapper.load_out()
+    Cpvib_626_q  = np.asarray([wrapper.vib_cp_q(tt) for tt in T])
+    Cpvib_626_cl = np.asarray([wrapper.vib_cp_cl(tt) for tt in T])
+
+    gbasis = 'cc-pvtz'
+    inpfname = "2_co2_727_mp2_hess-basis={}.fly".format(gbasis.lower())
+    wrapper = Wrapper(wd="2_co2_opt", inpfname=inpfname)
+    wrapper.load_out()
+    Cpvib_727_q  = np.asarray([wrapper.vib_cp_q(tt) for tt in T])
+
+    inpfname = "2_co2_636_mp2_hess-basis={}.fly".format(gbasis.lower())
+    wrapper = Wrapper(wd="2_co2_opt", inpfname=inpfname)
+    wrapper.load_out()
+    Cpvib_636_q = np.asarray([wrapper.vib_cp_q(tt) for tt in T])
 
     plt.figure(figsize=(10, 8))
 
-    plt.plot(T, Cpvib_cl, color='#FF6F61', linestyle='--', label='Class')
-    plt.plot(T, Cpvib_q, color='#CFBFF7', label='Q')
+    #plt.plot(T, Cpvib_cl, color='#FF6F61', linestyle='--', label='Class')
+    #plt.plot(T, Cpvib_626_q / UGC, color='#CFBFF7', label='Cp: 626')
+    #plt.plot(T, Cpvib_727_q / UGC, color='#6CD4FF', label='Cp: 727')
+    #plt.plot(T, Cpvib_636_q / UGC, color='#FF6F61', label='Cp: 636')
+    #plt.ylim((1.0, 2.0))
 
-    plt.xlim((0.0, 3000.0))
-    plt.ylim((0.0, 35.0))
+    plt.plot(T, Cpvib_727_q / Cpvib_626_q, color='#CFBFF7', label=r'727/626')
+    plt.plot(T, Cpvib_636_q / Cpvib_626_q, color='#FF6F61', label=r'636/626')
+    plt.plot(T, Cpvib_626_q / Cpvib_626_q, color='#6CD4FF', linestyle='--')
+    plt.ylim((0.95, 1.05))
+
+    plt.xlim((100.0, 3000.0))
 
     plt.xlabel("Temperature, K")
     plt.ylabel(r"$C_p^\textrm{vib}$, J $\cdot$ mol$^{-1} \cdot$K$^{-1}$")
@@ -997,75 +1016,34 @@ def run_cp_rot():
     plt.show()
 
 
-def run_example_03():
+def run_example_03(run=False):
     gbasis = 'CC-PVTZ'
 
-    #wrapper = Wrapper(wd="3_co2_thermo", inpfname=f"3_co2_mp2_thermo-basis={gbasis}.fly")
-    #wrapper.load_out()
-
-    #logging.info(f" --- CO2 RHF THERMOCHEMISTRY USING BASIS={gbasis} --- ")
+    #logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
     #wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
-
     #wrapper.load_inpfile()
 
     #temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
     #temperature_field = ", ".join(list(map(str, temperatures)))
 
     #wrapper.set_options({
-    #    "contrl" : {"SCFTYP": "RHF", "MAXIT": 100, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-    #                "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
+    #    "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
+    #               "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
     #    "system" : {"memory" : 12000000},
-    #    "basis"  : {"GBASIS": basis, "EXTFILE": ".T."},
-    #    "scf"    : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
+    #    "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
+    #    "mp2"   : {"METHOD": 1},
     #    "statpt" : {"METHOD": "NR", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
+    #    "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
     #    "force" : {"TEMP(1)" : temperature_field}
     #})
-    #wrapper.save_inpfile(f"3_co2_rhf_thermo-basis={gbasis}.fly")
+    #wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
 
-    #wrapper.clean_wd()
-    #wrapper.run(link_basis=gbasis)
-    #wrapper.clean_up()
+    #if run:
+    #    wrapper.clean_wd()
+    #    wrapper.run(link_basis=gbasis)
+    #    wrapper.clean_up()
 
-    #wrapper.load_out()
-    #thermo = wrapper.thermo()
-
-    #Cp_RHF = [block["CP"] for _, block in thermo.items()]
-    #print("Cp_RHF: {}".format(Cp_RHF))
-
-    #############################################################################
-
-    logging.info(f" --- CO2 MP2 THERMOCHEMISTRY USING BASIS={gbasis} --- ")
-    wrapper = Wrapper(wd="3_co2_thermo", inpfname="3_co2_thermo.fly")
-
-    wrapper.load_inpfile()
-
-    temperatures = [200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
-    temperature_field = ", ".join(list(map(str, temperatures)))
-
-    wrapper.set_options({
-        "contrl": {"SCFTYP": "RHF", "MPLEVL": 2, "RUNTYP": "OPTIMIZE", "MULT": 1, "UNITS": "BOHR",
-                   "ICUT": 11, "INTTYP": "HONDO", "MAXIT": 100},
-        "system" : {"memory" : 12000000},
-        "basis" : {"GBASIS": gbasis, "EXTFILE": ".T."},
-        "mp2"   : {"METHOD": 1},
-        "statpt" : {"METHOD": "NR", "UPHESS": "BFGS", "OPTTOL": 1e-5, "HSSEND": ".T."},
-        "scf"   : {"DIRSCF": ".T.", "DIIS": ".T.", "NCONV": 8, "ENGTHR": 9, "FDIFF": ".F."},
-        "force" : {"TEMP(1)" : temperature_field}
-    })
-    wrapper.save_inpfile(f"3_co2_mp2_thermo-basis={gbasis}.fly")
-
-    #wrapper.clean_wd()
-    #wrapper.run(link_basis=gbasis)
-    #wrapper.clean_up()
-
-    wrapper.load_out()
-    thermo = wrapper.thermo()
-
-    Cp_MP2 = [block["CP"] * CAL_TO_J for _, block in thermo.items()]
-
-    #############################################################################
-
-    def tot_entropy(T):
+    def tot_entropy(wrapper, T):
         trans_entropy = wrapper.trans_entropy(T)
         rot_entropy   = wrapper.rot_entropy_cl(T)
         vib_entropy   = wrapper.vib_entropy_q(T)
@@ -1077,18 +1055,39 @@ def run_example_03():
 
     temperatures = np.linspace(10.0, 1000.0, 500)
 
-    S_MP2 = np.asarray([tot_entropy(tt) for tt in temperatures])
+    gbasis = 'cc-pvtz'
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_626_mp2_hess-basis={}.fly".format(gbasis.lower()))
+    wrapper.load_out()
+    S_626 = np.asarray([tot_entropy(wrapper, tt) for tt in temperatures])
+
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_636_mp2_hess-basis={}.fly".format(gbasis.lower()))
+    wrapper.load_out()
+    S_636 = np.asarray([tot_entropy(wrapper, tt) for tt in temperatures])
+
+    wrapper = Wrapper(wd="2_co2_opt", inpfname="2_co2_727_mp2_hess-basis={}.fly".format(gbasis.lower()))
+    wrapper.load_out()
+    S_727 = np.asarray([tot_entropy(wrapper, tt) for tt in temperatures])
+
     S_NIST = np.asarray([NIST_CO2_S(tt) for tt in temperatures])
 
     plt.figure(figsize=(10, 10))
 
-    plt.plot(temperatures, S_MP2, color='#FF6F61', label=f"MP2/{gbasis}")
-    plt.plot(temperatures, S_NIST, color='#CFBFF7', label="NIST", linestyle='--')
+    #plt.plot(temperatures, S_626, color='#FF6F61', label=f"626/{gbasis}")
+    #plt.plot(temperatures, S_636, color='#6CD4FF', label=f"636/{gbasis}") 
+    #plt.plot(temperatures, S_727, color='#88B04B', label=f"727/{gbasis}") 
+    #plt.plot(temperatures, S_NIST, color='#CFBFF7', label="NIST", linestyle='--')
+    #plt.ylim((200.0, 270.0))
+
+    plt.plot(temperatures, S_636 / S_626, color='#FF6F61', label="636/626")
+    plt.plot(temperatures, S_727 / S_626, color='#CFBFF7', label="727/626")
+    plt.plot(temperatures, S_626 / S_626, color='#77B04B', linestyle='--')
+    plt.ylim((0.95, 1.05))
 
     plt.xlabel("Temperature")
     plt.ylabel(r"S, J$\cdot$mol$^{-1}\cdot$K$^{-1}$")
 
     plt.legend(fontsize=14)
+    plt.xlim((200.0, 800.0))
 
     plt.show()
 
@@ -1098,7 +1097,6 @@ def run_example_03():
     #    vib_cp_q  = wrapper.vib_cp_q(T)
     #    total_cp = trans_cp + rot_cp_q + vib_cp_q
     #    return total_cp
-
 
     #temperatures = np.linspace(1.0, 50.0, 100)
     #Cp_MP2  = np.asarray([tot_cp(tt) for tt in temperatures])
@@ -1111,7 +1109,6 @@ def run_example_03():
     #plt.legend(fontsize=14)
     #plt.xlabel("Temperature, K")
     #plt.ylabel("$C_p$, J$\cdot$mol$^{-1} \cdot$ K$^{-1}$")
-
     #plt.show()
 
 def run_example_04():
@@ -1659,7 +1656,7 @@ def nitrobenzene():
     #    -1  |  -436.8638008151  |           0.067418           |   0.099631   |   -436.9478811603  
 
 
-    nitrobenzene_optimization(run=True)
+    #nitrobenzene_optimization(run=True)
 
     #gas_phase_ionization()
     #nitrobenzene_freqs()
@@ -1670,7 +1667,7 @@ def nitrobenzene():
     #nitrobenzene_energy_pcm(run=False)
     #nitrobenzene_anion_energy_pcm(run=False)
 
-    #redox_potential()
+    redox_potential()
 
 
 def acetic_acid():
@@ -2409,7 +2406,7 @@ if __name__ == "__main__":
 
     #run_example_01()
     #run_example_02()
-    #run_example_03()
+    run_example_03()
     #run_example_04()
 
     # --------- PRAK 2 --------------

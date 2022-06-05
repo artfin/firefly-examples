@@ -54,7 +54,7 @@
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY BEGUN  4:39:30 15-MAR-2022    
+ EXECUTION OF FIREFLY BEGUN 17:43:08 20-MAR-2022    
 
             ECHO OF THE FIRST FEW INPUT CARDS -
  INPUT CARD>! EXAMPLE 02.1                                                                  
@@ -287,7 +287,7 @@
      ---------------
      KDIAG =       0     MEMORY= 12000000     TIMLIM=   172800.0 SEC.
      COREFL=       F     PTIME =        F     XDR   =       F
-     BALTYP=LOOP         CBASE = F0471000     FBASE = 00000000
+     BALTYP=LOOP         CBASE = 09001000     FBASE = 00000000
 
           ----------------
           PROPERTIES INPUT
@@ -363,7 +363,7 @@
 
  CPU        TIME:   STEP =      0.04 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.03 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    121.92%,  TOTAL =     182.88%
+ CPU UTILIZATION:   STEP =    123.79%,  TOTAL =     185.68%
 
 
           -----------------------------
@@ -406,7 +406,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     170.42%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     174.01%
 
           -------------
           GUESS OPTIONS
@@ -427,9 +427,9 @@
     18=A       19=A       20=A       21=A   
  ...... END OF INITIAL ORBITAL SELECTION ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =    290.11%,  TOTAL =     190.01%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     145.64%
 
           --------------------
           2 ELECTRON INTEGRALS
@@ -442,7 +442,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        0.1 SECONDS (    0.0 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        0.0 SECONDS (    0.0 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     172.10%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     131.89%
 
           -------------------
           RHF SCF CALCULATION
@@ -456,7 +456,7 @@
      MEMORY REQUIRED FOR RHF STEP=    191338 WORDS.
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
- SCHWARZ INEQUALITY OVERHEAD:      5565 INTEGRALS, CPU TIME=        0.00
+ SCHWARZ INEQUALITY OVERHEAD:      5565 INTEGRALS, CPU TIME=        0.02
 
                                                                               NONZERO    BLOCKS
  ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
@@ -479,8 +479,8 @@
           DENSITY CONVERGED
           -----------------
      TIME TO FORM FOCK OPERATORS =       4.26 SECONDS (       0.33 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.34, LAST ITERATION=       0.32
-     TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.34
+     TIME TO SOLVE SCF EQUATIONS =       0.04 SECONDS (       0.00 SEC/ITER)
 
  FINAL ENERGY IS     -187.7071726539 AFTER  13 ITERATIONS
 
@@ -2782,9 +2782,9 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      4.28 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      4.36 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     98.26%,  TOTAL =      99.04%
+ CPU        TIME:   STEP =      4.32 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      4.32 ,  TOTAL =        4.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     99.89%,  TOTAL =     100.22%
 
  Smallest alpha-alpha delta epsilon is:   0.70949894
 
@@ -2811,9 +2811,9 @@
 
  DONE WITH FIRST  MP2 GRADIENT TEI HALF-TRANFORMATION
 
- CPU        TIME:   STEP =      1.00 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      1.02 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =     98.39%,  TOTAL =      98.92%
+ CPU        TIME:   STEP =      0.98 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
+ WALL CLOCK TIME:   STEP =      0.99 ,  TOTAL =        5.4 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =     98.82%,  TOTAL =      99.96%
 
  SECOND MP2 ENERGY/GRADIENT TEI HALF-TRANSFORMATION
  # OF WORDS AVAILABLE      =   11999982
@@ -2832,9 +2832,9 @@
 
  DONE WITH SECOND MP2 GRADIENT TEI HALF-TRANFORMATION
 
- CPU        TIME:   STEP =      0.12 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.14 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.10 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    116.70%,  TOTAL =      99.25%
+ CPU UTILIZATION:   STEP =    144.49%,  TOTAL =     100.75%
 
  RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
                E(0)=      -187.7071726539
@@ -2846,8 +2846,8 @@
  ..... DONE WITH MP2 ENERGY .....
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.16%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.66%
 
      -------------------------------------------------
      SCF PROPERTIES...FOR THE UNPERTURBED WAVEFUNCTION
@@ -3055,20 +3055,20 @@
      0.000000    0.000000    0.000000    0.000000
  ...... END OF PROPERTY EVALUATION ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =    622.86%,  TOTAL =      99.46%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.60%
  ......END OF NBO ANALYSIS......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        5.5 SECONDS (    0.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.46%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.60%
 
           ---------------------
           CPHF FOR MP2 GRADIENT
           ---------------------
 
- -MP2- LAGRANGIAN     TOOK =      0.300 SECONDS
+ -MP2- LAGRANGIAN     TOOK =      0.320 SECONDS
 
  ..... SOLVING CPHF IN THE AO BASIS .....
  ..... INITIATING DIIS PROCEDURE .....
@@ -3080,16 +3080,16 @@
  MAXIMUM RESPONSE VECTOR ERROR= 1.633532E-06
  MAXIMUM RESPONSE VECTOR ERROR= 8.202563E-08
  MAXIMUM RESPONSE VECTOR ERROR= 8.009326E-09
- MAXIMUM RESPONSE VECTOR ERROR= 7.307741E-10
+ MAXIMUM RESPONSE VECTOR ERROR= 7.307541E-10
  .....   10 ITERATIONS CARRIED OUT    .....
 
- -MP2- CPHF EQUATIONS TOOK =      3.180 SECONDS
+ -MP2- CPHF EQUATIONS TOOK =      3.200 SECONDS
  -MP2- W2(OCC,OCC)    TOOK =      0.320 SECONDS
  ..... DONE WITH MP2 CPHF AND DENSITY .....
 
- CPU        TIME:   STEP =      3.80 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
- WALL CLOCK TIME:   STEP =      3.81 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =     99.65%,  TOTAL =      99.54%
+ CPU        TIME:   STEP =      3.84 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
+ WALL CLOCK TIME:   STEP =      3.84 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
+ CPU UTILIZATION:   STEP =     99.98%,  TOTAL =     100.34%
 
 
  MP2 NATURAL ORBITAL OCCUPATION NUMBERS ARE
@@ -3315,20 +3315,20 @@
  ...... END OF PROPERTY EVALUATION ......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        9.4 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.44%
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.24%
  ......END OF NBO ANALYSIS......
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        9.4 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.44%
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.24%
 
  BEGINNING ONE ELECTRON GRADIENT...
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        9.4 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =    170.36%,  TOTAL =      99.53%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =        9.4 SECONDS (    0.2 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =        9.3 SECONDS (    0.2 MIN)
+ CPU UTILIZATION:   STEP =    174.14%,  TOTAL =     100.33%
 
           ----------------------
           GRADIENT OF THE ENERGY
@@ -3341,7 +3341,7 @@
 
  CPU        TIME:   STEP =      2.68 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
  WALL CLOCK TIME:   STEP =      2.66 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =    100.57%,  TOTAL =      99.76%
+ CPU UTILIZATION:   STEP =    100.77%,  TOTAL =     100.43%
 
           NSERCH=  0     ENERGY=    -188.3120871
 
@@ -3362,7 +3362,7 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.76%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.43%
 
  NSERCH=   1
 
@@ -3389,14 +3389,14 @@
 
  CPU        TIME:   STEP =      0.00 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
  WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.74%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.41%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05055545E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       12.1 SECONDS (    0.2 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       12.0 SECONDS (    0.2 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.65%
+ CPU UTILIZATION:   STEP =    175.64%,  TOTAL =     100.48%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
 
@@ -3418,7 +3418,7 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       3.56 SECONDS (       0.32 SEC/ITER)
+     TIME TO FORM FOCK OPERATORS =       3.58 SECONDS (       0.33 SEC/ITER)
      FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.32
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
@@ -3429,9 +3429,9 @@
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      3.58 ,  TOTAL =       15.6 SECONDS (    0.3 MIN)
- WALL CLOCK TIME:   STEP =      3.58 ,  TOTAL =       15.6 SECONDS (    0.3 MIN)
- CPU UTILIZATION:   STEP =     99.99%,  TOTAL =      99.72%
+ CPU        TIME:   STEP =      3.60 ,  TOTAL =       15.7 SECONDS (    0.3 MIN)
+ WALL CLOCK TIME:   STEP =      3.62 ,  TOTAL =       15.6 SECONDS (    0.3 MIN)
+ CPU UTILIZATION:   STEP =     99.43%,  TOTAL =     100.24%
 
  Smallest alpha-alpha delta epsilon is:   0.70579095
 
@@ -3449,9 +3449,9 @@
 
  ..... DONE WITH MP2 ENERGY .....
 
- CPU        TIME:   STEP =      1.14 ,  TOTAL =       16.7 SECONDS (    0.3 MIN)
- WALL CLOCK TIME:   STEP =      1.10 ,  TOTAL =       16.7 SECONDS (    0.3 MIN)
- CPU UTILIZATION:   STEP =    103.93%,  TOTAL =     100.00%
+ CPU        TIME:   STEP =      1.10 ,  TOTAL =       16.8 SECONDS (    0.3 MIN)
+ WALL CLOCK TIME:   STEP =      1.08 ,  TOTAL =       16.7 SECONDS (    0.3 MIN)
+ CPU UTILIZATION:   STEP =    101.70%,  TOTAL =     100.33%
 
  ..... SOLVING CPHF IN THE AO BASIS .....
  ..... INITIATING DIIS PROCEDURE .....
@@ -3459,20 +3459,20 @@
 
  ..... DONE WITH MP2 CPHF AND DENSITY .....
 
- CPU        TIME:   STEP =      3.76 ,  TOTAL =       20.5 SECONDS (    0.3 MIN)
- WALL CLOCK TIME:   STEP =      3.75 ,  TOTAL =       20.5 SECONDS (    0.3 MIN)
- CPU UTILIZATION:   STEP =    100.18%,  TOTAL =     100.03%
+ CPU        TIME:   STEP =      3.82 ,  TOTAL =       20.6 SECONDS (    0.3 MIN)
+ WALL CLOCK TIME:   STEP =      3.83 ,  TOTAL =       20.5 SECONDS (    0.3 MIN)
+ CPU UTILIZATION:   STEP =     99.80%,  TOTAL =     100.23%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       20.5 SECONDS (    0.3 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       20.6 SECONDS (    0.3 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       20.5 SECONDS (    0.3 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =      99.98%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.18%
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      2.66 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- WALL CLOCK TIME:   STEP =      2.65 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- CPU UTILIZATION:   STEP =    100.39%,  TOTAL =     100.03%
+ CPU        TIME:   STEP =      2.68 ,  TOTAL =       23.3 SECONDS (    0.4 MIN)
+ WALL CLOCK TIME:   STEP =      2.67 ,  TOTAL =       23.2 SECONDS (    0.4 MIN)
+ CPU UTILIZATION:   STEP =    100.27%,  TOTAL =     100.19%
 
           NSERCH=  1     ENERGY=    -188.3117148
 
@@ -3481,21 +3481,21 @@
                                  -----------------------
         ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
  --------------------------------------------------------------
-  1  C            6.0     0.0000000     0.0000000     0.0000001
+  1  C            6.0     0.0000000     0.0000000     0.0000000
   2  O            8.0     0.0000000     0.0000000    -0.0217878
   3  O            8.0     0.0000000     0.0000000     0.0217877
 
-          MAXIMUM GRADIENT =  0.0217878    RMS GRADIENT = 0.0102709
+          MAXIMUM GRADIENT =  0.0217878    RMS GRADIENT = 0.0102708
           HESSIAN UPDATED USING THE BFGS FORMULA
-             ACTUAL ENERGY CHANGE WAS   0.0003722517
+             ACTUAL ENERGY CHANGE WAS   0.0003722518
           PREDICTED ENERGY CHANGE WAS  -0.0003077555 RATIO= -1.210
           MIN SEARCH, CORRECT HESSIAN, TRYING PURE NR STEP
                NR STEP HAS LENGTH         =   0.029330
           RADIUS OF STEP TAKEN=   0.02933  CURRENT TRUST RADIUS=   0.15000
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.03%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       23.3 SECONDS (    0.4 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       23.2 SECONDS (    0.4 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.19%
 
  NSERCH=   2
 
@@ -3503,45 +3503,45 @@
  COORDINATES OF ALL ATOMS ARE (ANGS)
    ATOM   CHARGE       X              Y              Z
  ------------------------------------------------------------
- C           6.0   0.0000000000   0.0000000000   0.0000000388
- O           8.0   0.0000000000   0.0000000000  -1.1692923381
- O           8.0   0.0000000000   0.0000000000   1.1692922993
+ C           6.0   0.0000000000   0.0000000000   0.0000000493
+ O           8.0   0.0000000000   0.0000000000  -1.1692923448
+ O           8.0   0.0000000000   0.0000000000   1.1692922955
 
           INTERNUCLEAR DISTANCES (ANGS.)
           ------------------------------
 
                     C              O              O         
 
-  1  C               0.0000000      1.1692924 *    1.1692923 *  
+  1  C               0.0000000      1.1692924 *    1.1692922 *  
   2  O               1.1692924 *    0.0000000      2.3385846 *  
-  3  O               1.1692923 *    2.3385846 *    0.0000000    
+  3  O               1.1692922 *    2.3385846 *    0.0000000    
 
   * ... LESS THAN  3.000
 
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.01%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       23.3 SECONDS (    0.4 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       23.2 SECONDS (    0.4 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.18%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05902110E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       23.2 SECONDS (    0.4 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       23.1 SECONDS (    0.4 MIN)
- CPU UTILIZATION:   STEP =    173.78%,  TOTAL =     100.05%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       23.3 SECONDS (    0.4 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       23.2 SECONDS (    0.4 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.13%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
 
                                                                               NONZERO    BLOCKS
  ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
           ---------------START SECOND ORDER SCF---------------
-   1  0  0  -187.705591076  -187.705591076   0.003392060   0.003721300       27086845    237211
-   2  1  0  -187.705759543    -0.000168468   0.001217322   0.001325870       27091783    237137
-   3  2  0  -187.705775980    -0.000016437   0.000957359   0.000432468       27090741    237133
-   4  3  0  -187.705777128    -0.000001148   0.000095404   0.000133117       27090837    237135
-   5  4  0  -187.705777269    -0.000000141   0.000060061   0.000035800       27091197    237133
-   6  5  0  -187.705777286    -0.000000017   0.000008307   0.000006522       27090909    237133
+   1  0  0  -187.705591075  -187.705591075   0.003392060   0.003721300       27086845    237211
+   2  1  0  -187.705759543    -0.000168468   0.001217320   0.001325870       27091783    237137
+   3  2  0  -187.705775980    -0.000016437   0.000957358   0.000432468       27090741    237133
+   4  3  0  -187.705777128    -0.000001148   0.000095404   0.000138211       27090837    237135
+   5  4  0  -187.705777268    -0.000000141   0.000060061   0.000035800       27091197    237133
+   6  5  0  -187.705777285    -0.000000017   0.000008307   0.000006522       27090909    237133
    7  6  0  -187.705777286     0.000000000   0.000002152   0.000000996       27090909    237133
    8  7  0  -187.705777286     0.000000000   0.000000413   0.000000164       27090909    237133
    9  8  0  -187.705777286     0.000000000   0.000000107   0.000000025       27090909    237133
@@ -3550,20 +3550,20 @@
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       3.26 SECONDS (       0.33 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.34
+     TIME TO FORM FOCK OPERATORS =       3.30 SECONDS (       0.33 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.32
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
- FINAL ENERGY IS     -187.7057772861 AFTER  10 ITERATIONS
+ FINAL ENERGY IS     -187.7057772857 AFTER  10 ITERATIONS
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      3.26 ,  TOTAL =       26.4 SECONDS (    0.4 MIN)
- WALL CLOCK TIME:   STEP =      3.26 ,  TOTAL =       26.4 SECONDS (    0.4 MIN)
- CPU UTILIZATION:   STEP =     99.97%,  TOTAL =     100.04%
+ CPU        TIME:   STEP =      3.32 ,  TOTAL =       26.6 SECONDS (    0.4 MIN)
+ WALL CLOCK TIME:   STEP =      3.32 ,  TOTAL =       26.6 SECONDS (    0.4 MIN)
+ CPU UTILIZATION:   STEP =     99.97%,  TOTAL =     100.11%
 
  Smallest alpha-alpha delta epsilon is:   0.70833624
 
@@ -3573,17 +3573,17 @@
  ------------------------------------   ------------------------------------
 
  RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
-               E(0)=      -187.7057772861
+               E(0)=      -187.7057772857
                E(1)=         0.0
-               E(2)=        -0.6064031416
+               E(2)=        -0.6064031420
              E(MP2)=      -188.3121804276
 
 
  ..... DONE WITH MP2 ENERGY .....
 
- CPU        TIME:   STEP =      1.12 ,  TOTAL =       27.5 SECONDS (    0.5 MIN)
- WALL CLOCK TIME:   STEP =      1.09 ,  TOTAL =       27.5 SECONDS (    0.5 MIN)
- CPU UTILIZATION:   STEP =    102.79%,  TOTAL =     100.15%
+ CPU        TIME:   STEP =      1.10 ,  TOTAL =       27.7 SECONDS (    0.5 MIN)
+ WALL CLOCK TIME:   STEP =      1.07 ,  TOTAL =       27.6 SECONDS (    0.5 MIN)
+ CPU UTILIZATION:   STEP =    102.45%,  TOTAL =     100.20%
 
  ..... SOLVING CPHF IN THE AO BASIS .....
  ..... INITIATING DIIS PROCEDURE .....
@@ -3591,20 +3591,20 @@
 
  ..... DONE WITH MP2 CPHF AND DENSITY .....
 
- CPU        TIME:   STEP =      3.80 ,  TOTAL =       31.3 SECONDS (    0.5 MIN)
- WALL CLOCK TIME:   STEP =      3.83 ,  TOTAL =       31.3 SECONDS (    0.5 MIN)
- CPU UTILIZATION:   STEP =     99.17%,  TOTAL =     100.03%
+ CPU        TIME:   STEP =      3.88 ,  TOTAL =       31.6 SECONDS (    0.5 MIN)
+ WALL CLOCK TIME:   STEP =      3.90 ,  TOTAL =       31.5 SECONDS (    0.5 MIN)
+ CPU UTILIZATION:   STEP =     99.51%,  TOTAL =     100.12%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       31.4 SECONDS (    0.5 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       31.3 SECONDS (    0.5 MIN)
- CPU UTILIZATION:   STEP =    172.64%,  TOTAL =     100.06%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       31.6 SECONDS (    0.5 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       31.5 SECONDS (    0.5 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.08%
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      2.70 ,  TOTAL =       34.1 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      2.70 ,  TOTAL =       34.0 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =    100.05%,  TOTAL =     100.06%
+ CPU        TIME:   STEP =      2.66 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      2.66 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =     99.95%,  TOTAL =     100.07%
 
           NSERCH=  2     ENERGY=    -188.3121804
 
@@ -3613,20 +3613,20 @@
                                  -----------------------
         ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
  --------------------------------------------------------------
-  1  C            6.0     0.0000000     0.0000000     0.0000009
-  2  O            8.0     0.0000000     0.0000000    -0.0003891
-  3  O            8.0     0.0000000     0.0000000     0.0003882
+  1  C            6.0     0.0000000     0.0000000     0.0000002
+  2  O            8.0     0.0000000     0.0000000    -0.0003887
+  3  O            8.0     0.0000000     0.0000000     0.0003885
 
-          MAXIMUM GRADIENT =  0.0003891    RMS GRADIENT = 0.0001832
+          MAXIMUM GRADIENT =  0.0003887    RMS GRADIENT = 0.0001832
           HESSIAN UPDATED USING THE BFGS FORMULA
              ACTUAL ENERGY CHANGE WAS  -0.0004655805
-          PREDICTED ENERGY CHANGE WAS  -0.0004518656 RATIO=  1.030
+          PREDICTED ENERGY CHANGE WAS  -0.0004518653 RATIO=  1.030
                NR STEP HAS LENGTH         =   0.000533
           RADIUS OF STEP TAKEN=   0.00053  CURRENT TRUST RADIUS=   0.30000
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       34.1 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       34.0 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.06%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.07%
 
  NSERCH=   3
 
@@ -3634,68 +3634,68 @@
  COORDINATES OF ALL ATOMS ARE (ANGS)
    ATOM   CHARGE       X              Y              Z
  ------------------------------------------------------------
- C           6.0   0.0000000000   0.0000000000  -0.0000013515
- O           8.0   0.0000000000   0.0000000000  -1.1690923174
- O           8.0   0.0000000000   0.0000000000   1.1690936689
+ C           6.0   0.0000000000   0.0000000000  -0.0000003476
+ O           8.0   0.0000000000   0.0000000000  -1.1690928602
+ O           8.0   0.0000000000   0.0000000000   1.1690932078
 
           INTERNUCLEAR DISTANCES (ANGS.)
           ------------------------------
 
                     C              O              O         
 
-  1  C               0.0000000      1.1690910 *    1.1690950 *  
-  2  O               1.1690910 *    0.0000000      2.3381860 *  
-  3  O               1.1690950 *    2.3381860 *    0.0000000    
+  1  C               0.0000000      1.1690925 *    1.1690936 *  
+  2  O               1.1690925 *    0.0000000      2.3381861 *  
+  3  O               1.1690936 *    2.3381861 *    0.0000000    
 
   * ... LESS THAN  3.000
 
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       34.1 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       34.0 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.05%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =    776.40%,  TOTAL =     100.12%
 
- LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05916025E+00
+ LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05916022E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       34.1 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       34.1 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =    176.68%,  TOTAL =     100.07%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       34.2 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.08%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
 
                                                                               NONZERO    BLOCKS
  ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
           ---------------START SECOND ORDER SCF---------------
-   1  0  0  -187.705835603  -187.705835603   0.000062189   0.000067825       27091611    237103
-   2  1  0  -187.705835659    -0.000000056   0.000022483   0.000024314       27091611    237103
-   3  2  0  -187.705835665    -0.000000005   0.000017521   0.000007889       27091611    237103
-   4  3  0  -187.705835665     0.000000000   0.000001736   0.000002639       27091611    237103
-   5  4  0  -187.705835665     0.000000000   0.000000956   0.000000756       27091611    237103
-   6  5  0  -187.705835665     0.000000000   0.000000183   0.000000122       27091611    237103
-   7  6  0  -187.705835665     0.000000000   0.000000057   0.000000027       27091611    237103
-   8  7  0  -187.705835665     0.000000000   0.000000021   0.000000022       27091611    237103
-   9  8  0  -187.705835665     0.000000000   0.000000004   0.000000001       27091611    237103
+   1  0  0  -187.705835592  -187.705835592   0.000062177   0.000067812       27091611    237103
+   2  1  0  -187.705835647    -0.000000056   0.000022295   0.000024309       27091611    237103
+   3  2  0  -187.705835653    -0.000000005   0.000017515   0.000007888       27091611    237103
+   4  3  0  -187.705835653     0.000000000   0.000001738   0.000002788       27091611    237103
+   5  4  0  -187.705835653     0.000000000   0.000000943   0.000000763       27091611    237103
+   6  5  0  -187.705835653     0.000000000   0.000000164   0.000000118       27091611    237103
+   7  6  0  -187.705835653     0.000000000   0.000000047   0.000000020       27091611    237103
+   8  7  0  -187.705835653     0.000000000   0.000000010   0.000000010       27091611    237103
+   9  8  0  -187.705835653     0.000000000   0.000000004   0.000000004       27091611    237103
 
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       2.96 SECONDS (       0.33 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.34, LAST ITERATION=       0.34
+     TIME TO FORM FOCK OPERATORS =       2.98 SECONDS (       0.33 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.34, LAST ITERATION=       0.32
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
- FINAL ENERGY IS     -187.7058356651 AFTER   9 ITERATIONS
+ FINAL ENERGY IS     -187.7058356532 AFTER   9 ITERATIONS
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      2.96 ,  TOTAL =       37.0 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      2.98 ,  TOTAL =       37.0 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =     99.32%,  TOTAL =     100.01%
+ CPU        TIME:   STEP =      2.98 ,  TOTAL =       37.2 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      2.98 ,  TOTAL =       37.2 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =     99.83%,  TOTAL =     100.06%
 
- Smallest alpha-alpha delta epsilon is:   0.70838190
+ Smallest alpha-alpha delta epsilon is:   0.70838189
 
 
  ------------------------------------   ------------------------------------
@@ -3703,17 +3703,17 @@
  ------------------------------------   ------------------------------------
 
  RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
-               E(0)=      -187.7058356651
+               E(0)=      -187.7058356532
                E(1)=         0.0
-               E(2)=        -0.6063449032
-             E(MP2)=      -188.3121805683
+               E(2)=        -0.6063449153
+             E(MP2)=      -188.3121805684
 
 
  ..... DONE WITH MP2 ENERGY .....
 
- CPU        TIME:   STEP =      1.16 ,  TOTAL =       38.2 SECONDS (    0.6 MIN)
- WALL CLOCK TIME:   STEP =      1.12 ,  TOTAL =       38.2 SECONDS (    0.6 MIN)
- CPU UTILIZATION:   STEP =    103.16%,  TOTAL =     100.11%
+ CPU        TIME:   STEP =      1.16 ,  TOTAL =       38.4 SECONDS (    0.6 MIN)
+ WALL CLOCK TIME:   STEP =      1.14 ,  TOTAL =       38.3 SECONDS (    0.6 MIN)
+ CPU UTILIZATION:   STEP =    101.69%,  TOTAL =     100.11%
 
  ..... SOLVING CPHF IN THE AO BASIS .....
  ..... INITIATING DIIS PROCEDURE .....
@@ -3721,20 +3721,20 @@
 
  ..... DONE WITH MP2 CPHF AND DENSITY .....
 
- CPU        TIME:   STEP =      3.82 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
- WALL CLOCK TIME:   STEP =      3.83 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =     99.79%,  TOTAL =     100.08%
+ CPU        TIME:   STEP =      3.62 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
+ WALL CLOCK TIME:   STEP =      3.62 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
+ CPU UTILIZATION:   STEP =     99.90%,  TOTAL =     100.09%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
  WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       42.0 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =    165.22%,  TOTAL =     100.10%
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.07%
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      2.92 ,  TOTAL =       45.0 SECONDS (    0.7 MIN)
- WALL CLOCK TIME:   STEP =      2.91 ,  TOTAL =       44.9 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =    100.24%,  TOTAL =     100.11%
+ CPU        TIME:   STEP =      2.66 ,  TOTAL =       44.7 SECONDS (    0.7 MIN)
+ WALL CLOCK TIME:   STEP =      2.66 ,  TOTAL =       44.6 SECONDS (    0.7 MIN)
+ CPU UTILIZATION:   STEP =     99.90%,  TOTAL =     100.06%
 
           NSERCH=  3     ENERGY=    -188.3121806
 
@@ -3743,20 +3743,20 @@
                                  -----------------------
         ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
  --------------------------------------------------------------
-  1  C            6.0     0.0000000     0.0000000    -0.0000075
-  2  O            8.0     0.0000000     0.0000000     0.0000190
-  3  O            8.0     0.0000000     0.0000000    -0.0000116
+  1  C            6.0     0.0000000     0.0000000    -0.0000021
+  2  O            8.0     0.0000000     0.0000000     0.0000163
+  3  O            8.0     0.0000000     0.0000000    -0.0000142
 
-          MAXIMUM GRADIENT =  0.0000190    RMS GRADIENT = 0.0000078
+          MAXIMUM GRADIENT =  0.0000163    RMS GRADIENT = 0.0000072
           HESSIAN UPDATED USING THE BFGS FORMULA
-             ACTUAL ENERGY CHANGE WAS  -0.0000001406
-          PREDICTED ENERGY CHANGE WAS  -0.0000001464 RATIO=  0.961
-            GDIIS STEP HAS LENGTH         =   0.000033
-          RADIUS OF STEP TAKEN=   0.00003  CURRENT TRUST RADIUS=   0.50000
+             ACTUAL ENERGY CHANGE WAS  -0.0000001408
+          PREDICTED ENERGY CHANGE WAS  -0.0000001463 RATIO=  0.962
+            GDIIS STEP HAS LENGTH         =   0.000021
+          RADIUS OF STEP TAKEN=   0.00002  CURRENT TRUST RADIUS=   0.50000
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       45.0 SECONDS (    0.7 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       44.9 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.11%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       44.7 SECONDS (    0.7 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       44.6 SECONDS (    0.7 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.06%
 
  NSERCH=   4
 
@@ -3764,194 +3764,65 @@
  COORDINATES OF ALL ATOMS ARE (ANGS)
    ATOM   CHARGE       X              Y              Z
  ------------------------------------------------------------
- C           6.0   0.0000000000   0.0000000000   0.0000100338
- O           8.0   0.0000000000   0.0000000000  -1.1691054095
- O           8.0   0.0000000000   0.0000000000   1.1690953757
+ C           6.0   0.0000000000   0.0000000000   0.0000028787
+ O           8.0   0.0000000000   0.0000000000  -1.1691019852
+ O           8.0   0.0000000000   0.0000000000   1.1690991065
 
           INTERNUCLEAR DISTANCES (ANGS.)
           ------------------------------
 
                     C              O              O         
 
-  1  C               0.0000000      1.1691154 *    1.1690853 *  
-  2  O               1.1691154 *    0.0000000      2.3382008 *  
-  3  O               1.1690853 *    2.3382008 *    0.0000000    
+  1  C               0.0000000      1.1691049 *    1.1690962 *  
+  2  O               1.1691049 *    0.0000000      2.3382011 *  
+  3  O               1.1690962 *    2.3382011 *    0.0000000    
 
   * ... LESS THAN  3.000
 
  ...... END OF ONE-ELECTRON INTEGRALS ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       45.0 SECONDS (    0.7 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       44.9 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.10%
-
- LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05915510E+00
- ...... END OF TWO-ELECTRON INTEGRALS .....
-
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       45.0 SECONDS (    0.7 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       44.9 SECONDS (    0.7 MIN)
- CPU UTILIZATION:   STEP =    176.54%,  TOTAL =     100.12%
-
- DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
-
-                                                                              NONZERO    BLOCKS
- ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
-          ---------------START SECOND ORDER SCF---------------
-   1  0  0  -187.705833502  -187.705833502   0.000005410   0.000005416       27091503    237111
-   2  1  0  -187.705833503    -0.000000001   0.000003081   0.000003366       27091503    237111
-   3  2  0  -187.705833503     0.000000000   0.000001582   0.000001816       27091503    237111
-   4  3  0  -187.705833503     0.000000000   0.000000564   0.000000395       27091503    237111
-   5  4  0  -187.705833503     0.000000000   0.000000116   0.000000092       27091503    237111
-   6  5  0  -187.705833503     0.000000000   0.000000028   0.000000015       27091503    237111
-   7  6  0  -187.705833503     0.000000000   0.000000009   0.000000013       27091503    237111
-
-          -----------------
-          DENSITY CONVERGED
-          -----------------
-     TIME TO FORM FOCK OPERATORS =       2.28 SECONDS (       0.33 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.34, LAST ITERATION=       0.32
-     TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
-
- FINAL ENERGY IS     -187.7058335028 AFTER   7 ITERATIONS
-
- WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
- PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
-
- ...... END OF RHF CALCULATION ......
-
- CPU        TIME:   STEP =      2.28 ,  TOTAL =       47.3 SECONDS (    0.8 MIN)
- WALL CLOCK TIME:   STEP =      2.29 ,  TOTAL =       47.2 SECONDS (    0.8 MIN)
- CPU UTILIZATION:   STEP =     99.62%,  TOTAL =     100.09%
-
- Smallest alpha-alpha delta epsilon is:   0.70838021
-
-
- ------------------------------------   ------------------------------------
- ADVANCED RHF-MP2 PROPERTIES/GRADIENT   PROGRAM WRITTEN BY ALEX A. GRANOVSKY
- ------------------------------------   ------------------------------------
-
- RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
-               E(0)=      -187.7058335028
-               E(1)=         0.0
-               E(2)=        -0.6063470632
-             E(MP2)=      -188.3121805660
-
-
- ..... DONE WITH MP2 ENERGY .....
-
- CPU        TIME:   STEP =      1.16 ,  TOTAL =       48.4 SECONDS (    0.8 MIN)
- WALL CLOCK TIME:   STEP =      1.13 ,  TOTAL =       48.3 SECONDS (    0.8 MIN)
- CPU UTILIZATION:   STEP =    103.10%,  TOTAL =     100.16%
-
- ..... SOLVING CPHF IN THE AO BASIS .....
- ..... INITIATING DIIS PROCEDURE .....
- .....    8 ITERATIONS CARRIED OUT    .....
-
- ..... DONE WITH MP2 CPHF AND DENSITY .....
-
- CPU        TIME:   STEP =      3.18 ,  TOTAL =       51.6 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      3.18 ,  TOTAL =       51.5 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =    100.01%,  TOTAL =     100.16%
- ..... END OF 1-ELECTRON GRADIENT ......
-
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       51.6 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       51.5 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.13%
-
- ...... END OF 2-ELECTRON GRADIENT ......
-
- CPU        TIME:   STEP =      2.68 ,  TOTAL =       54.3 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      2.66 ,  TOTAL =       54.2 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =    100.78%,  TOTAL =     100.16%
-
-          NSERCH=  4     ENERGY=    -188.3121806
-
-                                 -----------------------
-                                 GRADIENT (HARTREE/BOHR)
-                                 -----------------------
-        ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
- --------------------------------------------------------------
-  1  C            6.0     0.0000000     0.0000000     0.0000551
-  2  O            8.0     0.0000000     0.0000000    -0.0000273
-  3  O            8.0     0.0000000     0.0000000    -0.0000278
-
-          MAXIMUM GRADIENT =  0.0000551    RMS GRADIENT = 0.0000225
-          HESSIAN UPDATED USING THE BFGS FORMULA
-             ACTUAL ENERGY CHANGE WAS   0.0000000023
-          PREDICTED ENERGY CHANGE WAS  -0.0000000003 RATIO= -6.849
-            GDIIS STEP HAS LENGTH         =   0.000023
-          RADIUS OF STEP TAKEN=   0.00002  CURRENT TRUST RADIUS=   0.25000
-
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       54.3 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       54.2 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.16%
-
- NSERCH=   5
-
-
- COORDINATES OF ALL ATOMS ARE (ANGS)
-   ATOM   CHARGE       X              Y              Z
- ------------------------------------------------------------
- C           6.0   0.0000000000   0.0000000000   0.0000000016
- O           8.0   0.0000000000   0.0000000000  -1.1691005468
- O           8.0   0.0000000000   0.0000000000   1.1691005453
-
-          INTERNUCLEAR DISTANCES (ANGS.)
-          ------------------------------
-
-                    C              O              O         
-
-  1  C               0.0000000      1.1691005 *    1.1691005 *  
-  2  O               1.1691005 *    0.0000000      2.3382011 *  
-  3  O               1.1691005 *    2.3382011 *    0.0000000    
-
-  * ... LESS THAN  3.000
-
- ...... END OF ONE-ELECTRON INTEGRALS ......
-
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       54.3 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       54.2 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.16%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       44.7 SECONDS (    0.7 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       44.6 SECONDS (    0.7 MIN)
+ CPU UTILIZATION:   STEP =    831.95%,  TOTAL =     100.10%
 
  LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05915499E+00
  ...... END OF TWO-ELECTRON INTEGRALS .....
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       54.3 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       54.2 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.14%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       44.7 SECONDS (    0.7 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       44.6 SECONDS (    0.7 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.07%
 
  DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
 
                                                                               NONZERO    BLOCKS
  ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
           ---------------START SECOND ORDER SCF---------------
-   1  0  0  -187.705833458  -187.705833458   0.000003680   0.000004775       27091503    237111
-   2  1  0  -187.705833459     0.000000000   0.000001955   0.000003118       27091503    237111
-   3  2  0  -187.705833459     0.000000000   0.000001448   0.000001591       27091503    237111
-   4  3  0  -187.705833459     0.000000000   0.000000499   0.000000361       27091503    237111
-   5  4  0  -187.705833459     0.000000000   0.000000099   0.000000077       27091503    237111
-   6  5  0  -187.705833459     0.000000000   0.000000015   0.000000010       27091503    237111
-   7  6  0  -187.705833459     0.000000000   0.000000004   0.000000002       27091503    237111
+   1  0  0  -187.705833458  -187.705833458   0.000002732   0.000002556       27091503    237111
+   2  1  0  -187.705833459     0.000000000   0.000001474   0.000000953       27091503    237111
+   3  2  0  -187.705833459     0.000000000   0.000000722   0.000000592       27091503    237111
+   4  3  0  -187.705833459     0.000000000   0.000000138   0.000000122       27091503    237111
+   5  4  0  -187.705833459     0.000000000   0.000000039   0.000000028       27091503    237111
+   6  5  0  -187.705833459     0.000000000   0.000000019   0.000000010       27091503    237111
 
           -----------------
           DENSITY CONVERGED
           -----------------
-     TIME TO FORM FOCK OPERATORS =       2.28 SECONDS (       0.33 SEC/ITER)
-     FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.32
+     TIME TO FORM FOCK OPERATORS =       1.98 SECONDS (       0.33 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.34, LAST ITERATION=       0.32
      TIME TO SOLVE SCF EQUATIONS =       0.00 SECONDS (       0.00 SEC/ITER)
 
- FINAL ENERGY IS     -187.7058334586 AFTER   7 ITERATIONS
+ FINAL ENERGY IS     -187.7058334586 AFTER   6 ITERATIONS
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
  ...... END OF RHF CALCULATION ......
 
- CPU        TIME:   STEP =      2.30 ,  TOTAL =       56.6 SECONDS (    0.9 MIN)
- WALL CLOCK TIME:   STEP =      2.30 ,  TOTAL =       56.5 SECONDS (    0.9 MIN)
- CPU UTILIZATION:   STEP =    100.03%,  TOTAL =     100.13%
+ CPU        TIME:   STEP =      2.00 ,  TOTAL =       46.7 SECONDS (    0.8 MIN)
+ WALL CLOCK TIME:   STEP =      1.99 ,  TOTAL =       46.6 SECONDS (    0.8 MIN)
+ CPU UTILIZATION:   STEP =    100.36%,  TOTAL =     100.08%
 
- Smallest alpha-alpha delta epsilon is:   0.70838017
+ Smallest alpha-alpha delta epsilon is:   0.70838016
 
 
  ------------------------------------   ------------------------------------
@@ -3961,15 +3832,142 @@
  RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
                E(0)=      -187.7058334586
                E(1)=         0.0
-               E(2)=        -0.6063471097
+               E(2)=        -0.6063471113
+             E(MP2)=      -188.3121805700
+
+
+ ..... DONE WITH MP2 ENERGY .....
+
+ CPU        TIME:   STEP =      1.12 ,  TOTAL =       47.8 SECONDS (    0.8 MIN)
+ WALL CLOCK TIME:   STEP =      1.09 ,  TOTAL =       47.7 SECONDS (    0.8 MIN)
+ CPU UTILIZATION:   STEP =    103.17%,  TOTAL =     100.15%
+
+ ..... SOLVING CPHF IN THE AO BASIS .....
+ ..... INITIATING DIIS PROCEDURE .....
+ .....    8 ITERATIONS CARRIED OUT    .....
+
+ ..... DONE WITH MP2 CPHF AND DENSITY .....
+
+ CPU        TIME:   STEP =      3.18 ,  TOTAL =       51.0 SECONDS (    0.8 MIN)
+ WALL CLOCK TIME:   STEP =      3.19 ,  TOTAL =       50.9 SECONDS (    0.8 MIN)
+ CPU UTILIZATION:   STEP =     99.84%,  TOTAL =     100.13%
+ ..... END OF 1-ELECTRON GRADIENT ......
+
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       51.0 SECONDS (    0.8 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       50.9 SECONDS (    0.8 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.11%
+
+ ...... END OF 2-ELECTRON GRADIENT ......
+
+ CPU        TIME:   STEP =      2.68 ,  TOTAL =       53.7 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      2.68 ,  TOTAL =       53.6 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =     99.82%,  TOTAL =     100.10%
+
+          NSERCH=  4     ENERGY=    -188.3121806
+
+                                 -----------------------
+                                 GRADIENT (HARTREE/BOHR)
+                                 -----------------------
+        ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
+ --------------------------------------------------------------
+  1  C            6.0     0.0000000     0.0000000     0.0000158
+  2  O            8.0     0.0000000     0.0000000    -0.0000079
+  3  O            8.0     0.0000000     0.0000000    -0.0000079
+
+          MAXIMUM GRADIENT =  0.0000158    RMS GRADIENT = 0.0000064
+          HESSIAN UPDATED USING THE BFGS FORMULA
+             ACTUAL ENERGY CHANGE WAS  -0.0000000015
+          PREDICTED ENERGY CHANGE WAS  -0.0000000002 RATIO=  6.740
+            GDIIS STEP HAS LENGTH         =   0.000009
+          RADIUS OF STEP TAKEN=   0.00001  CURRENT TRUST RADIUS=   0.25000
+
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       53.7 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       53.6 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.10%
+
+ NSERCH=   5
+
+
+ COORDINATES OF ALL ATOMS ARE (ANGS)
+   ATOM   CHARGE       X              Y              Z
+ ------------------------------------------------------------
+ C           6.0   0.0000000000   0.0000000000  -0.0000010595
+ O           8.0   0.0000000000   0.0000000000  -1.1691009811
+ O           8.0   0.0000000000   0.0000000000   1.1691020406
+
+          INTERNUCLEAR DISTANCES (ANGS.)
+          ------------------------------
+
+                    C              O              O         
+
+  1  C               0.0000000      1.1690999 *    1.1691031 *  
+  2  O               1.1690999 *    0.0000000      2.3382030 *  
+  3  O               1.1691031 *    2.3382030 *    0.0000000    
+
+  * ... LESS THAN  3.000
+
+ ...... END OF ONE-ELECTRON INTEGRALS ......
+
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       53.7 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       53.6 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =    828.50%,  TOTAL =     100.13%
+
+ LOG10 OF CONDITION NUMBER OF OVERLAP MATRIX IS:  4.05915432E+00
+ ...... END OF TWO-ELECTRON INTEGRALS .....
+
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       53.7 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       53.6 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.11%
+
+ DIRECT SCF CALCULATION, SCHWRZ=T   FDIFF=F
+
+                                                                              NONZERO    BLOCKS
+ ITER EX DEM  TOTAL ENERGY      E CHANGE  DENSITY CHANGE     ORB. GRAD      INTEGRALS   SKIPPED
+          ---------------START SECOND ORDER SCF---------------
+   1  0  0  -187.705833177  -187.705833177   0.000001593   0.000001869       27091503    237111
+   2  1  0  -187.705833177     0.000000000   0.000000873   0.000001185       27091503    237111
+   3  2  0  -187.705833177     0.000000000   0.000000564   0.000000621       27091503    237111
+   4  3  0  -187.705833177     0.000000000   0.000000196   0.000000141       27091503    237111
+   5  4  0  -187.705833177     0.000000000   0.000000039   0.000000030       27091503    237111
+   6  5  0  -187.705833177     0.000000000   0.000000006   0.000000004       27091503    237111
+
+          -----------------
+          DENSITY CONVERGED
+          -----------------
+     TIME TO FORM FOCK OPERATORS =       1.94 SECONDS (       0.32 SEC/ITER)
+     FOCK TIME ON FIRST ITERATION=       0.32, LAST ITERATION=       0.34
+     TIME TO SOLVE SCF EQUATIONS =       0.02 SECONDS (       0.00 SEC/ITER)
+
+ FINAL ENERGY IS     -187.7058331767 AFTER   6 ITERATIONS
+
+ WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
+ PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
+
+ ...... END OF RHF CALCULATION ......
+
+ CPU        TIME:   STEP =      1.98 ,  TOTAL =       55.7 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      1.99 ,  TOTAL =       55.6 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =     99.60%,  TOTAL =     100.09%
+
+ Smallest alpha-alpha delta epsilon is:   0.70837994
+
+
+ ------------------------------------   ------------------------------------
+ ADVANCED RHF-MP2 PROPERTIES/GRADIENT   PROGRAM WRITTEN BY ALEX A. GRANOVSKY
+ ------------------------------------   ------------------------------------
+
+ RESULTS OF MOLLER-PLESSET 2ND ORDER CORRECTION ARE
+               E(0)=      -187.7058331767
+               E(1)=         0.0
+               E(2)=        -0.6063473916
              E(MP2)=      -188.3121805683
 
 
  ..... DONE WITH MP2 ENERGY .....
 
- CPU        TIME:   STEP =      1.42 ,  TOTAL =       58.0 SECONDS (    1.0 MIN)
- WALL CLOCK TIME:   STEP =      1.38 ,  TOTAL =       57.9 SECONDS (    1.0 MIN)
- CPU UTILIZATION:   STEP =    102.93%,  TOTAL =     100.20%
+ CPU        TIME:   STEP =      1.10 ,  TOTAL =       56.8 SECONDS (    0.9 MIN)
+ WALL CLOCK TIME:   STEP =      1.08 ,  TOTAL =       56.7 SECONDS (    0.9 MIN)
+ CPU UTILIZATION:   STEP =    101.71%,  TOTAL =     100.12%
 
  ..... SOLVING CPHF IN THE AO BASIS .....
  ..... INITIATING DIIS PROCEDURE .....
@@ -3977,20 +3975,20 @@
 
  ..... DONE WITH MP2 CPHF AND DENSITY .....
 
- CPU        TIME:   STEP =      3.64 ,  TOTAL =       61.6 SECONDS (    1.0 MIN)
- WALL CLOCK TIME:   STEP =      3.66 ,  TOTAL =       61.5 SECONDS (    1.0 MIN)
- CPU UTILIZATION:   STEP =     99.58%,  TOTAL =     100.16%
+ CPU        TIME:   STEP =      2.84 ,  TOTAL =       59.6 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      2.85 ,  TOTAL =       59.5 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =     99.66%,  TOTAL =     100.10%
  ..... END OF 1-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       61.7 SECONDS (    1.0 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       61.6 SECONDS (    1.0 MIN)
- CPU UTILIZATION:   STEP =    145.16%,  TOTAL =     100.17%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       59.6 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       59.6 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =    168.86%,  TOTAL =     100.11%
 
  ...... END OF 2-ELECTRON GRADIENT ......
 
- CPU        TIME:   STEP =      3.42 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      3.41 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =    100.19%,  TOTAL =     100.18%
+ CPU        TIME:   STEP =      2.68 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      2.69 ,  TOTAL =       62.2 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =     99.47%,  TOTAL =     100.08%
 
           NSERCH=  5     ENERGY=    -188.3121806
 
@@ -3999,11 +3997,11 @@
                                  -----------------------
         ATOM     ZNUC       DE/DX         DE/DY         DE/DZ
  --------------------------------------------------------------
-  1  C            6.0     0.0000000     0.0000000    -0.0000002
-  2  O            8.0     0.0000000     0.0000000     0.0000001
-  3  O            8.0     0.0000000     0.0000000     0.0000001
+  1  C            6.0     0.0000000     0.0000000    -0.0000058
+  2  O            8.0     0.0000000     0.0000000     0.0000009
+  3  O            8.0     0.0000000     0.0000000     0.0000049
 
-          MAXIMUM GRADIENT =  0.0000002    RMS GRADIENT = 0.0000001
+          MAXIMUM GRADIENT =  0.0000058    RMS GRADIENT = 0.0000025
       ***** EQUILIBRIUM GEOMETRY LOCATED *****
 
    CO2 GEOMETRY OPTIMIZATION                                                     
@@ -4011,24 +4009,24 @@
  COORDINATES OF ALL ATOMS ARE (ANGS)
    ATOM   CHARGE       X              Y              Z
  ------------------------------------------------------------
- C           6.0   0.0000000000   0.0000000000   0.0000000016
- O           8.0   0.0000000000   0.0000000000  -1.1691005468
- O           8.0   0.0000000000   0.0000000000   1.1691005453
+ C           6.0   0.0000000000   0.0000000000  -0.0000010595
+ O           8.0   0.0000000000   0.0000000000  -1.1691009811
+ O           8.0   0.0000000000   0.0000000000   1.1691020406
 
           INTERNUCLEAR DISTANCES (ANGS.)
           ------------------------------
 
                     C              O              O         
 
-  1  C               0.0000000      1.1691005 *    1.1691005 *  
-  2  O               1.1691005 *    0.0000000      2.3382011 *  
-  3  O               1.1691005 *    2.3382011 *    0.0000000    
+  1  C               0.0000000      1.1690999 *    1.1691031 *  
+  2  O               1.1690999 *    0.0000000      2.3382030 *  
+  3  O               1.1691031 *    2.3382030 *    0.0000000    
 
   * ... LESS THAN  3.000
 
 
-          NUCLEAR ENERGY    =       57.9374316394
-          ELECTRONIC ENERGY =     -245.6432650980
+          NUCLEAR ENERGY    =       57.9373838247
+          ELECTRONIC ENERGY =     -245.6432170014
           TOTAL ENERGY      =     -188.3121805683
 
           ------------------
@@ -4042,108 +4040,108 @@
                       1          2          3          4          5
                   -20.6512   -20.6512   -11.4635    -1.5249    -1.4719
                      A          A          A          A          A   
-    1  C   1  S   0.000000   0.002124  -0.977311   0.034538   0.000000
-    2  C   1  S   0.000000   0.004445   0.001414  -0.298763   0.000000
-    3  C   1  S   0.000000   0.000911  -0.044976  -0.078554   0.000000
-    4  C   1  S   0.000000   0.002549   0.001678  -0.058902   0.000000
+    1  C   1  S   0.000022   0.002124   0.977311  -0.034538  -0.000001
+    2  C   1  S   0.000046   0.004444  -0.001414   0.298763   0.000008
+    3  C   1  S   0.000009   0.000911   0.044976   0.078553   0.000002
+    4  C   1  S   0.000026   0.002548  -0.001678   0.058902   0.000002
     5  C   1  X   0.000000   0.000000   0.000000   0.000000   0.000000
     6  C   1  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-    7  C   1  Z   0.000358   0.000000   0.000000   0.000000   0.183724
+    7  C   1  Z  -0.000358   0.000004   0.000000  -0.000006   0.183724
     8  C   1  X   0.000000   0.000000   0.000000   0.000000   0.000000
     9  C   1  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   10  C   1  Z   0.006099   0.000000   0.000000   0.000000   0.133594
+   10  C   1  Z  -0.006099   0.000063   0.000000  -0.000004   0.133594
    11  C   1  X   0.000000   0.000000   0.000000   0.000000   0.000000
    12  C   1  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   13  C   1  Z   0.002750   0.000000   0.000000   0.000000   0.008840
-   14  C   1 XX   0.000000  -0.000388  -0.000523   0.010644   0.000000
-   15  C   1 YY   0.000000  -0.000388  -0.000523   0.010644   0.000000
-   16  C   1 ZZ   0.000000   0.001019  -0.002812  -0.043187   0.000000
+   13  C   1  Z  -0.002750   0.000028   0.000000   0.000000   0.008840
+   14  C   1 XX  -0.000004  -0.000388   0.000523  -0.010644   0.000000
+   15  C   1 YY  -0.000004  -0.000388   0.000523  -0.010644   0.000000
+   16  C   1 ZZ   0.000010   0.001019   0.002812   0.043187   0.000001
    17  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    18  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    19  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   20  C   1 XX   0.000000  -0.000075  -0.003473   0.018286   0.000000
-   21  C   1 YY   0.000000  -0.000075  -0.003473   0.018286   0.000000
-   22  C   1 ZZ   0.000000   0.004001  -0.008890  -0.043539   0.000000
+   20  C   1 XX  -0.000001  -0.000075   0.003473  -0.018286   0.000000
+   21  C   1 YY  -0.000001  -0.000075   0.003473  -0.018286   0.000000
+   22  C   1 ZZ   0.000041   0.004001   0.008890   0.043539   0.000001
    23  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    24  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    25  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
    26  C    XXX   0.000000   0.000000   0.000000   0.000000   0.000000
    27  C    YYY   0.000000   0.000000   0.000000   0.000000   0.000000
-   28  C    ZZZ  -0.000507   0.000000   0.000000   0.000000   0.021350
+   28  C    ZZZ   0.000506  -0.000005   0.000000  -0.000001   0.021350
    29  C    XXY   0.000000   0.000000   0.000000   0.000000   0.000000
-   30  C    XXZ  -0.000274   0.000000   0.000000   0.000000  -0.001003
+   30  C    XXZ   0.000274  -0.000003   0.000000   0.000000  -0.001003
    31  C    YYX   0.000000   0.000000   0.000000   0.000000   0.000000
-   32  C    YYZ  -0.000274   0.000000   0.000000   0.000000  -0.001003
+   32  C    YYZ   0.000274  -0.000003   0.000000   0.000000  -0.001003
    33  C    ZZX   0.000000   0.000000   0.000000   0.000000   0.000000
    34  C    ZZY   0.000000   0.000000   0.000000   0.000000   0.000000
    35  C    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   36  O   2  S  -0.687257   0.686787   0.000524   0.011665   0.009914
-   37  O   2  S   0.006540  -0.007512   0.000049  -0.308130  -0.341220
-   38  O   2  S  -0.032687   0.032390   0.000303  -0.080893  -0.089514
-   39  O   2  S   0.008051  -0.006411   0.003961  -0.125727  -0.177841
+   36  O   2  S   0.694280   0.679687  -0.000524  -0.011665   0.009914
+   37  O   2  S  -0.006617  -0.007444  -0.000049   0.308140  -0.341211
+   38  O   2  S   0.033019   0.032052  -0.000303   0.080896  -0.089512
+   39  O   2  S  -0.008117  -0.006328  -0.003961   0.125732  -0.177837
    40  O   2  X   0.000000   0.000000   0.000000   0.000000   0.000000
    41  O   2  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   42  O   2  Z  -0.002025   0.001856  -0.000964  -0.063719  -0.059091
+   42  O   2  Z   0.002044   0.001835   0.000964   0.063721  -0.059089
    43  O   2  X   0.000000   0.000000   0.000000   0.000000   0.000000
    44  O   2  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   45  O   2  Z   0.004354  -0.003511   0.003283  -0.044841  -0.065405
+   45  O   2  Z  -0.004389  -0.003466  -0.003283   0.044843  -0.065403
    46  O   2  X   0.000000   0.000000   0.000000   0.000000   0.000000
    47  O   2  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   48  O   2  Z   0.001265  -0.001451   0.001733  -0.005440  -0.017818
-   49  O   2 XX  -0.001430   0.001528   0.000046   0.001465   0.002085
-   50  O   2 YY  -0.001430   0.001528   0.000046   0.001465   0.002085
-   51  O   2 ZZ  -0.001779   0.001733  -0.000059  -0.008345  -0.007916
+   48  O   2  Z  -0.001280  -0.001438  -0.001733   0.005440  -0.017818
+   49  O   2 XX   0.001446   0.001513  -0.000046  -0.001465   0.002085
+   50  O   2 YY   0.001446   0.001513  -0.000046  -0.001465   0.002085
+   51  O   2 ZZ   0.001797   0.001714   0.000059   0.008345  -0.007916
    52  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    53  O   2 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    54  O   2 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   55  O   2 XX  -0.003465   0.002994   0.000460   0.006036   0.007136
-   56  O   2 YY  -0.003465   0.002994   0.000460   0.006036   0.007136
-   57  O   2 ZZ  -0.002108   0.001754   0.001288  -0.002571  -0.015943
+   55  O   2 XX   0.003495   0.002958  -0.000460  -0.006036   0.007136
+   56  O   2 YY   0.003495   0.002958  -0.000460  -0.006036   0.007136
+   57  O   2 ZZ   0.002125   0.001732  -0.001288   0.002572  -0.015943
    58  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    59  O   2 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    60  O   2 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
    61  O    XXX   0.000000   0.000000   0.000000   0.000000   0.000000
    62  O    YYY   0.000000   0.000000   0.000000   0.000000   0.000000
-   63  O    ZZZ  -0.001219   0.000556  -0.001148  -0.010812  -0.008649
+   63  O    ZZZ   0.001224   0.000544   0.001148   0.010812  -0.008649
    64  O    XXY   0.000000   0.000000   0.000000   0.000000   0.000000
-   65  O    XXZ  -0.000642   0.000460  -0.000526  -0.003107   0.001126
+   65  O    XXZ   0.000647   0.000453   0.000526   0.003107   0.001126
    66  O    YYX   0.000000   0.000000   0.000000   0.000000   0.000000
-   67  O    YYZ  -0.000642   0.000460  -0.000526  -0.003107   0.001126
+   67  O    YYZ   0.000647   0.000453   0.000526   0.003107   0.001126
    68  O    ZZX   0.000000   0.000000   0.000000   0.000000   0.000000
    69  O    ZZY   0.000000   0.000000   0.000000   0.000000   0.000000
    70  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   71  O   3  S   0.687276   0.686769   0.000524   0.011665  -0.009914
-   72  O   3  S  -0.006540  -0.007512   0.000049  -0.308130   0.341220
-   73  O   3  S   0.032688   0.032389   0.000303  -0.080893   0.089514
-   74  O   3  S  -0.008051  -0.006411   0.003961  -0.125727   0.177841
+   71  O   3  S  -0.680181   0.693796  -0.000524  -0.011665  -0.009914
+   72  O   3  S   0.006463  -0.007579  -0.000049   0.308121   0.341229
+   73  O   3  S  -0.032354   0.032723  -0.000303   0.080891   0.089516
+   74  O   3  S   0.007985  -0.006493  -0.003961   0.125723   0.177845
    75  O   3  X   0.000000   0.000000   0.000000   0.000000   0.000000
    76  O   3  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   77  O   3  Z  -0.002025  -0.001856   0.000964   0.063719  -0.059091
+   77  O   3  Z   0.002006  -0.001877  -0.000964  -0.063717  -0.059092
    78  O   3  X   0.000000   0.000000   0.000000   0.000000   0.000000
    79  O   3  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   80  O   3  Z   0.004354   0.003510  -0.003283   0.044841  -0.065405
+   80  O   3  Z  -0.004317   0.003555   0.003283  -0.044840  -0.065406
    81  O   3  X   0.000000   0.000000   0.000000   0.000000   0.000000
    82  O   3  Y   0.000000   0.000000   0.000000   0.000000   0.000000
-   83  O   3  Z   0.001266   0.001451  -0.001733   0.005440  -0.017818
-   84  O   3 XX   0.001431   0.001528   0.000046   0.001465  -0.002085
-   85  O   3 YY   0.001431   0.001528   0.000046   0.001465  -0.002085
-   86  O   3 ZZ   0.001779   0.001733  -0.000059  -0.008345   0.007916
+   83  O   3  Z  -0.001251   0.001464   0.001733  -0.005439  -0.017818
+   84  O   3 XX  -0.001415   0.001543  -0.000046  -0.001465  -0.002085
+   85  O   3 YY  -0.001415   0.001543  -0.000046  -0.001465  -0.002085
+   86  O   3 ZZ  -0.001761   0.001751   0.000059   0.008345   0.007916
    87  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    88  O   3 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    89  O   3 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   90  O   3 XX   0.003465   0.002994   0.000460   0.006036  -0.007136
-   91  O   3 YY   0.003465   0.002994   0.000460   0.006036  -0.007136
-   92  O   3 ZZ   0.002108   0.001754   0.001288  -0.002571   0.015943
+   90  O   3 XX  -0.003434   0.003029  -0.000460  -0.006035  -0.007136
+   91  O   3 YY  -0.003434   0.003029  -0.000460  -0.006035  -0.007136
+   92  O   3 ZZ  -0.002089   0.001776  -0.001288   0.002571   0.015943
    93  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    94  O   3 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    95  O   3 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
    96  O    XXX   0.000000   0.000000   0.000000   0.000000   0.000000
    97  O    YYY   0.000000   0.000000   0.000000   0.000000   0.000000
-   98  O    ZZZ  -0.001219  -0.000556   0.001148   0.010812  -0.008649
+   98  O    ZZZ   0.001213  -0.000569  -0.001148  -0.010812  -0.008649
    99  O    XXY   0.000000   0.000000   0.000000   0.000000   0.000000
-  100  O    XXZ  -0.000642  -0.000459   0.000526   0.003107   0.001126
+  100  O    XXZ   0.000637  -0.000466  -0.000526  -0.003107   0.001126
   101  O    YYX   0.000000   0.000000   0.000000   0.000000   0.000000
-  102  O    YYZ  -0.000642  -0.000459   0.000526   0.003107   0.001126
+  102  O    YYZ   0.000637  -0.000466  -0.000526  -0.003107   0.001126
   103  O    ZZX   0.000000   0.000000   0.000000   0.000000   0.000000
   104  O    ZZY   0.000000   0.000000   0.000000   0.000000   0.000000
   105  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
@@ -4152,327 +4150,327 @@
                    -0.8000    -0.7401    -0.7103    -0.7103    -0.5424
                      A          A          A          A          A   
     1  C   1  S   0.011070   0.000000   0.000000   0.000000   0.000000
-    2  C   1  S  -0.326699   0.000000   0.000000   0.000000   0.000000
-    3  C   1  S  -0.102854   0.000000   0.000000   0.000000   0.000000
-    4  C   1  S  -0.018600   0.000000   0.000000   0.000000   0.000000
-    5  C   1  X   0.000000   0.000000   0.009093  -0.196751   0.000000
-    6  C   1  Y   0.000000   0.000000   0.196751   0.009093   0.000000
-    7  C   1  Z   0.000000  -0.207507   0.000000   0.000000   0.000000
-    8  C   1  X   0.000000   0.000000   0.010901  -0.235861   0.000000
-    9  C   1  Y   0.000000   0.000000   0.235861   0.010901   0.000000
-   10  C   1  Z   0.000000  -0.207508   0.000000   0.000000   0.000000
-   11  C   1  X   0.000000   0.000000   0.003645  -0.078874   0.000000
-   12  C   1  Y   0.000000   0.000000   0.078874   0.003645   0.000000
-   13  C   1  Z   0.000000   0.052587   0.000000   0.000000   0.000000
+    2  C   1  S  -0.326699   0.000004   0.000000   0.000000   0.000000
+    3  C   1  S  -0.102854   0.000001   0.000000   0.000000   0.000000
+    4  C   1  S  -0.018600   0.000001   0.000000   0.000000   0.000000
+    5  C   1  X   0.000000   0.000000  -0.011839  -0.196605   0.000000
+    6  C   1  Y   0.000000   0.000000   0.196605  -0.011839   0.000000
+    7  C   1  Z   0.000002   0.207507   0.000000   0.000000   0.000000
+    8  C   1  X   0.000000   0.000000  -0.014193  -0.235686   0.000001
+    9  C   1  Y   0.000000   0.000000   0.235686  -0.014193  -0.000001
+   10  C   1  Z   0.000002   0.207508   0.000000   0.000000   0.000000
+   11  C   1  X   0.000000   0.000000  -0.004746  -0.078816   0.000001
+   12  C   1  Y   0.000000   0.000000   0.078816  -0.004746   0.000000
+   13  C   1  Z  -0.000001  -0.052587   0.000000   0.000000   0.000000
    14  C   1 XX   0.000698   0.000000   0.000000   0.000000   0.000000
    15  C   1 YY   0.000698   0.000000   0.000000   0.000000   0.000000
    16  C   1 ZZ  -0.026121   0.000000   0.000000   0.000000   0.000000
    17  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   18  C   1 XZ   0.000000   0.000000   0.000000   0.000000  -0.039983
-   19  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.007064
+   18  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.031518
+   19  C   1 YZ   0.000000   0.000000   0.000000   0.000000  -0.025595
    20  C   1 XX  -0.012419   0.000000   0.000000   0.000000   0.000000
    21  C   1 YY  -0.012419   0.000000   0.000000   0.000000   0.000000
    22  C   1 ZZ  -0.018988   0.000000   0.000000   0.000000   0.000000
    23  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   24  C   1 XZ   0.000000   0.000000   0.000000   0.000000  -0.070631
-   25  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.012478
-   26  C    XXX   0.000000   0.000000  -0.000078   0.001681   0.000000
-   27  C    YYY   0.000000   0.000000  -0.001681  -0.000078   0.000000
-   28  C    ZZZ   0.000000  -0.011376   0.000000   0.000000   0.000000
-   29  C    XXY   0.000000   0.000000  -0.000752  -0.000035   0.000000
-   30  C    XXZ   0.000000   0.003910   0.000000   0.000000   0.000000
-   31  C    YYX   0.000000   0.000000  -0.000035   0.000752   0.000000
-   32  C    YYZ   0.000000   0.003910   0.000000   0.000000   0.000000
-   33  C    ZZX   0.000000   0.000000   0.001215  -0.026298   0.000000
-   34  C    ZZY   0.000000   0.000000   0.026298   0.001215   0.000000
+   24  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.055678
+   25  C   1 YZ   0.000000   0.000000   0.000000   0.000000  -0.045216
+   26  C    XXX   0.000000   0.000000   0.000101   0.001680   0.000000
+   27  C    YYY   0.000000   0.000000  -0.001680   0.000101   0.000000
+   28  C    ZZZ   0.000000   0.011376   0.000000   0.000000   0.000000
+   29  C    XXY   0.000000   0.000000  -0.000751   0.000045   0.000000
+   30  C    XXZ   0.000000  -0.003910   0.000000   0.000000   0.000000
+   31  C    YYX   0.000000   0.000000   0.000045   0.000751   0.000000
+   32  C    YYZ   0.000000  -0.003910   0.000000   0.000000   0.000000
+   33  C    ZZX   0.000000   0.000000  -0.001582  -0.026279   0.000000
+   34  C    ZZY   0.000000   0.000000   0.026279  -0.001582   0.000000
    35  C    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   36  O   2  S   0.003546  -0.005572   0.000000   0.000000   0.000000
-   37  O   2  S   0.223098  -0.171839   0.000000   0.000000   0.000000
-   38  O   2  S   0.065387  -0.059768   0.000000   0.000000   0.000000
-   39  O   2  S   0.236770  -0.142690   0.000000   0.000000   0.000000
-   40  O   2  X   0.000000   0.000000   0.009286  -0.200924   0.251953
-   41  O   2  Y   0.000000   0.000000   0.200924   0.009286  -0.044511
-   42  O   2  Z  -0.192222   0.223147   0.000000   0.000000   0.000000
-   43  O   2  X   0.000000   0.000000   0.011652  -0.252116   0.300988
-   44  O   2  Y   0.000000   0.000000   0.252116   0.011652  -0.053174
-   45  O   2  Z  -0.202881   0.244265   0.000000   0.000000   0.000000
-   46  O   2  X   0.000000   0.000000   0.007202  -0.155816   0.241246
-   47  O   2  Y   0.000000   0.000000   0.155816   0.007202  -0.042620
-   48  O   2  Z  -0.122737   0.153479   0.000000   0.000000   0.000000
-   49  O   2 XX   0.004283  -0.006454   0.000000   0.000000   0.000000
-   50  O   2 YY   0.004283  -0.006454   0.000000   0.000000   0.000000
-   51  O   2 ZZ  -0.008299   0.008976   0.000000   0.000000   0.000000
+   36  O   2  S   0.003546   0.005572   0.000000   0.000000   0.000000
+   37  O   2  S   0.223100   0.171836   0.000000   0.000000   0.000000
+   38  O   2  S   0.065388   0.059767   0.000000   0.000000   0.000000
+   39  O   2  S   0.236772   0.142687   0.000000   0.000000   0.000000
+   40  O   2  X   0.000000   0.000000  -0.012091  -0.200776  -0.198611
+   41  O   2  Y   0.000000   0.000000   0.200776  -0.012091   0.161290
+   42  O   2  Z  -0.192225  -0.223145   0.000000   0.000000   0.000000
+   43  O   2  X   0.000000   0.000000  -0.015171  -0.251931  -0.237265
+   44  O   2  Y   0.000000   0.000000   0.251931  -0.015171   0.192681
+   45  O   2  Z  -0.202884  -0.244262   0.000000   0.000000   0.000000
+   46  O   2  X   0.000000   0.000000  -0.009376  -0.155702  -0.190171
+   47  O   2  Y   0.000000   0.000000   0.155702  -0.009376   0.154436
+   48  O   2  Z  -0.122739  -0.153477   0.000000   0.000000   0.000000
+   49  O   2 XX   0.004283   0.006454   0.000000   0.000000   0.000000
+   50  O   2 YY   0.004283   0.006454   0.000000   0.000000   0.000000
+   51  O   2 ZZ  -0.008299  -0.008976   0.000000   0.000000   0.000000
    52  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   53  O   2 XZ   0.000000   0.000000   0.000402  -0.008689   0.006736
-   54  O   2 YZ   0.000000   0.000000   0.008689   0.000402  -0.001190
-   55  O   2 XX   0.009238  -0.023177   0.000000   0.000000   0.000000
-   56  O   2 YY   0.009238  -0.023177   0.000000   0.000000   0.000000
-   57  O   2 ZZ  -0.010429   0.010820   0.000000   0.000000   0.000000
+   53  O   2 XZ   0.000000   0.000000  -0.000523  -0.008683  -0.005310
+   54  O   2 YZ   0.000000   0.000000   0.008683  -0.000523   0.004312
+   55  O   2 XX   0.009239   0.023177   0.000000   0.000000   0.000000
+   56  O   2 YY   0.009239   0.023177   0.000000   0.000000   0.000000
+   57  O   2 ZZ  -0.010429  -0.010820   0.000000   0.000000   0.000000
    58  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   59  O   2 XZ   0.000000   0.000000   0.000926  -0.020029   0.020569
-   60  O   2 YZ   0.000000   0.000000   0.020029   0.000926  -0.003634
-   61  O    XXX   0.000000   0.000000  -0.000052   0.001134   0.005151
-   62  O    YYY   0.000000   0.000000  -0.001134  -0.000052  -0.000910
-   63  O    ZZZ  -0.012134   0.015089   0.000000   0.000000   0.000000
-   64  O    XXY   0.000000   0.000000  -0.000507  -0.000023  -0.000407
-   65  O    XXZ  -0.002896   0.000742   0.000000   0.000000   0.000000
-   66  O    YYX   0.000000   0.000000  -0.000023   0.000507   0.002304
-   67  O    YYZ  -0.002896   0.000742   0.000000   0.000000   0.000000
-   68  O    ZZX   0.000000   0.000000   0.000227  -0.004919   0.008362
-   69  O    ZZY   0.000000   0.000000   0.004919   0.000227  -0.001477
+   59  O   2 XZ   0.000000   0.000000  -0.001205  -0.020015  -0.016214
+   60  O   2 YZ   0.000000   0.000000   0.020015  -0.001205   0.013167
+   61  O    XXX   0.000000   0.000000   0.000068   0.001133  -0.004061
+   62  O    YYY   0.000000   0.000000  -0.001133   0.000068   0.003298
+   63  O    ZZZ  -0.012135  -0.015089   0.000000   0.000000   0.000000
+   64  O    XXY   0.000000   0.000000  -0.000507   0.000031   0.001475
+   65  O    XXZ  -0.002896  -0.000742   0.000000   0.000000   0.000000
+   66  O    YYX   0.000000   0.000000   0.000031   0.000507  -0.001816
+   67  O    YYZ  -0.002896  -0.000742   0.000000   0.000000   0.000000
+   68  O    ZZX   0.000000   0.000000  -0.000296  -0.004915  -0.006592
+   69  O    ZZY   0.000000   0.000000   0.004915  -0.000296   0.005353
    70  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   71  O   3  S   0.003546   0.005572   0.000000   0.000000   0.000000
-   72  O   3  S   0.223098   0.171839   0.000000   0.000000   0.000000
-   73  O   3  S   0.065387   0.059768   0.000000   0.000000   0.000000
-   74  O   3  S   0.236770   0.142690   0.000000   0.000000   0.000000
-   75  O   3  X   0.000000   0.000000   0.009286  -0.200924  -0.251953
-   76  O   3  Y   0.000000   0.000000   0.200924   0.009286   0.044511
-   77  O   3  Z   0.192222   0.223147   0.000000   0.000000   0.000000
-   78  O   3  X   0.000000   0.000000   0.011652  -0.252116  -0.300988
-   79  O   3  Y   0.000000   0.000000   0.252116   0.011652   0.053174
-   80  O   3  Z   0.202881   0.244265   0.000000   0.000000   0.000000
-   81  O   3  X   0.000000   0.000000   0.007202  -0.155816  -0.241246
-   82  O   3  Y   0.000000   0.000000   0.155816   0.007202   0.042620
-   83  O   3  Z   0.122737   0.153479   0.000000   0.000000   0.000000
-   84  O   3 XX   0.004283   0.006454   0.000000   0.000000   0.000000
-   85  O   3 YY   0.004283   0.006454   0.000000   0.000000   0.000000
-   86  O   3 ZZ  -0.008299  -0.008976   0.000000   0.000000   0.000000
+   71  O   3  S   0.003546  -0.005572   0.000000   0.000000   0.000000
+   72  O   3  S   0.223096  -0.171842   0.000000   0.000000   0.000000
+   73  O   3  S   0.065387  -0.059768   0.000000   0.000000   0.000000
+   74  O   3  S   0.236768  -0.142693   0.000000   0.000000   0.000000
+   75  O   3  X   0.000000   0.000000  -0.012090  -0.200773   0.198613
+   76  O   3  Y   0.000000   0.000000   0.200773  -0.012090  -0.161292
+   77  O   3  Z   0.192219  -0.223149   0.000000   0.000000   0.000000
+   78  O   3  X   0.000000   0.000000  -0.015171  -0.251927   0.237267
+   79  O   3  Y   0.000000   0.000000   0.251927  -0.015171  -0.192683
+   80  O   3  Z   0.202878  -0.244267   0.000000   0.000000   0.000000
+   81  O   3  X   0.000000   0.000000  -0.009376  -0.155700   0.190173
+   82  O   3  Y   0.000000   0.000000   0.155700  -0.009376  -0.154438
+   83  O   3  Z   0.122735  -0.153481   0.000000   0.000000   0.000000
+   84  O   3 XX   0.004283  -0.006454   0.000000   0.000000   0.000000
+   85  O   3 YY   0.004283  -0.006454   0.000000   0.000000   0.000000
+   86  O   3 ZZ  -0.008299   0.008976   0.000000   0.000000   0.000000
    87  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   88  O   3 XZ   0.000000   0.000000  -0.000402   0.008689   0.006736
-   89  O   3 YZ   0.000000   0.000000  -0.008689  -0.000402  -0.001190
-   90  O   3 XX   0.009238   0.023177   0.000000   0.000000   0.000000
-   91  O   3 YY   0.009238   0.023177   0.000000   0.000000   0.000000
-   92  O   3 ZZ  -0.010429  -0.010820   0.000000   0.000000   0.000000
+   88  O   3 XZ   0.000000   0.000000   0.000523   0.008683  -0.005310
+   89  O   3 YZ   0.000000   0.000000  -0.008683   0.000523   0.004312
+   90  O   3 XX   0.009238  -0.023177   0.000000   0.000000   0.000000
+   91  O   3 YY   0.009238  -0.023177   0.000000   0.000000   0.000000
+   92  O   3 ZZ  -0.010429   0.010820   0.000000   0.000000   0.000000
    93  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   94  O   3 XZ   0.000000   0.000000  -0.000926   0.020029   0.020569
-   95  O   3 YZ   0.000000   0.000000  -0.020029  -0.000926  -0.003634
-   96  O    XXX   0.000000   0.000000  -0.000052   0.001134  -0.005151
-   97  O    YYY   0.000000   0.000000  -0.001134  -0.000052   0.000910
-   98  O    ZZZ   0.012134   0.015089   0.000000   0.000000   0.000000
-   99  O    XXY   0.000000   0.000000  -0.000507  -0.000023   0.000407
-  100  O    XXZ   0.002896   0.000742   0.000000   0.000000   0.000000
-  101  O    YYX   0.000000   0.000000  -0.000023   0.000507  -0.002304
-  102  O    YYZ   0.002896   0.000742   0.000000   0.000000   0.000000
-  103  O    ZZX   0.000000   0.000000   0.000227  -0.004919  -0.008362
-  104  O    ZZY   0.000000   0.000000   0.004919   0.000227   0.001477
+   94  O   3 XZ   0.000000   0.000000   0.001205   0.020014  -0.016214
+   95  O   3 YZ   0.000000   0.000000  -0.020014   0.001205   0.013167
+   96  O    XXX   0.000000   0.000000   0.000068   0.001133   0.004061
+   97  O    YYY   0.000000   0.000000  -0.001133   0.000068  -0.003298
+   98  O    ZZZ   0.012134  -0.015089   0.000000   0.000000   0.000000
+   99  O    XXY   0.000000   0.000000  -0.000507   0.000031  -0.001475
+  100  O    XXZ   0.002896  -0.000742   0.000000   0.000000   0.000000
+  101  O    YYX   0.000000   0.000000   0.000031   0.000507   0.001816
+  102  O    YYZ   0.002896  -0.000742   0.000000   0.000000   0.000000
+  103  O    ZZX   0.000000   0.000000  -0.000296  -0.004915   0.006592
+  104  O    ZZY   0.000000   0.000000   0.004915  -0.000296  -0.005353
   105  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
 
                      11         12         13         14         15
                    -0.5424     0.1660     0.1998     0.1998     0.3201
                      A          A          A          A          A   
-    1  C   1  S   0.000000   0.093670   0.000000   0.000000   0.000000
-    2  C   1  S   0.000000   0.254563   0.000000   0.000000   0.000000
-    3  C   1  S   0.000000  -0.320119   0.000000   0.000000   0.000000
-    4  C   1  S   0.000000   3.643072   0.000000   0.000000   0.000000
-    5  C   1  X   0.000000   0.000000   0.073944  -0.255326   0.000000
-    6  C   1  Y   0.000000   0.000000   0.255326   0.073944   0.000000
-    7  C   1  Z   0.000000   0.000000   0.000000   0.000000   0.013393
-    8  C   1  X   0.000000   0.000000   0.091896  -0.317316   0.000000
-    9  C   1  Y   0.000000   0.000000   0.317316   0.091896   0.000000
-   10  C   1  Z   0.000000   0.000000   0.000000   0.000000  -1.193033
-   11  C   1  X   0.000000   0.000000   0.251551  -0.868603   0.000000
-   12  C   1  Y   0.000000   0.000000   0.868603   0.251551   0.000000
-   13  C   1  Z   0.000000   0.000000   0.000000   0.000000  -3.761165
-   14  C   1 XX   0.000000  -0.061177   0.000000   0.000000   0.000000
-   15  C   1 YY   0.000000  -0.061177   0.000000   0.000000   0.000000
-   16  C   1 ZZ   0.000000  -0.125029   0.000000   0.000000   0.000000
+    1  C   1  S   0.000000  -0.093669   0.000000   0.000000   0.000000
+    2  C   1  S   0.000000  -0.254564   0.000000   0.000000  -0.000001
+    3  C   1  S   0.000000   0.320119   0.000000   0.000000  -0.000002
+    4  C   1  S   0.000000  -3.643069   0.000000   0.000000   0.000001
+    5  C   1  X   0.000000   0.000000  -0.003995   0.265788   0.000000
+    6  C   1  Y   0.000000   0.000000  -0.265788  -0.003995   0.000000
+    7  C   1  Z   0.000000   0.000000   0.000000   0.000000  -0.013393
+    8  C   1  X  -0.000001   0.000000  -0.004965   0.330319   0.000000
+    9  C   1  Y  -0.000001   0.000000  -0.330319  -0.004965   0.000000
+   10  C   1  Z   0.000000   0.000001   0.000000   0.000000   1.193028
+   11  C   1  X   0.000000   0.000000  -0.013590   0.904190   0.000000
+   12  C   1  Y  -0.000001   0.000000  -0.904190  -0.013590   0.000000
+   13  C   1  Z   0.000000   0.000003   0.000000   0.000000   3.761164
+   14  C   1 XX   0.000000   0.061177   0.000000   0.000000   0.000000
+   15  C   1 YY   0.000000   0.061177   0.000000   0.000000   0.000000
+   16  C   1 ZZ   0.000000   0.125029   0.000000   0.000000  -0.000002
    17  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   18  C   1 XZ  -0.007064   0.000000   0.000000   0.000000   0.000000
-   19  C   1 YZ  -0.039983   0.000000   0.000000   0.000000   0.000000
-   20  C   1 XX   0.000000  -0.529325   0.000000   0.000000   0.000000
-   21  C   1 YY   0.000000  -0.529325   0.000000   0.000000   0.000000
-   22  C   1 ZZ   0.000000  -0.224915   0.000000   0.000000   0.000000
+   18  C   1 XZ  -0.025595   0.000000   0.000000   0.000000   0.000000
+   19  C   1 YZ  -0.031518   0.000000   0.000000   0.000000   0.000000
+   20  C   1 XX   0.000000   0.529324   0.000000   0.000000  -0.000002
+   21  C   1 YY   0.000000   0.529324   0.000000   0.000000  -0.000002
+   22  C   1 ZZ   0.000000   0.224914   0.000000   0.000000   0.000003
    23  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   24  C   1 XZ  -0.012478   0.000000   0.000000   0.000000   0.000000
-   25  C   1 YZ  -0.070631   0.000000   0.000000   0.000000   0.000000
-   26  C    XXX   0.000000   0.000000   0.008616  -0.029752   0.000000
-   27  C    YYY   0.000000   0.000000   0.029752   0.008616   0.000000
-   28  C    ZZZ   0.000000   0.000000   0.000000   0.000000  -0.276484
-   29  C    XXY   0.000000   0.000000   0.013306   0.003853   0.000000
-   30  C    XXZ   0.000000   0.000000   0.000000   0.000000   0.065210
-   31  C    YYX   0.000000   0.000000   0.003853  -0.013306   0.000000
-   32  C    YYZ   0.000000   0.000000   0.000000   0.000000   0.065210
-   33  C    ZZX   0.000000   0.000000   0.001502  -0.005186   0.000000
-   34  C    ZZY   0.000000   0.000000   0.005186   0.001502   0.000000
+   24  C   1 XZ  -0.045216   0.000000   0.000000   0.000000   0.000000
+   25  C   1 YZ  -0.055678   0.000000   0.000000   0.000000   0.000000
+   26  C    XXX   0.000000   0.000000  -0.000466   0.030971   0.000000
+   27  C    YYY   0.000000   0.000000  -0.030971  -0.000466   0.000000
+   28  C    ZZZ   0.000000   0.000000   0.000000   0.000000   0.276484
+   29  C    XXY   0.000000   0.000000  -0.013851  -0.000208   0.000000
+   30  C    XXZ   0.000000   0.000000   0.000000   0.000000  -0.065210
+   31  C    YYX   0.000000   0.000000  -0.000208   0.013851   0.000000
+   32  C    YYZ   0.000000   0.000000   0.000000   0.000000  -0.065210
+   33  C    ZZX   0.000000   0.000000  -0.000081   0.005398   0.000000
+   34  C    ZZY   0.000000   0.000000  -0.005398  -0.000081   0.000000
    35  C    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   36  O   2  S   0.000000  -0.000239   0.000000   0.000000  -0.023028
-   37  O   2  S   0.000000  -0.144326   0.000000   0.000000  -0.180201
-   38  O   2  S   0.000000   0.008592   0.000000   0.000000   0.225393
-   39  O   2  S   0.000000  -1.339499   0.000000   0.000000  -4.257685
-   40  O   2  X   0.044511   0.000000  -0.054294   0.187476   0.000000
-   41  O   2  Y   0.251953   0.000000  -0.187476  -0.054294   0.000000
-   42  O   2  Z   0.000000  -0.076209   0.000000   0.000000   0.054919
-   43  O   2  X   0.053174   0.000000  -0.045643   0.157605   0.000000
-   44  O   2  Y   0.300988   0.000000  -0.157605  -0.045643   0.000000
-   45  O   2  Z   0.000000  -0.151827   0.000000   0.000000  -0.218335
-   46  O   2  X   0.042620   0.000000  -0.139721   0.482454   0.000000
-   47  O   2  Y   0.241246   0.000000  -0.482454  -0.139721   0.000000
-   48  O   2  Z   0.000000  -0.422669   0.000000   0.000000  -0.936466
-   49  O   2 XX   0.000000   0.008299   0.000000   0.000000   0.048311
-   50  O   2 YY   0.000000   0.008299   0.000000   0.000000   0.048311
-   51  O   2 ZZ   0.000000   0.005756   0.000000   0.000000   0.043509
+   36  O   2  S   0.000000   0.000239   0.000000   0.000000   0.023028
+   37  O   2  S   0.000000   0.144327   0.000000   0.000000   0.180201
+   38  O   2  S   0.000000  -0.008592   0.000000   0.000000  -0.225393
+   39  O   2  S   0.000000   1.339502   0.000000   0.000000   4.257682
+   40  O   2  X   0.161290   0.000000   0.002933  -0.195158   0.000000
+   41  O   2  Y   0.198611   0.000000   0.195158   0.002933   0.000000
+   42  O   2  Z   0.000000   0.076209   0.000000   0.000000  -0.054919
+   43  O   2  X   0.192681   0.000000   0.002466  -0.164063   0.000000
+   44  O   2  Y   0.237265   0.000000   0.164063   0.002466   0.000000
+   45  O   2  Z   0.000000   0.151828   0.000000   0.000000   0.218333
+   46  O   2  X   0.154436   0.000000   0.007549  -0.502222   0.000000
+   47  O   2  Y   0.190171   0.000000   0.502222   0.007549   0.000000
+   48  O   2  Z   0.000000   0.422669   0.000000   0.000000   0.936464
+   49  O   2 XX   0.000000  -0.008299   0.000000   0.000000  -0.048311
+   50  O   2 YY   0.000000  -0.008299   0.000000   0.000000  -0.048311
+   51  O   2 ZZ   0.000000  -0.005756   0.000000   0.000000  -0.043509
    52  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   53  O   2 XZ   0.001190   0.000000   0.002159  -0.007454   0.000000
-   54  O   2 YZ   0.006736   0.000000   0.007454   0.002159   0.000000
-   55  O   2 XX   0.000000   0.090125   0.000000   0.000000   0.427746
-   56  O   2 YY   0.000000   0.090125   0.000000   0.000000   0.427746
-   57  O   2 ZZ   0.000000   0.027550   0.000000   0.000000   0.141968
+   53  O   2 XZ   0.004312   0.000000  -0.000117   0.007760   0.000000
+   54  O   2 YZ   0.005310   0.000000  -0.007760  -0.000117   0.000000
+   55  O   2 XX   0.000000  -0.090125   0.000000   0.000000  -0.427747
+   56  O   2 YY   0.000000  -0.090125   0.000000   0.000000  -0.427747
+   57  O   2 ZZ   0.000000  -0.027550   0.000000   0.000000  -0.141969
    58  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   59  O   2 XZ   0.003634   0.000000   0.003481  -0.012020   0.000000
-   60  O   2 YZ   0.020569   0.000000   0.012020   0.003481   0.000000
-   61  O    XXX   0.000910   0.000000  -0.007405   0.025571   0.000000
-   62  O    YYY   0.005151   0.000000  -0.025571  -0.007405   0.000000
-   63  O    ZZZ   0.000000  -0.000635   0.000000   0.000000  -0.028484
-   64  O    XXY   0.002304   0.000000  -0.011436  -0.003312   0.000000
-   65  O    XXZ   0.000000   0.000228   0.000000   0.000000   0.009032
-   66  O    YYX   0.000407   0.000000  -0.003312   0.011436   0.000000
-   67  O    YYZ   0.000000   0.000228   0.000000   0.000000   0.009032
-   68  O    ZZX   0.001477   0.000000  -0.002815   0.009720   0.000000
-   69  O    ZZY   0.008362   0.000000  -0.009720  -0.002815   0.000000
+   59  O   2 XZ   0.013167   0.000000  -0.000188   0.012513   0.000000
+   60  O   2 YZ   0.016214   0.000000  -0.012513  -0.000188   0.000000
+   61  O    XXX   0.003298   0.000000   0.000400  -0.026618   0.000000
+   62  O    YYY   0.004061   0.000000   0.026618   0.000400   0.000000
+   63  O    ZZZ   0.000000   0.000635   0.000000   0.000000   0.028485
+   64  O    XXY   0.001816   0.000000   0.011904   0.000179   0.000000
+   65  O    XXZ   0.000000  -0.000228   0.000000   0.000000  -0.009032
+   66  O    YYX   0.001475   0.000000   0.000179  -0.011904   0.000000
+   67  O    YYZ   0.000000  -0.000228   0.000000   0.000000  -0.009032
+   68  O    ZZX   0.005353   0.000000   0.000152  -0.010118   0.000000
+   69  O    ZZY   0.006592   0.000000   0.010118   0.000152   0.000000
    70  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   71  O   3  S   0.000000  -0.000239   0.000000   0.000000   0.023028
-   72  O   3  S   0.000000  -0.144326   0.000000   0.000000   0.180201
-   73  O   3  S   0.000000   0.008592   0.000000   0.000000  -0.225393
-   74  O   3  S   0.000000  -1.339499   0.000000   0.000000   4.257685
-   75  O   3  X  -0.044511   0.000000  -0.054294   0.187476   0.000000
-   76  O   3  Y  -0.251953   0.000000  -0.187476  -0.054294   0.000000
-   77  O   3  Z   0.000000   0.076209   0.000000   0.000000   0.054919
-   78  O   3  X  -0.053174   0.000000  -0.045643   0.157605   0.000000
-   79  O   3  Y  -0.300988   0.000000  -0.157605  -0.045643   0.000000
-   80  O   3  Z   0.000000   0.151827   0.000000   0.000000  -0.218335
-   81  O   3  X  -0.042620   0.000000  -0.139721   0.482454   0.000000
-   82  O   3  Y  -0.241246   0.000000  -0.482454  -0.139721   0.000000
-   83  O   3  Z   0.000000   0.422669   0.000000   0.000000  -0.936466
-   84  O   3 XX   0.000000   0.008299   0.000000   0.000000  -0.048311
-   85  O   3 YY   0.000000   0.008299   0.000000   0.000000  -0.048311
-   86  O   3 ZZ   0.000000   0.005756   0.000000   0.000000  -0.043509
+   71  O   3  S   0.000000   0.000239   0.000000   0.000000  -0.023028
+   72  O   3  S   0.000000   0.144326   0.000000   0.000000  -0.180200
+   73  O   3  S   0.000000  -0.008592   0.000000   0.000000   0.225392
+   74  O   3  S   0.000000   1.339494   0.000000   0.000000  -4.257679
+   75  O   3  X  -0.161292   0.000000   0.002933  -0.195158   0.000000
+   76  O   3  Y  -0.198613   0.000000   0.195158   0.002933   0.000000
+   77  O   3  Z   0.000000  -0.076210   0.000000   0.000000  -0.054919
+   78  O   3  X  -0.192683   0.000000   0.002466  -0.164062   0.000000
+   79  O   3  Y  -0.237267   0.000000   0.164062   0.002466   0.000000
+   80  O   3  Z   0.000000  -0.151828   0.000000   0.000000   0.218335
+   81  O   3  X  -0.154438   0.000000   0.007549  -0.502220   0.000000
+   82  O   3  Y  -0.190173   0.000000   0.502220   0.007549   0.000000
+   83  O   3  Z   0.000000  -0.422670   0.000000   0.000000   0.936469
+   84  O   3 XX   0.000000  -0.008299   0.000000   0.000000   0.048311
+   85  O   3 YY   0.000000  -0.008299   0.000000   0.000000   0.048311
+   86  O   3 ZZ   0.000000  -0.005755   0.000000   0.000000   0.043509
    87  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   88  O   3 XZ   0.001190   0.000000  -0.002159   0.007454   0.000000
-   89  O   3 YZ   0.006736   0.000000  -0.007454  -0.002159   0.000000
-   90  O   3 XX   0.000000   0.090125   0.000000   0.000000  -0.427746
-   91  O   3 YY   0.000000   0.090125   0.000000   0.000000  -0.427746
-   92  O   3 ZZ   0.000000   0.027550   0.000000   0.000000  -0.141968
+   88  O   3 XZ   0.004312   0.000000   0.000117  -0.007760   0.000000
+   89  O   3 YZ   0.005310   0.000000   0.007760   0.000117   0.000000
+   90  O   3 XX   0.000000  -0.090124   0.000000   0.000000   0.427746
+   91  O   3 YY   0.000000  -0.090124   0.000000   0.000000   0.427746
+   92  O   3 ZZ   0.000000  -0.027549   0.000000   0.000000   0.141967
    93  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   94  O   3 XZ   0.003634   0.000000  -0.003481   0.012020   0.000000
-   95  O   3 YZ   0.020569   0.000000  -0.012020  -0.003481   0.000000
-   96  O    XXX  -0.000910   0.000000  -0.007405   0.025571   0.000000
-   97  O    YYY  -0.005151   0.000000  -0.025571  -0.007405   0.000000
-   98  O    ZZZ   0.000000   0.000635   0.000000   0.000000  -0.028484
-   99  O    XXY  -0.002304   0.000000  -0.011436  -0.003312   0.000000
-  100  O    XXZ   0.000000  -0.000228   0.000000   0.000000   0.009032
-  101  O    YYX  -0.000407   0.000000  -0.003312   0.011436   0.000000
-  102  O    YYZ   0.000000  -0.000228   0.000000   0.000000   0.009032
-  103  O    ZZX  -0.001477   0.000000  -0.002815   0.009720   0.000000
-  104  O    ZZY  -0.008362   0.000000  -0.009720  -0.002815   0.000000
+   94  O   3 XZ   0.013167   0.000000   0.000188  -0.012513   0.000000
+   95  O   3 YZ   0.016214   0.000000   0.012513   0.000188   0.000000
+   96  O    XXX  -0.003298   0.000000   0.000400  -0.026618   0.000000
+   97  O    YYY  -0.004061   0.000000   0.026618   0.000400   0.000000
+   98  O    ZZZ   0.000000  -0.000635   0.000000   0.000000   0.028484
+   99  O    XXY  -0.001816   0.000000   0.011904   0.000179   0.000000
+  100  O    XXZ   0.000000   0.000228   0.000000   0.000000  -0.009033
+  101  O    YYX  -0.001475   0.000000   0.000179  -0.011904   0.000000
+  102  O    YYZ   0.000000   0.000228   0.000000   0.000000  -0.009033
+  103  O    ZZX  -0.005353   0.000000   0.000152  -0.010118   0.000000
+  104  O    ZZY  -0.006592   0.000000   0.010118   0.000152   0.000000
   105  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
 
                      16         17         18         19         20
                     0.3723     0.3723     0.5060     0.6495     0.6633
                      A          A          A          A          A   
-    1  C   1  S   0.000000   0.000000   0.017095   0.000000  -0.278252
-    2  C   1  S   0.000000   0.000000  -0.336189   0.000000  -0.617192
-    3  C   1  S   0.000000   0.000000  -0.918680   0.000000  -0.678814
-    4  C   1  S   0.000000   0.000000   3.426354   0.000000   0.039503
-    5  C   1  X   0.081860   0.002781   0.000000   0.000000   0.000000
-    6  C   1  Y   0.002781  -0.081860   0.000000   0.000000   0.000000
-    7  C   1  Z   0.000000   0.000000   0.000000   0.068840   0.000000
-    8  C   1  X   1.627050   0.055278   0.000000   0.000000   0.000000
-    9  C   1  Y   0.055278  -1.627050   0.000000   0.000000   0.000000
-   10  C   1  Z   0.000000   0.000000   0.000000   2.821626   0.000000
-   11  C   1  X  -1.441657  -0.048979   0.000000   0.000000   0.000000
-   12  C   1  Y  -0.048979   1.441657   0.000000   0.000000   0.000000
-   13  C   1  Z   0.000000   0.000000   0.000000  -0.691854   0.000000
-   14  C   1 XX   0.000000   0.000000  -0.206755   0.000000  -0.066093
-   15  C   1 YY   0.000000   0.000000  -0.206755   0.000000  -0.066093
-   16  C   1 ZZ   0.000000   0.000000  -0.064922   0.000000  -0.081672
+    1  C   1  S   0.000000   0.000000   0.017094   0.000004   0.278252
+    2  C   1  S   0.000000   0.000000  -0.336189   0.000011   0.617192
+    3  C   1  S   0.000000   0.000000  -0.918679   0.000017   0.678815
+    4  C   1  S   0.000000   0.000000   3.426353  -0.000018  -0.039505
+    5  C   1  X   0.002247  -0.081876   0.000000   0.000000   0.000000
+    6  C   1  Y   0.081876   0.002247   0.000000   0.000000   0.000000
+    7  C   1  Z   0.000000   0.000000  -0.000002  -0.068840   0.000001
+    8  C   1  X   0.044660  -1.627375   0.000000   0.000000   0.000000
+    9  C   1  Y   1.627375   0.044660   0.000000   0.000000   0.000000
+   10  C   1  Z   0.000000   0.000000  -0.000013  -2.821621   0.000045
+   11  C   1  X  -0.039571   1.441947   0.000000   0.000000   0.000000
+   12  C   1  Y  -1.441947  -0.039571   0.000000   0.000000   0.000000
+   13  C   1  Z   0.000000   0.000000   0.000006   0.691854  -0.000007
+   14  C   1 XX   0.000000   0.000000  -0.206755   0.000002   0.066094
+   15  C   1 YY   0.000000   0.000000  -0.206755   0.000002   0.066094
+   16  C   1 ZZ   0.000000   0.000000  -0.064922   0.000004   0.081672
    17  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    18  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    19  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   20  C   1 XX   0.000000   0.000000  -1.342686   0.000000  -0.450705
-   21  C   1 YY   0.000000   0.000000  -1.342686   0.000000  -0.450705
-   22  C   1 ZZ   0.000000   0.000000  -0.494749   0.000000  -1.302086
+   20  C   1 XX   0.000000   0.000000  -1.342685   0.000016   0.450706
+   21  C   1 YY   0.000000   0.000000  -1.342685   0.000016   0.450706
+   22  C   1 ZZ   0.000000   0.000000  -0.494748   0.000011   1.302092
    23  C   1 XY   0.000000   0.000000   0.000000   0.000000   0.000000
    24  C   1 XZ   0.000000   0.000000   0.000000   0.000000   0.000000
    25  C   1 YZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   26  C    XXX  -0.394547  -0.013404   0.000000   0.000000   0.000000
-   27  C    YYY  -0.013404   0.394547   0.000000   0.000000   0.000000
-   28  C    ZZZ   0.000000   0.000000   0.000000   0.120392   0.000000
-   29  C    XXY  -0.005995   0.176447   0.000000   0.000000   0.000000
-   30  C    XXZ   0.000000   0.000000   0.000000  -0.175908   0.000000
-   31  C    YYX  -0.176447  -0.005995   0.000000   0.000000   0.000000
-   32  C    YYZ   0.000000   0.000000   0.000000  -0.175908   0.000000
-   33  C    ZZX  -0.177883  -0.006043   0.000000   0.000000   0.000000
-   34  C    ZZY  -0.006043   0.177883   0.000000   0.000000   0.000000
+   26  C    XXX  -0.010830   0.394626   0.000000   0.000000   0.000000
+   27  C    YYY  -0.394626  -0.010830   0.000000   0.000000   0.000000
+   28  C    ZZZ   0.000000   0.000000   0.000000  -0.120392   0.000005
+   29  C    XXY  -0.176482  -0.004843   0.000000   0.000000   0.000000
+   30  C    XXZ   0.000000   0.000000   0.000001   0.175907  -0.000003
+   31  C    YYX  -0.004843   0.176482   0.000000   0.000000   0.000000
+   32  C    YYZ   0.000000   0.000000   0.000001   0.175907  -0.000003
+   33  C    ZZX  -0.004883   0.177919   0.000000   0.000000   0.000000
+   34  C    ZZY  -0.177919  -0.004883   0.000000   0.000000   0.000000
    35  C    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   36  O   2  S   0.000000   0.000000  -0.011743   0.062516  -0.021441
-   37  O   2  S   0.000000   0.000000   0.112849   0.163828   0.035540
-   38  O   2  S   0.000000   0.000000   0.108703   0.121210   0.256959
-   39  O   2  S   0.000000   0.000000  -0.772122   0.936186   0.324298
-   40  O   2  X   0.000399   0.000014   0.000000   0.000000   0.000000
-   41  O   2  Y   0.000014  -0.000399   0.000000   0.000000   0.000000
-   42  O   2  Z   0.000000   0.000000   0.199326  -0.048155  -0.085853
-   43  O   2  X  -0.021518  -0.000731   0.000000   0.000000   0.000000
-   44  O   2  Y  -0.000731   0.021518   0.000000   0.000000   0.000000
-   45  O   2  Z   0.000000   0.000000  -0.026412   0.196111  -0.639473
-   46  O   2  X   0.078527   0.002668   0.000000   0.000000   0.000000
-   47  O   2  Y   0.002668  -0.078527   0.000000   0.000000   0.000000
-   48  O   2  Z   0.000000   0.000000   0.325006   1.777399   1.458491
-   49  O   2 XX   0.000000   0.000000   0.018625   0.017808   0.054345
-   50  O   2 YY   0.000000   0.000000   0.018625   0.017808   0.054345
-   51  O   2 ZZ   0.000000   0.000000   0.011354  -0.021590   0.028655
+   36  O   2  S   0.000000   0.000000  -0.011743  -0.062515   0.021442
+   37  O   2  S   0.000000   0.000000   0.112848  -0.163829  -0.035537
+   38  O   2  S   0.000000   0.000000   0.108702  -0.121214  -0.256957
+   39  O   2  S   0.000000   0.000000  -0.772122  -0.936180  -0.324284
+   40  O   2  X   0.000011  -0.000399   0.000000   0.000000   0.000000
+   41  O   2  Y   0.000399   0.000011   0.000000   0.000000   0.000000
+   42  O   2  Z   0.000000   0.000000   0.199326   0.048155   0.085853
+   43  O   2  X  -0.000591   0.021522   0.000000   0.000000   0.000000
+   44  O   2  Y  -0.021522  -0.000591   0.000000   0.000000   0.000000
+   45  O   2  Z   0.000000   0.000000  -0.026414  -0.196099   0.639477
+   46  O   2  X   0.002155  -0.078543   0.000000   0.000000   0.000000
+   47  O   2  Y   0.078543   0.002155   0.000000   0.000000   0.000000
+   48  O   2  Z   0.000000   0.000000   0.324999  -1.777419  -1.458466
+   49  O   2 XX   0.000000   0.000000   0.018625  -0.017809  -0.054345
+   50  O   2 YY   0.000000   0.000000   0.018625  -0.017809  -0.054345
+   51  O   2 ZZ   0.000000   0.000000   0.011354   0.021589  -0.028655
    52  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   53  O   2 XZ   0.009053   0.000308   0.000000   0.000000   0.000000
-   54  O   2 YZ   0.000308  -0.009053   0.000000   0.000000   0.000000
-   55  O   2 XX   0.000000   0.000000   0.127161   0.043432   0.304213
-   56  O   2 YY   0.000000   0.000000   0.127161   0.043432   0.304213
-   57  O   2 ZZ   0.000000   0.000000  -0.012307   0.438282   0.333477
+   53  O   2 XZ   0.000249  -0.009055   0.000000   0.000000   0.000000
+   54  O   2 YZ   0.009055   0.000249   0.000000   0.000000   0.000000
+   55  O   2 XX   0.000000   0.000000   0.127160  -0.043436  -0.304214
+   56  O   2 YY   0.000000   0.000000   0.127160  -0.043436  -0.304214
+   57  O   2 ZZ   0.000000   0.000000  -0.012309  -0.438286  -0.333469
    58  O   2 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   59  O   2 XZ   0.025556   0.000868   0.000000   0.000000   0.000000
-   60  O   2 YZ   0.000868  -0.025556   0.000000   0.000000   0.000000
-   61  O    XXX  -0.000020  -0.000001   0.000000   0.000000   0.000000
-   62  O    YYY  -0.000001   0.000020   0.000000   0.000000   0.000000
-   63  O    ZZZ   0.000000   0.000000   0.049963   0.071176   0.153503
-   64  O    XXY   0.000000   0.000009   0.000000   0.000000   0.000000
-   65  O    XXZ   0.000000   0.000000   0.024615  -0.000327   0.067641
-   66  O    YYX  -0.000009   0.000000   0.000000   0.000000   0.000000
-   67  O    YYZ   0.000000   0.000000   0.024615  -0.000327   0.067641
-   68  O    ZZX   0.009382   0.000319   0.000000   0.000000   0.000000
-   69  O    ZZY   0.000319  -0.009382   0.000000   0.000000   0.000000
+   59  O   2 XZ   0.000701  -0.025562   0.000000   0.000000   0.000000
+   60  O   2 YZ   0.025562   0.000701   0.000000   0.000000   0.000000
+   61  O    XXX  -0.000001   0.000020   0.000000   0.000000   0.000000
+   62  O    YYY  -0.000020  -0.000001   0.000000   0.000000   0.000000
+   63  O    ZZZ   0.000000   0.000000   0.049962  -0.071180  -0.153502
+   64  O    XXY  -0.000009   0.000000   0.000000   0.000000   0.000000
+   65  O    XXZ   0.000000   0.000000   0.024615   0.000325  -0.067641
+   66  O    YYX   0.000000   0.000009   0.000000   0.000000   0.000000
+   67  O    YYZ   0.000000   0.000000   0.024615   0.000325  -0.067641
+   68  O    ZZX   0.000258  -0.009384   0.000000   0.000000   0.000000
+   69  O    ZZY   0.009384   0.000258   0.000000   0.000000   0.000000
    70  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
-   71  O   3  S   0.000000   0.000000  -0.011743  -0.062516  -0.021441
-   72  O   3  S   0.000000   0.000000   0.112849  -0.163828   0.035540
-   73  O   3  S   0.000000   0.000000   0.108703  -0.121210   0.256959
-   74  O   3  S   0.000000   0.000000  -0.772122  -0.936186   0.324298
-   75  O   3  X   0.000399   0.000014   0.000000   0.000000   0.000000
-   76  O   3  Y   0.000014  -0.000399   0.000000   0.000000   0.000000
-   77  O   3  Z   0.000000   0.000000  -0.199326  -0.048155   0.085853
-   78  O   3  X  -0.021518  -0.000731   0.000000   0.000000   0.000000
-   79  O   3  Y  -0.000731   0.021518   0.000000   0.000000   0.000000
-   80  O   3  Z   0.000000   0.000000   0.026412   0.196111   0.639473
-   81  O   3  X   0.078527   0.002668   0.000000   0.000000   0.000000
-   82  O   3  Y   0.002668  -0.078527   0.000000   0.000000   0.000000
-   83  O   3  Z   0.000000   0.000000  -0.325006   1.777399  -1.458491
-   84  O   3 XX   0.000000   0.000000   0.018625  -0.017808   0.054345
-   85  O   3 YY   0.000000   0.000000   0.018625  -0.017808   0.054345
-   86  O   3 ZZ   0.000000   0.000000   0.011354   0.021590   0.028655
+   71  O   3  S   0.000000   0.000000  -0.011742   0.062515   0.021440
+   72  O   3  S   0.000000   0.000000   0.112850   0.163826  -0.035544
+   73  O   3  S   0.000000   0.000000   0.108704   0.121206  -0.256961
+   74  O   3  S   0.000000   0.000000  -0.772121   0.936180  -0.324314
+   75  O   3  X   0.000011  -0.000399   0.000000   0.000000   0.000000
+   76  O   3  Y   0.000399   0.000011   0.000000   0.000000   0.000000
+   77  O   3  Z   0.000000   0.000000  -0.199327   0.048155  -0.085855
+   78  O   3  X  -0.000591   0.021522   0.000000   0.000000   0.000000
+   79  O   3  Y  -0.021522  -0.000591   0.000000   0.000000   0.000000
+   80  O   3  Z   0.000000   0.000000   0.026408  -0.196121  -0.639465
+   81  O   3  X   0.002156  -0.078545   0.000000   0.000000   0.000000
+   82  O   3  Y   0.078545   0.002156   0.000000   0.000000   0.000000
+   83  O   3  Z   0.000000   0.000000  -0.325009  -1.777373   1.458519
+   84  O   3 XX   0.000000   0.000000   0.018625   0.017807  -0.054345
+   85  O   3 YY   0.000000   0.000000   0.018625   0.017807  -0.054345
+   86  O   3 ZZ   0.000000   0.000000   0.011354  -0.021590  -0.028655
    87  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   88  O   3 XZ  -0.009053  -0.000308   0.000000   0.000000   0.000000
-   89  O   3 YZ  -0.000308   0.009053   0.000000   0.000000   0.000000
-   90  O   3 XX   0.000000   0.000000   0.127161  -0.043432   0.304213
-   91  O   3 YY   0.000000   0.000000   0.127161  -0.043432   0.304213
-   92  O   3 ZZ   0.000000   0.000000  -0.012307  -0.438282   0.333477
+   88  O   3 XZ  -0.000249   0.009055   0.000000   0.000000   0.000000
+   89  O   3 YZ  -0.009055  -0.000249   0.000000   0.000000   0.000000
+   90  O   3 XX   0.000000   0.000000   0.127161   0.043428  -0.304214
+   91  O   3 YY   0.000000   0.000000   0.127161   0.043428  -0.304214
+   92  O   3 ZZ   0.000000   0.000000  -0.012306   0.438278  -0.333486
    93  O   3 XY   0.000000   0.000000   0.000000   0.000000   0.000000
-   94  O   3 XZ  -0.025556  -0.000868   0.000000   0.000000   0.000000
-   95  O   3 YZ  -0.000868   0.025556   0.000000   0.000000   0.000000
-   96  O    XXX  -0.000020  -0.000001   0.000000   0.000000   0.000000
-   97  O    YYY  -0.000001   0.000020   0.000000   0.000000   0.000000
-   98  O    ZZZ   0.000000   0.000000  -0.049963   0.071176  -0.153503
-   99  O    XXY   0.000000   0.000009   0.000000   0.000000   0.000000
-  100  O    XXZ   0.000000   0.000000  -0.024615  -0.000327  -0.067641
-  101  O    YYX  -0.000009   0.000000   0.000000   0.000000   0.000000
-  102  O    YYZ   0.000000   0.000000  -0.024615  -0.000327  -0.067641
-  103  O    ZZX   0.009382   0.000319   0.000000   0.000000   0.000000
-  104  O    ZZY   0.000319  -0.009382   0.000000   0.000000   0.000000
+   94  O   3 XZ  -0.000701   0.025562   0.000000   0.000000   0.000000
+   95  O   3 YZ  -0.025562  -0.000701   0.000000   0.000000   0.000000
+   96  O    XXX  -0.000001   0.000020   0.000000   0.000000   0.000000
+   97  O    YYY  -0.000020  -0.000001   0.000000   0.000000   0.000000
+   98  O    ZZZ   0.000000   0.000000  -0.049962  -0.071173   0.153503
+   99  O    XXY  -0.000009   0.000000   0.000000   0.000000   0.000000
+  100  O    XXZ   0.000000   0.000000  -0.024614   0.000328   0.067640
+  101  O    YYX   0.000000   0.000009   0.000000   0.000000   0.000000
+  102  O    YYZ   0.000000   0.000000  -0.024614   0.000328   0.067640
+  103  O    ZZX   0.000258  -0.009384   0.000000   0.000000   0.000000
+  104  O    ZZY   0.009384   0.000258   0.000000   0.000000   0.000000
   105  O    XYZ   0.000000   0.000000   0.000000   0.000000   0.000000
 
                      21
@@ -4483,26 +4481,26 @@
     3  C   1  S   0.000000
     4  C   1  S   0.000000
     5  C   1  X   0.000000
-    6  C   1  Y   0.000000
+    6  C   1  Y   0.000001
     7  C   1  Z   0.000000
     8  C   1  X   0.000000
-    9  C   1  Y   0.000000
+    9  C   1  Y  -0.000001
    10  C   1  Z   0.000000
    11  C   1  X   0.000000
-   12  C   1  Y   0.000000
+   12  C   1  Y  -0.000006
    13  C   1  Z   0.000000
    14  C   1 XX   0.000000
    15  C   1 YY   0.000000
    16  C   1 ZZ   0.000000
    17  C   1 XY   0.000000
-   18  C   1 XZ  -0.000656
-   19  C   1 YZ  -0.004837
+   18  C   1 XZ   0.000022
+   19  C   1 YZ  -0.004882
    20  C   1 XX   0.000000
    21  C   1 YY   0.000000
    22  C   1 ZZ   0.000000
    23  C   1 XY   0.000000
-   24  C   1 XZ   0.100299
-   25  C   1 YZ   0.739071
+   24  C   1 XZ  -0.003408
+   25  C   1 YZ   0.745837
    26  C    XXX   0.000000
    27  C    YYY   0.000000
    28  C    ZZZ   0.000000
@@ -4511,77 +4509,77 @@
    31  C    YYX   0.000000
    32  C    YYZ   0.000000
    33  C    ZZX   0.000000
-   34  C    ZZY   0.000000
+   34  C    ZZY  -0.000001
    35  C    XYZ   0.000000
    36  O   2  S   0.000000
    37  O   2  S   0.000000
    38  O   2  S   0.000000
    39  O   2  S   0.000000
-   40  O   2  X  -0.009510
-   41  O   2  Y  -0.070077
+   40  O   2  X   0.000323
+   41  O   2  Y  -0.070718
    42  O   2  Z   0.000000
-   43  O   2  X  -0.102788
-   44  O   2  Y  -0.757416
+   43  O   2  X   0.003493
+   44  O   2  Y  -0.764353
    45  O   2  Z   0.000000
-   46  O   2  X   0.172450
-   47  O   2  Y   1.270731
+   46  O   2  X  -0.005860
+   47  O   2  Y   1.282370
    48  O   2  Z   0.000000
    49  O   2 XX   0.000000
    50  O   2 YY   0.000000
    51  O   2 ZZ   0.000000
    52  O   2 XY   0.000000
-   53  O   2 XZ  -0.003393
-   54  O   2 YZ  -0.025001
+   53  O   2 XZ   0.000115
+   54  O   2 YZ  -0.025230
    55  O   2 XX   0.000000
    56  O   2 YY   0.000000
    57  O   2 ZZ   0.000000
    58  O   2 XY   0.000000
-   59  O   2 XZ   0.012429
-   60  O   2 YZ   0.091583
-   61  O    XXX   0.024719
-   62  O    YYY   0.182143
+   59  O   2 XZ  -0.000422
+   60  O   2 YZ   0.092422
+   61  O    XXX  -0.000840
+   62  O    YYY   0.183811
    63  O    ZZZ   0.000000
-   64  O    XXY   0.081457
+   64  O    XXY   0.082203
    65  O    XXZ   0.000000
-   66  O    YYX   0.011054
+   66  O    YYX  -0.000376
    67  O    YYZ   0.000000
-   68  O    ZZX   0.011933
-   69  O    ZZY   0.087928
+   68  O    ZZX  -0.000406
+   69  O    ZZY   0.088734
    70  O    XYZ   0.000000
    71  O   3  S   0.000000
    72  O   3  S   0.000000
    73  O   3  S   0.000000
    74  O   3  S   0.000000
-   75  O   3  X   0.009510
-   76  O   3  Y   0.070077
+   75  O   3  X  -0.000323
+   76  O   3  Y   0.070718
    77  O   3  Z   0.000000
-   78  O   3  X   0.102788
-   79  O   3  Y   0.757416
+   78  O   3  X  -0.003493
+   79  O   3  Y   0.764352
    80  O   3  Z   0.000000
-   81  O   3  X  -0.172450
-   82  O   3  Y  -1.270732
+   81  O   3  X   0.005860
+   82  O   3  Y  -1.282361
    83  O   3  Z   0.000000
    84  O   3 XX   0.000000
    85  O   3 YY   0.000000
    86  O   3 ZZ   0.000000
    87  O   3 XY   0.000000
-   88  O   3 XZ  -0.003393
-   89  O   3 YZ  -0.025001
+   88  O   3 XZ   0.000115
+   89  O   3 YZ  -0.025229
    90  O   3 XX   0.000000
    91  O   3 YY   0.000000
    92  O   3 ZZ   0.000000
    93  O   3 XY   0.000000
-   94  O   3 XZ   0.012429
-   95  O   3 YZ   0.091583
-   96  O    XXX  -0.024719
-   97  O    YYY  -0.182143
+   94  O   3 XZ  -0.000422
+   95  O   3 YZ   0.092420
+   96  O    XXX   0.000840
+   97  O    YYY  -0.183811
    98  O    ZZZ   0.000000
-   99  O    XXY  -0.081457
+   99  O    XXY  -0.082203
   100  O    XXZ   0.000000
-  101  O    YYX  -0.011054
+  101  O    YYX   0.000376
   102  O    YYZ   0.000000
-  103  O    ZZX  -0.011933
-  104  O    ZZY  -0.087928
+  103  O    ZZX   0.000406
+  104  O    ZZY  -0.088734
   105  O    XYZ   0.000000
 
      -------------------------------------------------
@@ -4599,19 +4597,19 @@
 
          WAVEFUNCTION NORMALIZATION =       1.0000000000
 
-                ONE ELECTRON ENERGY =    -371.6702242195
-                TWO ELECTRON ENERGY =     126.0269591214
-           NUCLEAR REPULSION ENERGY =      57.9374316394
+                ONE ELECTRON ENERGY =    -371.6701300535
+                TWO ELECTRON ENERGY =     126.0269130521
+           NUCLEAR REPULSION ENERGY =      57.9373838247
                                       ------------------
-                       TOTAL ENERGY =    -187.7058334586
+                       TOTAL ENERGY =    -187.7058331767
 
- ELECTRON-ELECTRON POTENTIAL ENERGY =     126.0269591214
-  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -558.9847448741
-   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      57.9374316394
+ ELECTRON-ELECTRON POTENTIAL ENERGY =     126.0269130521
+  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -558.9846411842
+   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      57.9373838247
                                       ------------------
-             TOTAL POTENTIAL ENERGY =    -375.0203541132
-               TOTAL KINETIC ENERGY =     187.3145206546
-                 VIRIAL RATIO (V/T) =       2.0020890682
+             TOTAL POTENTIAL ENERGY =    -375.0203443075
+               TOTAL KINETIC ENERGY =     187.3145111307
+                 VIRIAL RATIO (V/T) =       2.0020891176
 
           ---------------------------------------
           MULLIKEN AND LOWDIN POPULATION ANALYSES
@@ -4623,25 +4621,25 @@
 
                   2.000000   2.000000   2.000000   2.000000   2.000000
 
-    1             0.002189   0.002777   2.004055   0.722557   0.485643
-    2             0.998878   0.998639  -0.002028   0.638721   0.757179
-    3             0.998933   0.998584  -0.002028   0.638722   0.757178
+    1             0.002189   0.002777   2.004055   0.722556   0.485643
+    2             1.019409   0.978108  -0.002028   0.638762   0.757137
+    3             0.978403   1.019114  -0.002028   0.638682   0.757220
 
                       6          7          8          9         10
 
                   2.000000   2.000000   2.000000   2.000000   2.000000
 
-    1             0.367817   0.331254   0.679084   0.679084   0.134753
-    2             0.816092   0.834373   0.660458   0.660458   0.932624
-    3             0.816092   0.834373   0.660458   0.660458   0.932624
+    1             0.367818   0.331255   0.679084   0.679084   0.134752
+    2             0.816112   0.834353   0.660467   0.660467   0.932613
+    3             0.816070   0.834392   0.660449   0.660449   0.932634
 
                      11
 
                   2.000000
 
-    1             0.134753
-    2             0.932624
-    3             0.932624
+    1             0.134752
+    2             0.932613
+    3             0.932634
 
                ----- POPULATIONS IN EACH AO -----
                              MULLIKEN      LOWDIN
@@ -4719,8 +4717,8 @@
              72  O   3  S     1.01004     0.54837
              73  O   3  S     0.24214     0.37000
              74  O   3  S     0.52694     0.26048
-             75  O   3  X     0.42781     0.36524
-             76  O   3  Y     0.42781     0.36524
+             75  O   3  X     0.42781     0.36525
+             76  O   3  Y     0.42781     0.36525
              77  O   3  Z     0.39378     0.32345
              78  O   3  X     0.70602     0.37841
              79  O   3  Y     0.70602     0.37841
@@ -4742,7 +4740,7 @@
              95  O   3 YZ     0.00969     0.00695
              96  O    XXX     0.00475     0.19823
              97  O    YYY     0.00475     0.19823
-             98  O    ZZZ     0.03687     0.22928
+             98  O    ZZZ     0.03686     0.22928
              99  O    XXY     0.00158     0.09070
             100  O    XXZ     0.00314     0.08293
             101  O    YYX     0.00158     0.09070
@@ -4756,15 +4754,15 @@
 
              1           2           3
 
-    1    4.0576929
-    2    0.7431363   7.5405970
-    3    0.7431363  -0.0557159   7.5405970
+    1    4.0576934
+    2    0.7431365   7.5405942
+    3    0.7431346  -0.0557156   7.5406015
 
           TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS
        ATOM         MULL.POP.    CHARGE          LOW.POP.     CHARGE
-    1 C             5.543965    0.456035         6.286654   -0.286654
-    2 O             8.228017   -0.228017         7.856673    0.143327
-    3 O             8.228017   -0.228017         7.856673    0.143327
+    1 C             5.543964    0.456036         6.286652   -0.286652
+    2 O             8.228015   -0.228015         7.856671    0.143329
+    3 O             8.228020   -0.228020         7.856676    0.143324
 
           -------------------------------
           BOND ORDER AND VALENCE ANALYSIS     BOND ORDER THRESHOLD=0.050
@@ -4787,17 +4785,17 @@
  POINT   1           X           Y           Z (BOHR)    CHARGE
                  0.000000    0.000000    0.000000        0.00 (A.U.)
          DX          DY          DZ         /D/  (DEBYE)
-     0.000000    0.000000    0.000000    0.000000
+     0.000000    0.000000   -0.000023    0.000023
  ...... END OF PROPERTY EVALUATION ......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.16%
+ CPU        TIME:   STEP =      0.02 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =    255.07%,  TOTAL =     100.10%
  ......END OF NBO ANALYSIS......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.16%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.10%
 
      -----------------------------------------------
      MP2 PROPERTIES...FOR THE 1ST ORDER WAVEFUNCTION
@@ -4831,19 +4829,19 @@
 
          WAVEFUNCTION NORMALIZATION =       1.0000000000
 
-                ONE ELECTRON ENERGY =    -371.5194376781
-                TWO ELECTRON ENERGY =     125.2698254704
-           NUCLEAR REPULSION ENERGY =      57.9374316394
+                ONE ELECTRON ENERGY =    -371.5193441710
+                TWO ELECTRON ENERGY =     125.2697797780
+           NUCLEAR REPULSION ENERGY =      57.9373838247
                                       ------------------
                        TOTAL ENERGY =    -188.3121805683
 
- ELECTRON-ELECTRON POTENTIAL ENERGY =     125.2698254704
-  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -559.7618488426
-   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      57.9374316394
+ ELECTRON-ELECTRON POTENTIAL ENERGY =     125.2697797780
+  NUCLEUS-ELECTRON POTENTIAL ENERGY =    -559.7617466947
+   NUCLEUS-NUCLEUS POTENTIAL ENERGY =      57.9373838247
                                       ------------------
-             TOTAL POTENTIAL ENERGY =    -376.5545917329
-               TOTAL KINETIC ENERGY =     188.2424111646
-                 VIRIAL RATIO (V/T) =       2.0003706359
+             TOTAL POTENTIAL ENERGY =    -376.5545830920
+               TOTAL KINETIC ENERGY =     188.2424025236
+                 VIRIAL RATIO (V/T) =       2.0003706819
 
           ---------------------------------------
           MULLIKEN AND LOWDIN POPULATION ANALYSES
@@ -4855,29 +4853,29 @@
 
                   2.000000   2.000000   2.000000   2.000000   2.000000
 
-    1             0.002189   0.002777   2.004055   0.722557   0.485643
-    2             0.998878   0.998639  -0.002028   0.638721   0.757179
-    3             0.998933   0.998584  -0.002028   0.638722   0.757178
+    1             0.002189   0.002777   2.004055   0.722556   0.485643
+    2             1.019409   0.978108  -0.002028   0.638762   0.757137
+    3             0.978403   1.019114  -0.002028   0.638682   0.757220
 
                       6          7          8          9         10
 
                   2.000000   2.000000   2.000000   2.000000   2.000000
 
-    1             0.367817   0.331254   0.679084   0.679084   0.134753
-    2             0.816092   0.834373   0.660458   0.660458   0.932624
-    3             0.816092   0.834373   0.660458   0.660458   0.932624
+    1             0.367818   0.331255   0.679084   0.679084   0.134752
+    2             0.816112   0.834353   0.660467   0.660467   0.932613
+    3             0.816070   0.834392   0.660449   0.660449   0.932634
 
                      11
 
                   2.000000
 
-    1             0.134753
-    2             0.932624
-    3             0.932624
+    1             0.134752
+    2             0.932613
+    3             0.932634
 
                ----- POPULATIONS IN EACH AO -----
                              MULLIKEN      LOWDIN
-              1  C   1  S     1.95507     1.57605
+              1  C   1  S     1.95507     1.57606
               2  C   1  S     0.71739     0.42899
               3  C   1  S     0.20708     0.31120
               4  C   1  S     0.10453     0.12064
@@ -4956,7 +4954,7 @@
              77  O   3  Z     0.41029     0.33751
              78  O   3  X     0.65865     0.35816
              79  O   3  Y     0.65865     0.35816
-             80  O   3  Z     0.57555     0.36011
+             80  O   3  Z     0.57555     0.36010
              81  O   3  X     0.39937     0.31501
              82  O   3  Y     0.39937     0.31501
              83  O   3  Z     0.27529     0.29212
@@ -4988,15 +4986,15 @@
 
              1           2           3
 
-    1    4.3315227
-    2    0.7093917   7.4801484
-    3    0.7093917  -0.0646931   7.4801484
+    1    4.3315237
+    2    0.7093914   7.4801463
+    3    0.7093905  -0.0646928   7.4801518
 
           TOTAL MULLIKEN AND LOWDIN ATOMIC POPULATIONS
        ATOM         MULL.POP.    CHARGE          LOW.POP.     CHARGE
-    1 C             5.750306    0.249694         6.432257   -0.432257
-    2 O             8.124847   -0.124847         7.783871    0.216129
-    3 O             8.124847   -0.124847         7.783871    0.216129
+    1 C             5.750306    0.249694         6.432256   -0.432256
+    2 O             8.124845   -0.124845         7.783870    0.216130
+    3 O             8.124850   -0.124850         7.783874    0.216126
 
           -------------------------------
           BOND ORDER AND VALENCE ANALYSIS     BOND ORDER THRESHOLD=0.050
@@ -5019,31 +5017,31 @@
  POINT   1           X           Y           Z (BOHR)    CHARGE
                  0.000000    0.000000    0.000000        0.00 (A.U.)
          DX          DY          DZ         /D/  (DEBYE)
-     0.000000    0.000000    0.000000    0.000000
+     0.000000    0.000000   -0.000017    0.000017
  ...... END OF PROPERTY EVALUATION ......
 
- CPU        TIME:   STEP =      0.02 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =    173.91%,  TOTAL =     100.17%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.01 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.09%
  ......END OF NBO ANALYSIS......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.17%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.09%
   $VIB   
           IVIB=   0 IATOM=   0 ICOORD=   0 E=     -188.3121805683
-  0.000000000E+00 0.000000000E+00-1.966118790E-07 0.000000000E+00 0.000000000E+00
-  1.305667166E-07 0.000000000E+00 0.000000000E+00 6.605017835E-08
- -3.156219761E-19-1.085021724E-18 4.141548761E-08
+  0.000000000E+00 0.000000000E+00-5.789456770E-06 0.000000000E+00 0.000000000E+00
+  9.308413353E-07 0.000000000E+00 0.000000000E+00 4.858616538E-06
+  1.183690167E-18 4.991489812E-18-1.667091865E-05
  ......END OF GEOMETRY SEARCH......
 
- CPU        TIME:   STEP =      0.00 ,  TOTAL =       65.1 SECONDS (    1.1 MIN)
- WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       65.0 SECONDS (    1.1 MIN)
- CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.17%
+ CPU        TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ WALL CLOCK TIME:   STEP =      0.00 ,  TOTAL =       62.3 SECONDS (    1.0 MIN)
+ CPU UTILIZATION:   STEP =      0.00%,  TOTAL =     100.09%
      4801631 WORDS OF    DYNAMIC MEMORY USED
       402774 BYTES OF    HEAP MEMORY    USED,      130039 BYTES REMAIN IN USE
 
  WARNING! THIS VERSION OF FIREFLY IS PROBABLY OUTDATED!
  PLEASE CHECK FIREFLY HOMEPAGE FOR INFORMATION ON UPDATES!
 
- EXECUTION OF FIREFLY TERMINATED NORMALLY  4:40:35 15-MAR-2022    
+ EXECUTION OF FIREFLY TERMINATED NORMALLY 17:44:11 20-MAR-2022    
